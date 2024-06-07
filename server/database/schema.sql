@@ -50,3 +50,10 @@ CREATE TABLE quantity (
     FOREIGN KEY (recipe_id) REFERENCES recipe (id),
     FOREIGN KEY (ingredient_id) REFERENCES ingredient (id)
 );
+
+-- -- Insertions des données dans table user
+-- insert into user (firstname, lastname, username, email, role_id, password)
+-- VALUES ('Toto','MARTIN','ElToto','toto@gmail.com',1,'motdepasse');
+
+-- insert into role (role)
+-- VALUES ('Admin');
