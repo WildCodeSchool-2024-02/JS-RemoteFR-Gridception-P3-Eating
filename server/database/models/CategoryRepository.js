@@ -18,6 +18,7 @@ class CategoryRepository extends AbstractRepository {
     `, [id]);
         return rows[0];
     }
+
 }
 
 module.exports = CategoryRepository;
