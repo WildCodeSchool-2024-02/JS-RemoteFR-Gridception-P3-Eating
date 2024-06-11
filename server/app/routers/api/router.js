@@ -5,13 +5,13 @@ const router = express.Router();
 /* ************************************************************************* */
 // Import And Use Routers Here
 /* ************************************************************************* */
-const usersRouter = require("./usersRouter");
+const usersRouter = require("./userRouter");
 
-router.use("/users", usersRouter);
+router.use("/user", usersRouter);
 
-const rolesRouter = require("./rolesRouter");
+const rolesRouter = require("./roleRouter");
 
-router.use("/roles", rolesRouter);
+router.use("/role", rolesRouter);
 /* ************************************************************************* */
 
 module.exports = router;

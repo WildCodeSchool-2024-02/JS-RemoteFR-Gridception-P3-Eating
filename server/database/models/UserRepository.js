@@ -1,9 +1,8 @@
-const { readOneById } = require("../../app/controllers/usersActions");
 const AbstractRepository = require("./AbstractRepository");
 
-class RolesRepository extends AbstractRepository {
+class UserRepository extends AbstractRepository {
   constructor() {
-    super({ table: "roles" });
+    super({ table: "user" });
   }
 
   async read() {
@@ -15,7 +14,7 @@ class RolesRepository extends AbstractRepository {
   async readOneById(id) {
     const [rows] = await this.database.query(
       `
-        SELECT * FROM ${this.table} WHERE ID = ?,
+        SELECT * FROM ${this.table} WHERE id = ?
        
         `,
       [id]
@@ -23,4 +22,4 @@ class RolesRepository extends AbstractRepository {
     return rows[0];
   }
 }
-module.exports = RolesRepository;
+module.exports = UserRepository;

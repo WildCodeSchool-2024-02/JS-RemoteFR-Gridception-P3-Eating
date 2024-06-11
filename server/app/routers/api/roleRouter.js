@@ -4,7 +4,7 @@ const router = express.Router();
 
 //CRUD- BREAD
 
-const { read, readOneById } = require("../../controllers/rolesActions");
+const { read, readOneById } = require("../../controllers/roleActions");
 
 router.get("/", read);
 

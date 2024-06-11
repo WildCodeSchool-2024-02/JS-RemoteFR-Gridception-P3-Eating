@@ -2,7 +2,7 @@ const tables = require("../../database/tables");
 
 const read = async (req, res, next) => {
   try {
-    const roles = await tables.roles.read();
+    const roles = await tables.role.read();
     res.json(roles);
   } catch (error) {
     next(error);
@@ -11,8 +11,8 @@ const read = async (req, res, next) => {
 
 const readOneById = async (req, res, next) => {
   try {
-    const role = await tables.roles.readOneById(req.params.id);
-    res.json(user);
+    const role = await tables.role.readOneById(req.params.id);
+    res.json(role);
   } catch (error) {
     next(error);
   }
