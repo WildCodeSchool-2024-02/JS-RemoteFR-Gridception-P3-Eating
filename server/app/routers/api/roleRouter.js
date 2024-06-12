@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const { read, readOneById } = require("../../controllers/categoryActions");
+const { read, readOneById } = require("../../controllers/roleActions");
 
 router.get("/", read);
 
