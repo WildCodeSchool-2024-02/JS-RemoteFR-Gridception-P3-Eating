@@ -1,11 +1,7 @@
-
 const express = require("express");
 const cors = require("cors");
 
 const app = express();
-
-
-
 
 app.use(
   cors({
@@ -13,12 +9,9 @@ app.use(
   })
 );
 
-
 app.use(express.json());
 const apiRouter = require("./routers/api/router");
 
 app.use("/api", apiRouter);
-
-
 
 module.exports = app;
