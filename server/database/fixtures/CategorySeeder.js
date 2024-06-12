@@ -1,22 +1,32 @@
 const AbstractSeeder = require("./AbstractSeeder");
 
 class CategorySeeder extends AbstractSeeder {
-    constructor() {
-        super({ table: "category", truncate: true });
+  constructor() {
+    super({ table: "category", truncate: true });
+    this.categories = [
+      "Plats rapides",
+      "Plats végétariens",
+      "Plats végétaliens",
+      "Salades",
+      "Soupes",
+      "Smoothies et boissons",
+      "Desserts",
+      "Plats sans gluten",
+      "Petit-déjeuners sains",
+      "Recettes riches en protéines",
+    ];
+  }
+
+  run() {
+    for (let i = 0; i < this.categories.length; i += 1) {
+      const listOfCategory = {
+        name: this.categories[i],
+        refName: `category_${i}`,
+      };
+
+      this.insert(listOfCategory);
     }
-
-    run() {
-        for (let i = 0; i < 10; i += 1) {
-
-            const fakeCategory = {
-                name: this.faker.commerce.product(),
-                refName: `category_${i}`
-            }
-
-            this.insert(fakeCategory)
-        }
-    }
+  }
 }
-
 
 module.exports = CategorySeeder;
