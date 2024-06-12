@@ -18,10 +18,10 @@ class FavoriteRepository extends AbstractRepository {
     return rows[0];
   }
 
-  async add(recipeId, userId) {
+  async add(favorite) {
     const [result] = await this.database.query(
-      "INSERT INTO favorite (recipe_id, user_id) VALUES (?, ?)",
-      [recipeId, userId]
+      `INSERT INTO ${this.table} (recipe_id, user_id) VALUES (?, ?)`,
+      [favorite.recipe_id, favorite.user_id]
     );
     return result.insertId;
   }
