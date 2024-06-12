@@ -2,14 +2,14 @@ const express = require("express");
 
 const router = express.Router();
 
-/* ************************************************************************* */
-// Import And Use Routers Here
-/* ************************************************************************* */
+const categoryRouter = require("./categoryRouter");
+const ingredientRouter = require("./ingredientRouter");
+const userRouter = require("./userRouter");
+const roleRouter = require("./roleRouter");
 
-const itemsRouter = require("./items/router");
-
-router.use("/items", itemsRouter);
-
-/* ************************************************************************* */
+router.use("/categories", categoryRouter);
+router.use("/ingredients", ingredientRouter);
+router.use("/users", userRouter);
+router.use("/roles", roleRouter);
 
 module.exports = router;
