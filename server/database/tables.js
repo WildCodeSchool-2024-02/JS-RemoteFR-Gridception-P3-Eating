@@ -3,12 +3,16 @@ const IngredientRepository = require("./models/IngredientRepository");
 const UserRepository = require("./models/UserRepository");
 const RoleRepository = require("./models/RoleRepository");
 
+const RecipeRepository = require("./models/RecipeRepository");
+
 const tables = {};
 
 tables.category = new CategoryRepository();
 tables.ingredient = new IngredientRepository();
 tables.user = new UserRepository();
 tables.role = new RoleRepository();
+
+tables.recipe = new RecipeRepository();
 
 module.exports = new Proxy(tables, {
   get(obj, prop) {

@@ -21,6 +21,7 @@ class CategorySeeder extends AbstractSeeder {
     for (let i = 0; i < this.categories.length; i += 1) {
       const listOfCategory = {
         name: this.categories[i],
+        refName: `category_${i}`,
       };
 
       this.insert(listOfCategory);
