@@ -19,22 +19,26 @@ const readOneById = async (req, res, next) => {
 };
 
 const add = async (req, res, next) => {
-  const { recipeId, userId } = req.body;
-
+  const favorite = req.body;
+  // console.log(favorite);
   try {
-    const newFavoriteId = await tables.favorite.add(recipeId, userId);
-    res.json({ id: newFavoriteId, recipeId, userId });
+    const insertId = await tables.favorite.add(favorite);
+    res.json({ insertId });
   } catch (err) {
     next(err);
   }
 };
 
 const deleteFav = async (req, res, next) => {
-  const { userId, recipeId } = req.params;
+  const { id } = req.params;
 
   try {
-    const favToDelete = await tables.favorite.delete(userId, recipeId);
-    res.json(favToDelete);
+    const success = await tables.favorite.destroy(id);
+    if (success) {
+      res.json({ message: "Favorite deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Favorite not found" });
+    }
   } catch (err) {
     next(err);
   }
