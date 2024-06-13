@@ -22,6 +22,7 @@ class IngredientSeeder extends AbstractSeeder {
       const listOfIngredient = {
         name: this.ingredients[i].name,
         calories: this.ingredients[i].calories,
+        refName: `ingredient_${i}`,
       };
 
       this.insert(listOfIngredient);

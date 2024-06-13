@@ -12,7 +12,7 @@ class RecipeSeeder extends AbstractSeeder {
         descriptionText: this.faker.lorem.paragraph(),
         time: this.faker.number.binary(),
         refName: `recipe_${i}`,
-        category_id: this.getRef(`category_${i}`).insertId,
+        category_id: this.getRef(`category_${i}`).insertId, 
       };
 
       this.insert(fakeRecipe);

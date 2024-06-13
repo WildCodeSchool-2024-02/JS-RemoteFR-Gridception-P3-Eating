@@ -4,6 +4,7 @@ const UserRepository = require("./models/UserRepository");
 const RoleRepository = require("./models/RoleRepository");
 const FavoriteRepository = require("./models/FavoriteRepository");
 const RecipeRepository = require("./models/RecipeRepository");
+const QuantityRepository = require("./models/QuantityRepository");
 
 const tables = {};
 
@@ -12,6 +13,7 @@ tables.ingredient = new IngredientRepository();
 tables.user = new UserRepository();
 tables.role = new RoleRepository();
 tables.favorite = new FavoriteRepository();
+tables.quantity = new QuantityRepository();
 
 tables.recipe = new RecipeRepository();
 
