@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import HomePage from "./pages/HomePage";
+
 import "./index.css";
 import App from "./App";
+import HomePage from "./pages/HomePage";
 import RecipePage from "./pages/RecipePage";
 
 const router = createBrowserRouter([
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
       },
       {
         element: <RecipePage />,
-        path: "/recettes",
+        path: "/recettes/:id",
       },
     ],
   },
