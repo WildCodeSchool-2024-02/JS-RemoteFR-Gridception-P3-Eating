@@ -60,7 +60,7 @@ function HomePage() {
             {recipe.map((data) => (
               <swiper-slide key={data.id}>
                 <div className="h-[30rem] w-[30rem] space-x-4">
-                  <Link key={data.id} to={`/Recettes/${data.id}`}>
+                  <Link key={data.id} to={`/RecipePage/${data.id}`}>
                     <img
                       className="h-[200px] w-[250px] rounded-3xl absolute z-20 object-cover"
                       src={data.img}
