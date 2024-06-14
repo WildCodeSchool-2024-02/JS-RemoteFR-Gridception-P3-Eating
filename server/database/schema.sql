@@ -39,6 +39,7 @@ CREATE TABLE `recipe` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `title` VARCHAR(100),
     `descriptionText` VARCHAR(10000),
+    `steps` TEXT NOT NULL,
     `time` INT NOT NULL,
     `category_id` INT UNSIGNED NOT NULL,
     FOREIGN KEY (`category_id`) REFERENCES `category` (id)
@@ -124,17 +125,19 @@ INSERT INTO category (name) VALUES
 ("Allergie-lactose"),
 ("Allergie-gluten");
 
-INSERT INTO recipe (title ,descriptionText,time, category_id) VALUES
+INSERT INTO recipe (title ,descriptionText,steps, time, category_id) VALUES
 ("Poulet au paprika fumé façon Stroganoff",
  "Savourez notre version au poulet du « Stroganoff, un plat traditionnel russe très crémeux à réaliser aujourd’hui avec un robot de cuisine ! Avec des champignons de Paris et une touche de sauce Worcestershire, le tout est servi sur une base de riz et est agrémenté de persil : un régal en toute simplicité ! Nombre de personnes: 4",
+ "Couper le poulet.___Mettre du paprika.___Faire cuire le poulet",
  35,
  2),
 ("Salade de pois chiches rôtis, avocat & fromage",
-  "Réalisez une salade simple et délicieuse de pois-chiches, poivrons marinés et d'avocat. Pour plus de fraîcheur, vous réaliserez une vinaigrette à base d'huile d'olive et citron vert, et saupoudrerez votre plat de crème de fromage à la grecque et coriandre. À vos fourneaux, prêt, partez ! Votre avocat n’est pas tout à fait mûr ? Il mûrira plus vite à côté d’une banane ou d’une pomme, surtout si vous les emballez dans du papier. Le fromage utilisé dans ce plat contient de la présure animale , Nombre de personnes: 4",
+  "Réalisez une salade simple et délicieuse de pois-chiches, poivrons marinés et d'avocat. Pour plus de fraîcheur, vous réaliserez une vinaigrette à base d'huile d'olive et citron vert, et saupoudrerez votre plat de crème de fromage à la grecque et coriandre. À vos fourneaux, prêt, partez ! Votre avocat n’est pas tout à fait mûr ? Il mûrira plus vite à côté d’une banane ou d’une pomme, surtout si vous les emballez dans du papier. Le fromage utilisé dans ce plat contient de la présure animale , Nombre de personnes: 4", "Laver la salade.____Couper la salade.___Couper l'avocat",
  25, 
  6),
 ("Bowl frais aux falafels saveur coriandre & patate douce",
 "La tendance du Bowl-Food vous tente ? Si oui, vous devriez définitivement tester cette recette de bowl aux falafels et sauce yaourt-menthe. Outre le côté tendance, c’est un plat unique, complet et pratique puisque tous les éléments du plat se dégustent ensemble directement dans un bol (ou une assiette creuse). Fins connaisseurs ou aventuriers du bowl, bienvenue ! Nombre de personnes: 4", 
+"Eplucher les patates.___Couper les patates.___Mixer les pois chiches.",
 20, 
 5);
 
