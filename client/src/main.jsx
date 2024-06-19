@@ -2,13 +2,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+
 import "./index.css";
 import App from "./App";
 import HomePage from "./pages/HomePage";
 import RecipePage from "./pages/RecipePage";
 
 const recipesLoader = async () => {
-  const response = await fetch(`http://localhost:3310/api/recipes`);
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recipes`);
   const data = await response.json();
   return data;
 };
