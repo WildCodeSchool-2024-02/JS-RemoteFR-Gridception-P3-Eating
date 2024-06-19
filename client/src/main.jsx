@@ -6,6 +6,13 @@ import "./index.css";
 import App from "./App";
 import HomePage from "./pages/HomePage";
 import RecipePage from "./pages/RecipePage";
+import RecipesPage from "./pages/RecipesPage";
+
+const recipesLoader = async () => {
+  const response = await fetch(`http://localhost:3310/api/recipes`);
+  const data = await response.json();
+  return data;
+};
 
 const router = createBrowserRouter([
   {
@@ -18,6 +25,11 @@ const router = createBrowserRouter([
       {
         element: <RecipePage />,
         path: "/RecipePage/:id",
+      },
+      {
+        element: <RecipesPage />,
+        path: "/RecipesPage",
+        loader: recipesLoader,
       },
     ],
   },

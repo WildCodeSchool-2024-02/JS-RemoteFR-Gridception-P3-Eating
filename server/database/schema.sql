@@ -41,6 +41,7 @@ CREATE TABLE `recipe` (
     `descriptionText` VARCHAR(10000),
     `steps` TEXT NOT NULL,
     `time` INT NOT NULL,
+    `image` VARCHAR(1000) DEFAULT "JPG",
     `category_id` INT UNSIGNED NOT NULL,
     FOREIGN KEY (`category_id`) REFERENCES `category` (id)
 );
@@ -125,21 +126,33 @@ INSERT INTO category (name) VALUES
 ("Allergie-lactose"),
 ("Allergie-gluten");
 
-INSERT INTO recipe (title ,descriptionText,steps, time, category_id) VALUES
+INSERT INTO recipe (title ,descriptionText,steps, time, image, category_id) VALUES
 ("Poulet au paprika fumé façon Stroganoff",
  "Savourez notre version au poulet du « Stroganoff, un plat traditionnel russe très crémeux à réaliser aujourd’hui avec un robot de cuisine ! Avec des champignons de Paris et une touche de sauce Worcestershire, le tout est servi sur une base de riz et est agrémenté de persil : un régal en toute simplicité ! Nombre de personnes: 4",
  "Couper le poulet.___Mettre du paprika.___Faire cuire le poulet",
- 35,
+  35,
+ "https://img.hellofresh.com/w_384,q_auto,f_auto,c_fill,fl_lossy/hellofresh_s3/image/HF_Y24_R221_W04_FR_TFR18787-2_Main_high-12ee8118.jpg",
+
  2),
 ("Salade de pois chiches rôtis, avocat & fromage",
   "Réalisez une salade simple et délicieuse de pois-chiches, poivrons marinés et d'avocat. Pour plus de fraîcheur, vous réaliserez une vinaigrette à base d'huile d'olive et citron vert, et saupoudrerez votre plat de crème de fromage à la grecque et coriandre. À vos fourneaux, prêt, partez ! Votre avocat n’est pas tout à fait mûr ? Il mûrira plus vite à côté d’une banane ou d’une pomme, surtout si vous les emballez dans du papier. Le fromage utilisé dans ce plat contient de la présure animale , Nombre de personnes: 4", "Laver la salade.____Couper la salade.___Couper l'avocat",
- 25, 
+   25, 
+  "https://img.hellofresh.com/w_384,q_auto,f_auto,c_fill,fl_lossy/hellofresh_s3/image/HF_Y24_R209_W16_FR_RFR29804491-8_MAIN_high-925b1cfc.jpg",
+
  6),
 ("Bowl frais aux falafels saveur coriandre & patate douce",
 "La tendance du Bowl-Food vous tente ? Si oui, vous devriez définitivement tester cette recette de bowl aux falafels et sauce yaourt-menthe. Outre le côté tendance, c’est un plat unique, complet et pratique puisque tous les éléments du plat se dégustent ensemble directement dans un bol (ou une assiette creuse). Fins connaisseurs ou aventuriers du bowl, bienvenue ! Nombre de personnes: 4", 
 "Eplucher les patates.___Couper les patates.___Mixer les pois chiches.",
 20, 
-5);
+"https://img.hellofresh.com/w_384,q_auto,f_auto,c_fill,fl_lossy/hellofresh_s3/image/HF_Y24_R206_W24_FR_RFR15893-3_Main_high-5eee67f9.jpg",
+
+5),
+("Salade de pois rôtis, avocat & fromage",
+  "Réalisez une salade de pois-chiches, poivrons marinés et d'avocat. Pour plus de fraîcheur, vous réaliserez une vinaigrette à base d'huile d'olive et citron vert, et saupoudrerez votre plat de crème de fromage à la grecque et coriandre. À vos fourneaux, prêt, partez ! Votre avocat n’est pas tout à fait mûr ? Il mûrira plus vite à côté d’une banane ou d’une pomme, surtout si vous les emballez dans du papier. Le fromage utilisé dans ce plat contient de la présure animale , Nombre de personnes: 4", "Laver la salade.____Couper la salade.___Couper l'avocat",
+   30, 
+  "https://img.hellofresh.com/w_384,q_auto,f_auto,c_fill,fl_lossy/hellofresh_s3/image/HF_Y24_R209_W16_FR_RFR29804491-8_MAIN_high-925b1cfc.jpg",
+
+ 7);
 
 INSERT INTO favorite (recipe_id, user_id) VALUES
   (1,1), (2,2);
