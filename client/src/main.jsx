@@ -6,6 +6,7 @@ import "./index.css";
 import App from "./App";
 import HomePage from "./pages/HomePage";
 import RecipePage from "./pages/RecipePage";
+import CommentCaMarche from "./pages/CommentCaMarche";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,11 @@ const router = createBrowserRouter([
       },
       {
         element: <RecipePage />,
-        path: "/RecipePage/:id",
+        path: "/RecipePage/",
+      },
+      {
+        element: <CommentCaMarche />,
+        path: "/CommentCaMarche",
       },
     ],
   },
