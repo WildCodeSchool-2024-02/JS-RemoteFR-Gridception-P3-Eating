@@ -186,6 +186,56 @@ VALUES (
         20,
         5,
         "https://img.hellofresh.com/c_fit,f_auto,fl_lossy,h_1100,q_50,w_2600/hellofresh_s3/image/HF_Y24_R206_W24_FR_RFR15893-3_Main_high-5eee67f9.jpg"
+    ),
+    (
+        "Poulet à la crème de poireau & muscade",
+        "Les choses les plus simples sont souvent les meilleures, et ce plat de poulet à la crème accompagné de riz et de poireau ne va pas faire mentir le proverbe ! Prête en une petite demi-heure, cette recette se déguste aussi bien en solo, en duo ou en famille.",
+        "Portez une casserole d'eau salée à ébullition pour le riz.
+         Coupez le poireau en deux dans l'épaisseur, lavez-le bien, puis coupez-le en fines demi-lunes.  
+         Faites cuire le riz 12-14 min dans la casserole, ou jusqu'à ce qu'il soit tendre. Égouttez-le et réservez-le à couvert.
+         Coupez le poulet en dés de 2 cm.
+         Faites chauffer un filet d’huile d’olive dans un wok ou une sauteuse à feu moyen-vif.
+         Faites-y dorer le poulet 3-4 min sur tous les côtés : il ne doit pas encore être totalement cuit à ce stade. Salez et poivrez.
+         Réservez-le hors de la sauteuse et conservez celle-ci pour l'étape suivante.
+         Remettez la sauteuse à feu moyen-vif et faites-y fondre une noix de beurre. Ajoutez-y le poireau, salez et poivrez. Baissez le feu sur moyen, couvrez et faites cuire 8-10 min de plus, ou jusqu'à ce qu'il soit fondant.
+         Pendant ce temps, ciselez l’ail et le persil séparément.
+         Une fois le poireau cuit et fondant, retirez le couvercle.
+         Ajoutez le poulet, l’ail, la crème et la moitié du gouda.
+         Râpez un peu de noix de muscade par-dessus (selon votre goût). Mélangez et laissez réduire 5 min à feu doux.
+         Servez le riz dans les assiettes et versez le poulet et sa crème de poireau par-dessus.
+         Saupoudrez de persil et du reste de gouda râpé.",
+        20,
+        2,
+        "https://img.hellofresh.com/c_fit,f_auto,fl_lossy,h_1100,q_50,w_2600/hellofresh_s3/image/HF211008_R217_W47_FR_QFR20161847-1_MB_Main_high-a08664d2.jpg"
+    ),
+    (
+        "Courgette grillée, labneh & beurre au curcuma",
+        "Imaginez des courgettes fraîches parfaitement rôties pour obtenir une belle texture tendre et fondante. Elles sont agrémentées d’un mélange onctueux de labneh, un yaourt à la consistance crémeuse, relevé d’une touche de coriandre pour une note herbacée et fraîche en bouche. Le tout est couronné d’un beurre au curcuma fondant. Ça y est, vous voyagez vers de nouveaux horizons !",
+        "Préchauffez le four à 210°C sur grill.
+        Coupez la courgette en deux dans l’épaisseur, puis en 8. Coupez l’échalote en 4 et les tomates cerises en 2 (Vous pouvez les garder entières pour gagner du temps).
+        Disposez les légumes sur une plaque recouverte de papier sulfurisé. Arrosez-les d’un filet d’huile d’olive et de ½ sachet de coriandre moulue par personne. Salez, poivrez et mélangez.
+        Enfournez-les 15-20 min, ou jusqu’à ce que les légumes soient fondants et dorés. 
+        Pendant ce temps, préparez le bouillon avec de l’eau chaude.
+        Placez le beurre et le curcuma dans une petite casserole et faites-les fondre à feu moyen.
+        Réservez la sauce dans un petit bol et laissez-la infuser.
+        Ciselez l’ail. Épépinez et émincez finement le piment (ça pique ! Dosez-le selon votre goût).
+        Faites chauffer un filet d’huile d’olive dans la casserole utilisée pour le beurre au curcuma. Ajoutez le couscous perlé, l’ail et le piment, puis remuez 1 min à feu moyen-vif.
+        Versez le bouillon, puis, à couvert, laissez cuire le couscous perlé 12 min à feu doux (voir CONSEIL).
+        Retirez le couvercle et égrainez le couscous perlé avec une fourchette.
+        CONSEIL : Ajoutez un petit filet d'eau et prolongez la cuisson de 1-2 min si le couscous perlé n'est pas encore cuit au bout des 12 min.
+        Effeuillez la menthe et la coriandre, puis ciselez-les séparément (voir CONSEIL). 
+        Pressez le jus de la moitié du citron et coupez le reste en quartiers.
+        Concassez grossièrement les pistaches.
+        CONSEIL: Pour ciseler la menthe comme un(e) pro, empilez les feuilles et enroulez-les sur elles-mêmes pour former un rouleau, puis taillez-les finement au couteau.
+        Dans un bol, mélangez le labneh avec la coriandre ciselée, un filet d’huile d’olive et quelques gouttes de jus de citron (selon votre goût).
+        Salez, poivrez et mélangez.
+        Servez le couscous perlé dans les assiettes et garnissez avec la courgette, les tomates cerises et l'échalote rôtie.
+        Ajoutez la sauce citronnée au labneh, puis arrosez de beurre au curcuma.
+        Saupoudrez de pistaches et de menthe.
+        Présentez les quartiers de citron restants à côté. Salez et poivrez si besoin.",
+        25,
+        6,
+        "https://img.hellofresh.com/c_fit,f_auto,fl_lossy,h_1100,q_50,w_2600/hellofresh_s3/image/HF_Y24_R209_W18_FR_RFR20161913-9_Main_high-20f47e70.jpg"
     );
 
 INSERT INTO favorite (recipe_id, user_id) VALUES (1, 1), (2, 2);
