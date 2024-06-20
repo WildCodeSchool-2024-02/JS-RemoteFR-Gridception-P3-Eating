@@ -7,6 +7,7 @@ import deco4 from "../assets/images/deco4.png";
 import flècheGauche from "../assets/images/flècheGauche.png";
 import flècheDroite from "../assets/images/flècheDroite.png";
 import flècheMilieu from "../assets/images/flècheMilieu.png";
+import blé from "../assets/images/blé.png";
 
 function CommentCaMarche() {
   return (
@@ -47,6 +48,7 @@ function CommentCaMarche() {
           Recettes
         </Link>
       </div>
+      <img className="Blé" src={blé} alt="blé" />
     </>
   );
 }

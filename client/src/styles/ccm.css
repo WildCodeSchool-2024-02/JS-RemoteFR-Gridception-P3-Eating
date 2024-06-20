@@ -21,11 +21,13 @@ p {
   display: flex;
   justify-content: center;
 }
+
 .img1,
 .img2,
 .img3,
 .img4 {
   width: 20rem;
+  margin-left: 2rem;
 }
 
 .three {
@@ -63,6 +65,35 @@ p {
 }
 .flècheMilieu {
   position: absolute;
-  left: 60rem;
+  left: 55rem;
   bottom: 10rem;
+  min-width: 15rem;
+}
+.Blé {
+  position: absolute;
+  right: 0;
+  bottom: -19rem;
+  z-index: -2;
+}
+@media screen and (max-width: 830px) {
+  .Blé,
+  .flecheGauche,
+  .flècheMilieu,
+  .flècheDroite {
+    display: none;
+  }
+  .mainContent {
+    display: flex;
+
+    justify-content: center;
+  }
+  .Content {
+    flex-direction: column;
+  }
+  .pageTitle {
+    font-size: 2.5rem;
+  }
+  .three {
+    margin-top: 0;
+  }
 }
