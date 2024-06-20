@@ -1,28 +1,70 @@
 const tables = require("../../database/tables");
 
-const read = async (req, res, next) => {
-try{
-    const recipe = await tables.recipe.read();
-    res.json(recipe);
-} catch (error) {
-    next(error)
-}
-}
-
-
+const browse = async (req, res, next) => {
+  try {
+    const recipes = await tables.recipe.browse();
+    res.json(recipes);
+  } catch (error) {
+    next(error);
+  }
+};
 
 const readOneById = async (req, res, next) => {
-try {
-    const recip = await tables.recipe.readOneById(req.params.id);
-    res.json(recip);
+  try {
+    const recipe = await tables.recipe.readOneById(req.params.id);
+    if (recipe) {
+      const ingredients = await tables.recipe.getIngredientsByRecipeId(
+        req.params.id
+      );
+      recipe.ingredients = ingredients;
+      res.json(recipe);
+    } else {
+      res.status(404).json({ message: "Recipe not found" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
 
-} catch (error) {
-    next(error)
-}
-}
+const add = async (req, res, next) => {
+  try {
+    const recipeId = await tables.recipe.add(req.body);
+    res.status(201).json({ id: recipeId });
+  } catch (error) {
+    next(error);
+  }
+};
 
+const edit = async (req, res, next) => {
+  try {
+    const affectedRows = await tables.recipe.edit(req.params.id, req.body);
+    if (affectedRows > 0) {
+      res.json({ message: "Recipe updated successfully" });
+    } else {
+      res.status(404).json({ message: "Recipe not found" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteRecipe = async (req, res, next) => {
+  try {
+    const affectedRows = await tables.recipe.delete(req.params.id);
+    if (affectedRows > 0) {
+      res.json({ message: "Recipe deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Recipe not found" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
-    read,
-    readOneById
-}
+  browse,
+  readOneById,
+  add,
+  edit,
+  deleteRecipe,
+};

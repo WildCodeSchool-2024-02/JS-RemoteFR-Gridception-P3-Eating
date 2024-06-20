@@ -2,11 +2,18 @@ const express = require("express");
 
 const router = express.Router();
 
+const {
+  browse,
+  readOneById,
+  add,
+  edit,
+  deleteRecipe,
+} = require("../../controllers/recipeActions");
 
-const { read, readOneById} = require("../../controllers/recipeActions");
-
-router.get("/",read);
-
+router.get("/", browse);
 router.get("/:id", readOneById);
+router.post("/", add);
+router.put("/:id", edit);
+router.delete("/:id", deleteRecipe);
 
-module.exports = router
+module.exports = router;

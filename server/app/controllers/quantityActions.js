@@ -18,7 +18,17 @@ const readOneById = async (req, res, next) => {
   }
 };
 
+const readByRecipeId = async (req, res, next) => {
+  try {
+    const quantity = await tables.quantity.readByRecipeId(req.params.id);
+    res.json(quantity);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   read,
   readOneById,
+  readByRecipeId,
 };
