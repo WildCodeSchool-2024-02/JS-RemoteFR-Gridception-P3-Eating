@@ -7,6 +7,13 @@ import App from "./App";
 import HomePage from "./pages/HomePage";
 import RecipePage from "./pages/RecipePage";
 import CommentCaMarche from "./pages/CommentCaMarche";
+import RecipesPage from "./pages/RecipesPage";
+
+const recipesLoader = async () => {
+  const response = await fetch(`http://localhost:3310/api/recipes`);
+  const data = await response.json();
+  return data;
+};
 
 const router = createBrowserRouter([
   {
@@ -15,6 +22,7 @@ const router = createBrowserRouter([
       {
         element: <HomePage />,
         path: "/",
+        loader: recipesLoader,
       },
       {
         element: <RecipePage />,
@@ -23,6 +31,11 @@ const router = createBrowserRouter([
       {
         element: <CommentCaMarche />,
         path: "/CommentCaMarche",
+      },
+      {
+        element: <RecipesPage />,
+        path: "/RecipesPage",
+        loader: recipesLoader,
       },
     ],
   },

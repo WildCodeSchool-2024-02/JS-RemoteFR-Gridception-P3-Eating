@@ -5,14 +5,14 @@ class QuantityRepository extends AbstractRepository {
     super({ table: "quantity" });
   }
 
-  async read() {
+  async browse() {
     const [rows] = await this.database.query(`
         SELECT * FROM ${this.table}
         `);
     return rows;
   }
 
-  async readOneById(id) {
+  async read(id) {
     const [rows] = await this.database.query(
       `
         SELECT * FROM ${this.table} WHERE id = ?
@@ -20,6 +20,30 @@ class QuantityRepository extends AbstractRepository {
       [id]
     );
     return rows[0];
+  }
+
+  async add(newQuantity) {
+    const query = `
+      INSERT INTO ${this.table} SET ?
+    `;
+    const [result] = await this.database.query(query, newQuantity);
+    return result.insertId;
+  }
+
+  async edit(id, updatedQuantity) {
+    const query = `
+      UPDATE ${this.table} SET ? WHERE id = ?
+    `;
+    const [result] = await this.database.query(query, [updatedQuantity, id]);
+    return result.affectedRows > 0;
+  }
+
+  async delete(id) {
+    const query = `
+      DELETE FROM ${this.table} WHERE id = ?
+    `;
+    const [result] = await this.database.query(query, [id]);
+    return result.affectedRows > 0;
   }
 }
 

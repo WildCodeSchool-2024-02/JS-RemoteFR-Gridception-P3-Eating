@@ -11,7 +11,7 @@ export default function NavBar() {
             <Link to="/">Accueil</Link>
           </li>
           <li>
-            <Link to="/RecipePage">Recettes</Link>
+            <Link to="/RecipesPage">Recettes</Link>
           </li>
           <li>
             <Link to="/CommentCaMarche"> Comment ça marche ? </Link>
