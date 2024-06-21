@@ -42,7 +42,7 @@
   justify-content: center;
 }
 .button-ccm {
-  background-color: green;
+  background-color: #4a8e4d;
   width: 22rem;
   height: 5rem;
   border-radius: 8px;
@@ -51,35 +51,23 @@
   text-align: center;
   align-content: center;
 }
-.fleche-gauche-ccm {
-  position: absolute;
-  left: -15px;
-  bottom: 5rem;
-  z-index: -1;
-}
-.fleche-droite-ccm {
-  position: absolute;
-  bottom: 0;
-  right: 8rem;
-  z-index: -1;
-}
-.fleche-milieu-ccm {
-  position: absolute;
-  left: 55rem;
-  bottom: 10rem;
-  min-width: 15rem;
-}
+
 .ble-ccm {
   position: absolute;
   right: 0;
   bottom: -19rem;
   z-index: -2;
 }
+.one-green-ccm,
+.two-green-ccm,
+.three-green-ccm,
+.four-green-ccm {
+  width: 5rem;
+  margin-left: 9.5rem;
+}
+
 @media screen and (max-width: 830px) {
-  .ble-ccm,
-  .fleche-gauche-ccm,
-  .fleche-milieu-ccm,
-  .fleche-droite-ccm {
+  .ble-ccm {
     display: none;
   }
 
