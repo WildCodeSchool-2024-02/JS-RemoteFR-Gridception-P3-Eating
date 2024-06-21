@@ -6,10 +6,8 @@ import "./styles/login.css";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
 
-  const closeSuccessModal = () => setShowSuccessModal(false);
   const closeErrorModal = () => setShowErrorModal(false);
 
   return (
