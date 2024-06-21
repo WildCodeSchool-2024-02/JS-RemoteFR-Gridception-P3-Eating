@@ -21,6 +21,7 @@ const router = createBrowserRouter([
       {
         element: <HomePage />,
         path: "/",
+        loader: recipesLoader,
       },
       {
         element: <RecipePage />,
