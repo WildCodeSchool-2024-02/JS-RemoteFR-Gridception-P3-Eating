@@ -6,7 +6,7 @@
   height: 100vh;
 }
 
-.bienvenuetexte {
+.bienvenue-texte {
   font-size: 3rem;
   font-family: "Annie Use Your Telescope", cursive;
   color: black;
@@ -14,7 +14,7 @@
   margin-bottom: 0rem;
 }
 
-.cardlogin {
+.card-login {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -29,7 +29,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.imgwelcome {
+.img-welcome {
   width: 25rem;
   height: 33rem;
 }
@@ -40,21 +40,21 @@ hr {
   margin-left: -12rem;
 }
 
-.logintext,
+.login-text,
 label {
   color: black;
   font-family: "Annie Use Your Telescope", cursive;
   margin: 0;
 }
 
-.cardcenter {
+.card-center {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 2rem 0;
 }
 
-.connexionbutton {
+.connexion-button {
   width: 20rem;
   height: 2rem;
   font-size: 20px;
@@ -67,18 +67,18 @@ label {
   font-family: "Annie Use Your Telescope", cursive;
 }
 
-.connexionbutton:hover {
+.connexion-button:hover {
   transform: scale(1.02);
   background-color: #0b5e24;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border: 1px solid black;
 }
 
-.connexiontext {
+.connexion-text {
   color: #01c794;
 }
 
-.button {
+.button-connect {
   display: inline-block;
   padding: 10px 20px;
   font-size: 16px;
@@ -90,7 +90,7 @@ label {
   transition: color 0.8s ease;
 }
 
-.button:hover {
+.button-connect:hover {
   transform: scale(1.05);
 }
 

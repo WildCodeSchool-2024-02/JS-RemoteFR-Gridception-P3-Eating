@@ -5,14 +5,14 @@ class IngredientRepository extends AbstractRepository {
     super({ table: "ingredient" });
   }
 
-  async read() {
+  async browse() {
     const [rows] = await this.database.query(`
     SELECT * FROM ${this.table}
     `);
     return rows;
   }
 
-  async readOneById(id) {
+  async read(id) {
     const [rows] = await this.database.query(
       `
     SELECT * FROM ${this.table} WHERE id = ?
@@ -20,6 +20,30 @@ class IngredientRepository extends AbstractRepository {
       [id]
     );
     return rows[0];
+  }
+
+  async add(newIngredient) {
+    const query = `
+      INSERT INTO ${this.table} SET ?
+    `;
+    const [result] = await this.database.query(query, newIngredient);
+    return result.insertId;
+  }
+
+  async edit(id, updatedIngredient) {
+    const query = `
+      UPDATE ${this.table} SET ? WHERE id = ?
+    `;
+    const [result] = await this.database.query(query, [updatedIngredient, id]);
+    return result.affectedRows > 0;
+  }
+
+  async delete(id) {
+    const query = `
+      DELETE FROM ${this.table} WHERE id = ?
+    `;
+    const [result] = await this.database.query(query, [id]);
+    return result.affectedRows > 0;
   }
 }
 

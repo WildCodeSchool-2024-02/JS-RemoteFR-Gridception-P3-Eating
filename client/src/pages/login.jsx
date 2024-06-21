@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 import "./styles/login.css";
 
@@ -14,20 +15,21 @@ export default function Login() {
     <>
       <div>
         <div className="background">
+          <NavBar />
           <form method="post">
             <section>
-              <div className="cardcenter">
+              <div className="card-center">
                 <img
                   src="../../../src/assets/images/graille.png"
                   alt="welcomeimg"
                   className="imgwelcome"
                 />
-                <div className="cardlogin">
-                  <p className="bienvenuetexte">de retour ?</p>
+                <div className="card-login">
+                  <p className="bienvenue-texte">de retour ?</p>
                   <hr />
-                  <p className="logintext">
-                    Entrez vos informations de{" "}
-                    <span className="connexiontext">connexion</span>
+                  <p className="login-text">
+                    Entrez vos informations de{"  "}
+                    <span className="connexion-text"> connexion</span>
                   </p>
                   <div data-mdb-input-init className="form-group">
                     <input
@@ -55,14 +57,14 @@ export default function Login() {
                     data-mdb-button-init
                     data-mdb-ripple-init
                     type="submit"
-                    className="connexionbutton"
+                    className="connexion-button"
                   >
                     Connexion
                   </button>
-                  <p className="logintext">
+                  <p className="login-text">
                     Vous n'avez pas encore de compte ?
                     <Link to="/register">
-                      <span className="button">S'inscrire</span>
+                      <span className="button-inscrire">S'inscrire</span>
                     </Link>
                   </p>
                 </div>

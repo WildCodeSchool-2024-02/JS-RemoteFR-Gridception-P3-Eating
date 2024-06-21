@@ -8,7 +8,7 @@
   height: 100vh;
 }
 
-.nouveautexte {
+.nouveau-texte {
   font-size: 3rem;
   font-family: "Annie Use Your Telescope", cursive;
   color: black;
@@ -17,11 +17,11 @@
   margin-top: 0rem;
 }
 
-.cardcenter {
+.card-center {
   display: flex;
 }
 
-.cardregister {
+.card-register {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -41,7 +41,7 @@
   font-size: 22px;
 }
 
-.imgwelcome {
+.img-welcome {
   width: 32rem;
   height: 35rem;
 }
@@ -58,26 +58,26 @@ hr {
   z-index: -1;
 }
 
-.dejacompte {
+.deja-compte {
   color: black;
   font-weight: bold;
   font-family: "Annie Use Your Telescope", cursive;
   margin: 0;
 }
 
-.logintext,
+.login-text,
 label {
   color: black;
   font-weight: bold;
 }
 
-.cardcenter {
+.card-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.connexionbutton {
+.connexion-button {
   width: 20rem;
   height: 2rem;
   font-size: 20px;
@@ -89,18 +89,18 @@ label {
   border-radius: 14px;
 }
 
-.connexionbutton:hover {
+.connexion-button:hover {
   transform: scale(1.02);
   background-color: #28842c;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border: 1px solid black;
 }
 
-.connexiontext {
+.connexion-text {
   color: #01c794;
 }
 
-.button {
+.button-inscrire {
   display: inline-block;
   padding: 10px 20px;
   font-size: 16px;
@@ -112,7 +112,7 @@ label {
   transition: color 0.8s ease;
 }
 
-.button:hover {
+.button-inscrire:hover {
   transform: scale(1.05);
 }
 

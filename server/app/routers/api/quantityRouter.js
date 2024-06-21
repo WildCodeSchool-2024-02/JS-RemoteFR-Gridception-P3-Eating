@@ -2,10 +2,18 @@ const express = require("express");
 
 const router = express.Router();
 
-const { read, readOneById } = require("../../controllers/quantityActions");
+const {
+  browse,
+  read,
+  edit,
+  add,
+  deleteQuantity,
+} = require("../../controllers/quantityActions");
 
-router.get("/", read);
-
-router.get("/:id", readOneById);
+router.get("/", browse);
+router.get("/:id", read);
+router.put("/:id", edit);
+router.post("/", add);
+router.delete("/:id", deleteQuantity);
 
 module.exports = router;

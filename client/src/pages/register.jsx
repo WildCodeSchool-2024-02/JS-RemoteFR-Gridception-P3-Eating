@@ -1,5 +1,6 @@
 import { useState } from "react";
 import welcome from "../assets/images/welcome.png";
+import NavBar from "../components/NavBar";
 import "./styles/register.css";
 
 export default function Register() {
@@ -14,16 +15,17 @@ export default function Register() {
 
   return (
     <div className="background">
+      <NavBar />
       <form method="post" onSubmit={handleSubmit}>
         <section>
-          <div className="cardcenter">
-            <img src={welcome} className="imgwelcome" alt="welcome" />
-            <div className="cardregister">
-              <p className="nouveautexte">Nouveau ?</p>
+          <div className="card-center">
+            <img src={welcome} className="img-welcome" alt="welcome" />
+            <div className="card-register">
+              <p className="nouveau-texte">Nouveau ?</p>
               <hr />
-              <p className="dejacompte">
+              <p className="deja-compte">
                 Si vous possédez déjà un compte merci de vous
-                <span className="button">connecter ! </span>
+                <span className="button-connect">connecter ! </span>
               </p>
               <div data-mdb-input-init className="form-group">
                 <input
@@ -76,7 +78,7 @@ export default function Register() {
                 data-mdb-button-init
                 data-mdb-ripple-init
                 type="submit"
-                className="connexionbutton"
+                className="connexion-button"
               >
                 S'inscrire
               </button>
