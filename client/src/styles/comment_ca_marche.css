@@ -1,47 +1,47 @@
-.pageTitle {
+.page-title-ccm {
   display: flex;
   justify-content: center;
   font-size: 3.5rem;
 }
-.Content {
+.content-ccm {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   margin-top: 8rem;
 }
-h2 {
+.h2-ccm {
   color: green;
   font-size: 2rem;
 }
-p {
+.p-ccm {
   font-size: 1.5rem;
 }
-h2,
-p {
+.h2-ccm,
+.p-ccm {
   display: flex;
   justify-content: center;
 }
 
-.img1,
-.img2,
-.img3,
-.img4 {
+.img1-ccm,
+.img2-ccm,
+.img3-ccm,
+.img4-ccm {
   width: 20rem;
   margin-left: 2rem;
 }
 
-.three {
+.three-ccm {
   margin-top: 7rem;
 }
-.two,
-.four {
+.two-ccm,
+.four-ccm {
   margin-top: 3rem;
 }
-.containerButton {
+.container-button-ccm {
   display: flex;
   justify-content: center;
 }
-.button {
+.button-ccm {
   background-color: green;
   width: 22rem;
   height: 5rem;
@@ -51,49 +51,45 @@ p {
   text-align: center;
   align-content: center;
 }
-.flecheGauche {
+.fleche-gauche-ccm {
   position: absolute;
   left: -15px;
   bottom: 5rem;
   z-index: -1;
 }
-.flècheDroite {
+.fleche-droite-ccm {
   position: absolute;
   bottom: 0;
   right: 8rem;
   z-index: -1;
 }
-.flècheMilieu {
+.fleche-milieu-ccm {
   position: absolute;
   left: 55rem;
   bottom: 10rem;
   min-width: 15rem;
 }
-.Blé {
+.ble-ccm {
   position: absolute;
   right: 0;
   bottom: -19rem;
   z-index: -2;
 }
 @media screen and (max-width: 830px) {
-  .Blé,
-  .flecheGauche,
-  .flècheMilieu,
-  .flècheDroite {
+  .ble-ccm,
+  .fleche-gauche-ccm,
+  .fleche-milieu-ccm,
+  .fleche-droite-ccm {
     display: none;
   }
-  .mainContent {
-    display: flex;
 
-    justify-content: center;
-  }
-  .Content {
+  .content-ccm {
     flex-direction: column;
   }
-  .pageTitle {
+  .page-title-ccm {
     font-size: 2.5rem;
   }
-  .three {
+  .three-ccm {
     margin-top: 0;
   }
 }
