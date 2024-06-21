@@ -14,7 +14,7 @@ export default function NavBar() {
             <Link to="/RecipesPage">Recettes</Link>
           </li>
           <li>
-            <Link to="/"> Comment ça marche ? </Link>
+            <Link to="/CommentCaMarche"> Comment ça marche ? </Link>
           </li>
           <li className="border border-green-500 p-3 rounded-xl">
             <Link to="/"> S'enregister </Link>

@@ -6,6 +6,7 @@ import "./index.css";
 import App from "./App";
 import HomePage from "./pages/HomePage";
 import RecipePage from "./pages/RecipePage";
+import CommentCaMarche from "./pages/CommentCaMarche";
 import RecipesPage from "./pages/RecipesPage";
 
 const recipesLoader = async () => {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         element: <RecipePage />,
         path: "/RecipePage/:id",
+      },
+      {
+        element: <CommentCaMarche />,
+        path: "/CommentCaMarche",
       },
       {
         element: <RecipesPage />,
