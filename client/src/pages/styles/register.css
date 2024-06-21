@@ -1,57 +1,80 @@
 @import url("https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap");
 
 .background {
+  background-image: url("../../../src/assets/images/fondlogin.jpg");
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   height: 100vh;
 }
 
-.bienvenuetexte {
+.nouveautexte {
   font-size: 3rem;
   font-family: "Annie Use Your Telescope", cursive;
   color: black;
   z-index: 1;
   margin-bottom: 0rem;
+  margin-top: 0rem;
 }
 
-.cardlogin {
+.cardcenter {
+  display: flex;
+}
+
+.cardregister {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   padding: 15rem;
-  gap: 30px;
+  gap: 20px;
   background-color: #f0f0f0;
-  background-position: center;
   width: 2rem;
   height: 5rem;
   white-space: nowrap;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+#firstname,
+#lastname {
+  font-family: "Annie Use Your Telescope", cursive;
+  font-size: 22px;
+}
+
 .imgwelcome {
-  width: 25rem;
-  height: 33rem;
+  width: 32rem;
+  height: 35rem;
 }
 
 hr {
   color: gray;
   width: 27rem;
-  margin-left: -12rem;
+}
+
+.ble {
+  position: absolute;
+  left: 72.5rem;
+  top: 2rem;
+  z-index: -1;
+}
+
+.dejacompte {
+  color: black;
+  font-weight: bold;
+  font-family: "Annie Use Your Telescope", cursive;
+  margin: 0;
 }
 
 .logintext,
 label {
   color: black;
-  font-family: "Annie Use Your Telescope", cursive;
-  margin: 0;
+  font-weight: bold;
 }
 
 .cardcenter {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2rem 0;
 }
 
 .connexionbutton {
@@ -64,12 +87,11 @@ label {
   border: 0px;
   cursor: pointer;
   border-radius: 14px;
-  font-family: "Annie Use Your Telescope", cursive;
 }
 
 .connexionbutton:hover {
   transform: scale(1.02);
-  background-color: #0b5e24;
+  background-color: #28842c;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border: 1px solid black;
 }
@@ -139,10 +161,4 @@ label {
   transform: translate(-50%, -120%);
   font-size: 12px;
   color: #01c794;
-}
-
-#typeEmailX,
-#typePasswordX {
-  font-family: "Annie Use Your Telescope", cursive;
-  font-size: 22px;
 }

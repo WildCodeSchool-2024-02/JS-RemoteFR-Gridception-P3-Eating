@@ -70,6 +70,7 @@ export default function Login() {
             </section>
           </form>
         </div>
+        <img src="../../src/assets/images/ble.png" alt="ble" className="ble" />
       </div>
 
       {showErrorModal && (
