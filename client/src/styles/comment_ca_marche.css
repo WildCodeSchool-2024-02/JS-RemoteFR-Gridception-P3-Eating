@@ -1,47 +1,47 @@
-.pageTitleCcm {
+.page-title-ccm {
   display: flex;
   justify-content: center;
   font-size: 3.5rem;
 }
-.ContentCcm {
+.content-ccm {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   margin-top: 8rem;
 }
-h2 {
+.h2-ccm {
   color: green;
   font-size: 2rem;
 }
-p {
+.p-ccm {
   font-size: 1.5rem;
 }
-h2,
-p {
+.h2-ccm,
+.p-ccm {
   display: flex;
   justify-content: center;
 }
 
-.img1Ccm,
-.img2Ccm,
-.img3Ccm,
-.img4Ccm {
+.img1-ccm,
+.img2-ccm,
+.img3-ccm,
+.img4-ccm {
   width: 20rem;
   margin-left: 2rem;
 }
 
-.threeCcm {
+.three-ccm {
   margin-top: 7rem;
 }
-.twoCcm,
-.fourCcm {
+.two-ccm,
+.four-ccm {
   margin-top: 3rem;
 }
-.containerButtonCcm {
+.container-button-ccm {
   display: flex;
   justify-content: center;
 }
-.buttonCcm {
+.button-ccm {
   background-color: green;
   width: 22rem;
   height: 5rem;
@@ -51,45 +51,45 @@ p {
   text-align: center;
   align-content: center;
 }
-.flecheGaucheCcm {
+.fleche-gauche-ccm {
   position: absolute;
   left: -15px;
   bottom: 5rem;
   z-index: -1;
 }
-.flecheDroiteCcm {
+.fleche-droite-ccm {
   position: absolute;
   bottom: 0;
   right: 8rem;
   z-index: -1;
 }
-.flecheMilieuCcm {
+.fleche-milieu-ccm {
   position: absolute;
   left: 55rem;
   bottom: 10rem;
   min-width: 15rem;
 }
-.BleCcm {
+.ble-ccm {
   position: absolute;
   right: 0;
   bottom: -19rem;
   z-index: -2;
 }
 @media screen and (max-width: 830px) {
-  .BleCcm,
-  .flecheGaucheCcm,
-  .flecheMilieuCcm,
-  .flecheDroiteCcm {
+  .ble-ccm,
+  .fleche-gauche-ccm,
+  .fleche-milieu-ccm,
+  .fleche-droite-ccm {
     display: none;
   }
 
-  .ContentCcm {
+  .content-ccm {
     flex-direction: column;
   }
-  .pageTitleCcm {
+  .page-title-ccm {
     font-size: 2.5rem;
   }
-  .threeCcm {
+  .three-ccm {
     margin-top: 0;
   }
 }
