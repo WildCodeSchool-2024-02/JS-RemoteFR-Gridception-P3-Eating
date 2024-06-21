@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       },
       {
         element: <RecipePage />,
-        path: "/RecipePage/",
+        path: "/RecipePage/:id",
       },
       {
         element: <CommentCaMarche />,
