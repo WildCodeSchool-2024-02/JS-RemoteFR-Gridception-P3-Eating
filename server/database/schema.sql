@@ -46,7 +46,6 @@ CREATE TABLE `recipe` (
     `descriptionText` VARCHAR(10000),
     `steps` TEXT NOT NULL,
     `time` INT NOT NULL,
-    `image` VARCHAR(1000) DEFAULT "JPG",
     `category_id` INT UNSIGNED NOT NULL,
     `image` VARCHAR(250) nOT NULL DEFAULT "JPG",
     FOREIGN KEY (`category_id`) REFERENCES `category` (id)
