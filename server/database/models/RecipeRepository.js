@@ -8,9 +8,9 @@ class RecipeRepository extends AbstractRepository {
   async browse() {
     const [rows] = await this.database.query(
       `
-      SELECT *
+      SELECT r.*, c.name as category_name
       FROM ${this.table} r
-      INNER JOIN category c ON r.category_id
+      INNER JOIN category c ON r.category_id = c.id
       `
     );
     return rows;
@@ -19,28 +19,14 @@ class RecipeRepository extends AbstractRepository {
   async readOneById(id) {
     const [rows] = await this.database.query(
       `
-      SELECT *, c.name as category
+      SELECT r.*, c.name as category_name
       FROM ${this.table} r
-      LEFT JOIN category c ON r.category_id = c.id
+      INNER JOIN category c ON r.category_id = c.id
       WHERE r.id = ?
-    `,
+      `,
       [id]
     );
-
-    if (rows.length === 0) {
-      return null;
-    }
-
-    const recipe = {
-      id: rows[0].id,
-      title: rows[0].title,
-      descriptionText: rows[0].descriptionText,
-      steps: rows[0].steps,
-      time: rows[0].time,
-      category: rows[0].category,
-    };
-
-    return recipe;
+    return rows[0];
   }
 
   async add(recipe) {
@@ -49,7 +35,7 @@ class RecipeRepository extends AbstractRepository {
       `
       INSERT INTO ${this.table} (title, descriptionText, steps, time, category_id)
       VALUES (?, ?, ?, ?, ?)
-    `,
+      `,
       [title, descriptionText, steps, time, categoryId]
     );
     return result.insertId;
@@ -59,20 +45,20 @@ class RecipeRepository extends AbstractRepository {
     const { title, descriptionText, steps, time, categoryId } = recipe;
     const [result] = await this.database.query(
       `
-          UPDATE ${this.table} 
-          SET title = ?, descriptionText = ?, steps = ?, time = ?, category_id = ?
-          WHERE id = ?
-        `,
+      UPDATE ${this.table}
+      SET title = ?, descriptionText = ?, steps = ?, time = ?, category_id = ?
+      WHERE id = ?
+      `,
       [title, descriptionText, steps, time, categoryId, id]
     );
     return result.affectedRows;
   }
 
-  async delete(id) {
+  async deleteRecipe(id) {
     const [result] = await this.database.query(
       `
-          DELETE FROM ${this.table} WHERE id = ?
-        `,
+      DELETE FROM ${this.table} WHERE id = ?
+      `,
       [id]
     );
     return result.affectedRows;

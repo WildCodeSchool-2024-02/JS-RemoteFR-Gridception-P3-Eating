@@ -11,16 +11,8 @@ const browse = async (req, res, next) => {
 
 const readOneById = async (req, res, next) => {
   try {
-    const recipe = await tables.recipe.readOneById(req.params.id);
-    if (recipe) {
-      const ingredients = await tables.recipe.getIngredientsByRecipeId(
-        req.params.id
-      );
-      recipe.ingredients = ingredients;
-      res.json(recipe);
-    } else {
-      res.status(404).json({ message: "Recipe not found" });
-    }
+    const recipes = await tables.recipe.readOneById(req.params.id);
+    res.json(recipes);
   } catch (error) {
     next(error);
   }
@@ -28,9 +20,10 @@ const readOneById = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const recipeId = await tables.recipe.add(req.body);
-    res.status(201).json({ id: recipeId });
+    const recipe = await tables.recipe.add(req.body);
+    res.status(201).json({ recipe });
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };
