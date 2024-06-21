@@ -4,51 +4,59 @@ import deco1 from "../assets/images/deco1.png";
 import deco2 from "../assets/images/deco2.png";
 import deco3 from "../assets/images/deco3.png";
 import deco4 from "../assets/images/deco4.png";
-import flècheGauche from "../assets/images/flècheGauche.png";
-import flècheDroite from "../assets/images/flècheDroite.png";
-import flècheMilieu from "../assets/images/flècheMilieu.png";
+import flecheGauche from "../assets/images/flecheGauche.png";
+import flecheDroite from "../assets/images/flecheDroite.png";
+import flecheMilieu from "../assets/images/flecheMilieu.png";
 import blé from "../assets/images/blé.png";
 
 function CommentCaMarche() {
   return (
     <>
-      <h1 className="pageTitle">Comment ça marche</h1>
-      <img className="flecheGauche" src={flècheGauche} alt="" />
-      <div className="Content">
-        <section className="column1">
-          <div className="one">
+      <h1 className="pageTitleCcm">Comment ça marche</h1>
+      <img className="flecheGaucheCcm" src={flecheGauche} alt="" />
+      <div className="ContentCcm">
+        <section className="column1Ccm">
+          <div className="oneCcm">
             <h2>UNE RECETTE</h2>
             <p>Je trouve la recette de mes rêves</p>
-            <img className="img1" src={deco1} alt="deco1" />
+            <img className="img1Ccm" src={deco1} alt="deco1" />
           </div>
-          <div className="two">
+          <div className="twoCcm">
             <h2>UN CLIC</h2>
             <p>Je me connecte avec mon compte</p>
-            <img className="img2" src={deco2} alt="deco2" />
+            <img className="img2Ccm" src={deco2} alt="deco2" />
           </div>
-          <img className="flècheMilieu" src={flècheMilieu} alt="flècheMilieu" />
+          <img
+            className="flecheMilieuCcm"
+            src={flecheMilieu}
+            alt="flècheMilieu"
+          />
         </section>
 
-        <section className="column2">
-          <div className="three">
+        <section className="column2Ccm">
+          <div className="threeCcm">
             <h2>SELECTIONNE</h2>
             <p>Je sélectionne la recette de mon choix</p>
-            <img className="img3" src={deco3} alt="deco3" />
+            <img className="img3Ccm" src={deco3} alt="deco3" />
           </div>
-          <div className="four">
+          <div className="fourCcm">
             <h2>CUISINE</h2>
             <p>Je cuisine ce que j'ai choisi</p>
-            <img className="img4" src={deco4} alt="deco4" />
+            <img className="img4Ccm" src={deco4} alt="deco4" />
           </div>
-          <img className="flècheDroite" src={flècheDroite} alt="" />
+          <img
+            className="flecheDroiteCcm"
+            src={flecheDroite}
+            alt="flecheDroite"
+          />
         </section>
       </div>
-      <div className="containerButton">
-        <Link className="button" to="/RecipePage">
+      <div className="containerButtonCcm">
+        <Link className="buttonCcm" to="/RecipePage">
           Recettes
         </Link>
       </div>
-      <img className="Blé" src={blé} alt="blé" />
+      <img className="BleCcm" src={blé} alt="ble" />
     </>
   );
 }

@@ -1,9 +1,9 @@
-.pageTitle {
+.pageTitleCcm {
   display: flex;
   justify-content: center;
   font-size: 3.5rem;
 }
-.Content {
+.ContentCcm {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -22,26 +22,26 @@ p {
   justify-content: center;
 }
 
-.img1,
-.img2,
-.img3,
-.img4 {
+.img1Ccm,
+.img2Ccm,
+.img3Ccm,
+.img4Ccm {
   width: 20rem;
   margin-left: 2rem;
 }
 
-.three {
+.threeCcm {
   margin-top: 7rem;
 }
-.two,
-.four {
+.twoCcm,
+.fourCcm {
   margin-top: 3rem;
 }
-.containerButton {
+.containerButtonCcm {
   display: flex;
   justify-content: center;
 }
-.button {
+.buttonCcm {
   background-color: green;
   width: 22rem;
   height: 5rem;
@@ -51,49 +51,45 @@ p {
   text-align: center;
   align-content: center;
 }
-.flecheGauche {
+.flecheGaucheCcm {
   position: absolute;
   left: -15px;
   bottom: 5rem;
   z-index: -1;
 }
-.flècheDroite {
+.flecheDroiteCcm {
   position: absolute;
   bottom: 0;
   right: 8rem;
   z-index: -1;
 }
-.flècheMilieu {
+.flecheMilieuCcm {
   position: absolute;
   left: 55rem;
   bottom: 10rem;
   min-width: 15rem;
 }
-.Blé {
+.BleCcm {
   position: absolute;
   right: 0;
   bottom: -19rem;
   z-index: -2;
 }
 @media screen and (max-width: 830px) {
-  .Blé,
-  .flecheGauche,
-  .flècheMilieu,
-  .flècheDroite {
+  .BleCcm,
+  .flecheGaucheCcm,
+  .flecheMilieuCcm,
+  .flecheDroiteCcm {
     display: none;
   }
-  .mainContent {
-    display: flex;
 
-    justify-content: center;
-  }
-  .Content {
+  .ContentCcm {
     flex-direction: column;
   }
-  .pageTitle {
+  .pageTitleCcm {
     font-size: 2.5rem;
   }
-  .three {
+  .threeCcm {
     margin-top: 0;
   }
 }
