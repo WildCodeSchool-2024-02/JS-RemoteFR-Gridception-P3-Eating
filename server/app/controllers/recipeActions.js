@@ -43,12 +43,8 @@ const edit = async (req, res, next) => {
 
 const deleteRecipe = async (req, res, next) => {
   try {
-    const affectedRows = await tables.recipe.delete(req.params.id);
-    if (affectedRows > 0) {
-      res.json({ message: "Recipe deleted successfully" });
-    } else {
-      res.status(404).json({ message: "Recipe not found" });
-    }
+    await tables.recipe.delete(req.params.id);
+    res.sendStatus(204);
   } catch (error) {
     next(error);
   }

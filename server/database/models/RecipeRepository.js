@@ -54,7 +54,7 @@ class RecipeRepository extends AbstractRepository {
     return result.affectedRows;
   }
 
-  async deleteRecipe(id) {
+  async delete(id) {
     const [result] = await this.database.query(
       `
       DELETE FROM ${this.table} WHERE id = ?
