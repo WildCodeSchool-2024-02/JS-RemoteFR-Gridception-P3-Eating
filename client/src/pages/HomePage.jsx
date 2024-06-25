@@ -35,7 +35,7 @@ function HomePage() {
   }, [dataRecipes]);
 
   return (
-    <section className="w-screen h-screen">
+    <section className="w-screen h-screen uppercase">
       <div className="md:flex md:absolute items-center right-[32%]">
         <input
           className="rounded-xl h-11 w-[29vw] bg-zinc-100 border border-neutral-400 text-center"
@@ -52,11 +52,11 @@ function HomePage() {
         <div className="absolute bg-green-600 w-[20%] h-[65%] left-[15%] top-0 text-green-600">
           x
         </div>
-        <div className="flex flex-row absolute right-[20%] mt-6 items-center h-[50%] w-[30%]">
-          <p className="z-20 text-[3rem] font-bold ">
+        <div className="flex flex-row absolute right-[22%] mt-6 items-center h-[50%] w-[30%]">
+          <p className="z-20 text-[2.5rem] font-bold ">
             Découvrez le goût authentique du partage avec nos plats sains et savoureux
           </p>
-          <button type="button" className="bg-green-600 w-28 absolute bottom-14 right-28 rounded-xl p-2 font-semibold text-white cursor-pointer">
+          <button type="button" className="bg-green-600 text-black text-[13px] uppercase w-[7rem] absolute bottom-16 right-28 rounded-xl p-3 font-semibold cursor-pointer">
             <p> Créez votre recette</p>
           </button>
         </div>
@@ -87,7 +87,7 @@ function HomePage() {
                             alt="vege"
                             className="h-[40px] w-[40px]"
                           />
-                          <p className="font-semibold">{recipe.category_name}</p>
+                          <p className="font-semibold text-[13px] pt-1">{recipe.category_name}</p>
                         </div>
                         <div className="flex flex-col">
                           <img
@@ -95,7 +95,7 @@ function HomePage() {
                             alt="clock"
                             className="h-[40px] w-[40px]"
                           />
-                          <p className="font-semibold">{recipe.time} min</p>
+                          <p className="font-semibold text-[13px] pt-1">{recipe.time} min</p>
                         </div>
                       </div>
                       <h2 className="w-[80%] font-bold text-xl pt-28">

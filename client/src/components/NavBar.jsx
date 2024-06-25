@@ -3,10 +3,10 @@ import Logo from "../assets/images/logo.png";
 
 export default function NavBar() {
   return (
-    <nav className="h-28">
+    <nav className="h-28 uppercase">
       <div className=" flex">
         <img className="h-28 pl-20 pt-2" src={Logo} alt="logo_site" />
-        <ul className="w-screen flex flex-end justify-center space-x-20 ml-[20%] text-lg font-bold flex-row items-center ">
+        <ul className="w-screen flex flex-end justify-center space-x-12 ml-[20%] text-s font-bold flex-row items-center ">
           <li className="green">
             <Link to="/">Accueil</Link>
           </li>
