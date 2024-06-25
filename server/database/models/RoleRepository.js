@@ -18,5 +18,14 @@ class RoleRepository extends AbstractRepository {
     );
     return rows[0];
   }
+
+  async add(role) {
+    const [result] = await this.database.query(
+      ` INSERT INTO ${this.table} (role)
+      VALUES (?)`,
+      [role.role]
+    );
+    return result.insertId;
+  }
 }
 module.exports = RoleRepository;

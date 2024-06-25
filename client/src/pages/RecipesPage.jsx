@@ -3,7 +3,7 @@ import { useLoaderData, Link } from "react-router-dom";
 import "../style/RecipesPage.css";
 
 function RecipesPage() {
-  console.info(useLoaderData());
+  // console.info(useLoaderData());
   const dataRecipes = useLoaderData();
 
   return (
