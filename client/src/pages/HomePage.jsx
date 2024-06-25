@@ -53,7 +53,7 @@ function HomePage() {
           x
         </div>
         <div className="flex flex-row absolute right-[20%] mt-6 items-center h-[50%] w-[30%]">
-          <p className="z-20 text-[3rem] font-bold [text-shadow:_0_4px_2px_rgb(0_0_0_/_40%)]">
+          <p className="z-20 text-[3rem] font-bold ">
             Découvrez le goût authentique du partage avec nos plats sains et savoureux
           </p>
           <button type="button" className="bg-green-600 w-28 absolute bottom-14 right-28 rounded-xl p-2 font-semibold text-white cursor-pointer">
@@ -68,43 +68,46 @@ function HomePage() {
             slides-per-view={slides}
             loop="true"
           >
-            {recipes.map((recipe) => (
-              <swiper-slide key={recipe.id}>
-                <div className="h-[30rem] w-[28rem]">
-                  <Link key={recipe.id} to={`/RecipePage/${recipe.id}`}>
-                    <img
-                      className="h-[220px] w-[220px] rounded-3xl absolute z-20 object-cover"
-                      src={recipe.image}
-                      alt={recipe.title}
-                    />
-                  </Link>
-                  <div className="absolute top-[15%] left-16 flex flex-col items-center justify-center space-y-4 p-4 w-[20rem] h-[22rem] bg-green-600 rounded-3xl text-center">
-                    <div className="absolute top-4 right-[2%] h-[60px] w-[10rem] justify-center space-x-8 flex">
-                      <div className="flex flex-col">
-                        <img
-                          src="../src/assets/images/vege.png"
-                          alt="vege"
-                          className="h-[40px] w-[40px]"
-                        />
-                        <p>{recipe.category_id.name}</p>
+            {recipes &&
+              recipes.map((recipe) => (
+                <swiper-slide key={recipe.id}>
+                  <div className="h-[30rem] w-[30rem]">
+                    <Link key={recipe.id} to={`/RecipePage/${recipe.id}`}>
+                      <img
+                        className="h-[220px] w-[220px] rounded-3xl absolute z-20 object-cover"
+                        src={recipe.image}
+                        alt={recipe.title}
+                      />
+                    </Link>
+                    <div className="absolute top-[15%] left-16 flex flex-col items-center justify-center space-y-4 p-4 w-[22rem] h-[22rem] bg-green-600 rounded-3xl text-center">
+                      <div className="absolute top-4 left-[37%] h-[60px] w-[15rem] justify-center space-x-8 flex">
+                        <div className="flex flex-col w-[5rem] h-full items-center ">
+                          <img
+                            src="../src/assets/images/vege.png"
+                            alt="vege"
+                            className="h-[40px] w-[40px]"
+                          />
+                          <p className="font-semibold">{recipe.category_name}</p>
+                        </div>
+                        <div className="flex flex-col">
+                          <img
+                            src="../src/assets/images/clock.png"
+                            alt="clock"
+                            className="h-[40px] w-[40px]"
+                          />
+                          <p className="font-semibold">{recipe.time} min</p>
+                        </div>
                       </div>
-                      <div className="flex flex-col">
-                        <img
-                          src="../src/assets/images/clock.png"
-                          alt="clock"
-                          className="h-[40px] w-[40px]"
-                        />
-                        <p className="font-semibold">{recipe.time} min</p>
-                      </div>
+                      <h2 className="w-[80%] font-bold text-xl pt-28">
+                        {recipe.title}
+                      </h2>
+                      <p className="line-clamp-3 text-black">{recipe.descriptionText}</p>
                     </div>
-                    <h2 className="w-[80%] font-bold text-xl pt-28">
-                      {recipe.title}
-                    </h2>
-                    <p className="line-clamp-3 text-black">{recipe.descriptionText}</p>
                   </div>
-                </div>
-              </swiper-slide>
-            ))}
+                </swiper-slide>
+              ))
+            }
+
           </swiper-container>
         </div>
       </div>
