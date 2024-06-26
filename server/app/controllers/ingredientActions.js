@@ -52,7 +52,7 @@ const edit = async (req, res, next) => {
   }
 };
 
-const deleteRecipe = async (req, res, next) => {
+const deleteIngredient = async (req, res, next) => {
   const { id } = req.params;
   try {
     const success = await ingredientRepo.delete(id);
@@ -71,5 +71,5 @@ module.exports = {
   read,
   add,
   edit,
-  deleteRecipe
+  deleteIngredient
 };
