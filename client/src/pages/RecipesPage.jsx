@@ -1,6 +1,6 @@
 import { useLoaderData, Link } from "react-router-dom";
 
-import "../style/RecipesPage.css";
+import "../styles/RecipesPage.css";
 
 function RecipesPage() {
   console.info(useLoaderData());

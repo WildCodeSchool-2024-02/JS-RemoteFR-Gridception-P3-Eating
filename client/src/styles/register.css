@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap");
+
+.background {
+  background-image: url("../../../src/assets/images/fondlogin.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.nouveau-texte {
+  font-size: 3rem;
+  font-family: "Annie Use Your Telescope", cursive;
+  color: black;
+  z-index: 1;
+  margin-bottom: 0rem;
+  margin-top: 0rem;
+}
+
+.card-center {
+  display: flex;
+}
+
+.card-register {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 15rem;
+  gap: 20px;
+  background-color: #f0f0f0;
+  width: 2rem;
+  height: 7rem;
+  white-space: nowrap;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#firstname,
+#lastname {
+  font-family: "Annie Use Your Telescope", cursive;
+  font-size: 22px;
+}
+
+.img-welcome {
+  width: 32rem;
+  height: 35rem;
+}
+
+hr {
+  color: gray;
+  width: 27rem;
+}
+
+.ble {
+  position: absolute;
+  right: 0;
+  bottom: -19rem;
+  z-index: -2;
+}
+
+.deja-compte {
+  color: black;
+  font-weight: bold;
+  font-family: "Annie Use Your Telescope", cursive;
+  margin: 0;
+}
+
+.login-text,
+label {
+  color: black;
+  font-weight: bold;
+}
+
+.card-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.connexion-button {
+  width: 20rem;
+  height: 2rem;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  background-color: #28842c;
+  border: 0px;
+  cursor: pointer;
+  border-radius: 14px;
+}
+
+.connexion-button:hover {
+  transform: scale(1.02);
+  background-color: #28842c;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid black;
+}
+
+.connexion-text {
+  color: #01c794;
+}
+
+.button-inscrire {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #01c794;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: color 0.8s ease;
+}
+
+.button-inscrire:hover {
+  transform: scale(1.05);
+}
+
+[data-mdb-input-init] {
+  position: relative;
+}
+
+[data-mdb-input-init]::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 19rem;
+  height: 2px;
+  background-color: #28842c;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group input {
+  width: 18rem;
+  border: none;
+  padding: 10px;
+  background-color: transparent;
+  outline: none;
+}
+
+.form-group input:focus + .blue-line {
+  background-color: #01c794;
+}
+
+.form-group label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: gray;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+  transform: translate(-50%, -120%);
+  font-size: 12px;
+  color: #01c794;
+}

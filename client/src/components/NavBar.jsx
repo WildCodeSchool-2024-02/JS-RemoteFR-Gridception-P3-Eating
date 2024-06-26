@@ -17,10 +17,10 @@ export default function NavBar() {
             <Link to="/CommentCaMarche"> Comment ça marche ? </Link>
           </li>
           <li className="border border-green-500 p-3 rounded-xl">
-            <Link to="/"> S'enregister </Link>
+            <Link to="/RegisterPage"> S'enregister </Link>
           </li>
           <li className="bg-green-500 p-3 rounded-xl">
-            <Link to="/"> Se connecter </Link>
+            <Link to="/Login"> Se connecter </Link>
           </li>
         </ul>
       </div>

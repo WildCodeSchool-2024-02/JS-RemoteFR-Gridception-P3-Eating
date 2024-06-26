@@ -8,6 +8,8 @@ import HomePage from "./pages/HomePage";
 import RecipePage from "./pages/RecipePage";
 import CommentCaMarche from "./pages/CommentCaMarche";
 import RecipesPage from "./pages/RecipesPage";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 const recipesLoader = async () => {
   const response = await fetch(`http://localhost:3310/api/recipes`);
@@ -37,7 +39,23 @@ const router = createBrowserRouter([
         path: "/RecipesPage",
         loader: recipesLoader,
       },
+      // {
+      //   element: <Login />,
+      //   path: "/Login",
+      // },
+      // {
+      //   element: <Register />,
+      //   path: "/RegisterPage",
+      // },
     ],
+  },
+  {
+    element: <Login />,
+    path: "/Login",
+  },
+  {
+    element: <Register />,
+    path: "/RegisterPage",
   },
 ]);
 
