@@ -29,6 +29,7 @@ class RecipeRepository extends AbstractRepository {
     return rows[0];
   }
 
+
   async add(recipe) {
     const { title, descriptionText, steps, time, categoryId } = recipe;
     const [result] = await this.database.query(
@@ -40,6 +41,7 @@ class RecipeRepository extends AbstractRepository {
     );
     return result.insertId;
   }
+
 
   async edit(id, recipe) {
     const { title, descriptionText, steps, time, categoryId } = recipe;
@@ -64,5 +66,6 @@ class RecipeRepository extends AbstractRepository {
     return result.affectedRows;
   }
 }
+
 
 module.exports = RecipeRepository;
