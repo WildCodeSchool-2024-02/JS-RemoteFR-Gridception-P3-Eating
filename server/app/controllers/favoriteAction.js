@@ -31,7 +31,7 @@ const add = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
   try {
-    await tables.favorite.destroy(req.params.id);
+    await tables.favorite.destroy(req.params.userId);
     res.sendStatus(204);
   } catch (err) {
     next(err);
