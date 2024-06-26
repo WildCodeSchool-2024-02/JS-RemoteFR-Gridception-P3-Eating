@@ -35,7 +35,7 @@ function RecipePage() {
           style={{ width: "500px", height: "500px" }}
         >
           <img
-            src="../src/assets/images/plat.png"
+            src={prep.image}
             alt="plat1"
             className="h-[350px] w-[350px] rounded-3xl object-cover"
           />
