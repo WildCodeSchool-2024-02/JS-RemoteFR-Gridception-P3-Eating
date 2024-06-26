@@ -3,14 +3,14 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  read,
+  browse,
   readOneById,
   add,
   edit,
   destroy,
 } = require("../../controllers/roleActions");
 
-router.get("/", read);
+router.get("/", browse);
 
 router.get("/:id", readOneById);
 

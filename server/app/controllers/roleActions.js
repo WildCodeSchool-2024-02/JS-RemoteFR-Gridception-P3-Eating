@@ -1,8 +1,8 @@
 const tables = require("../../database/tables");
 
-const read = async (req, res, next) => {
+const browse = async (req, res, next) => {
   try {
-    const roles = await tables.role.read();
+    const roles = await tables.role.browse();
     res.json(roles);
   } catch (error) {
     next(error);
@@ -59,7 +59,7 @@ const destroy = async (req, res, next) => {
 };
 
 module.exports = {
-  read,
+  browse,
   readOneById,
   add,
   edit,

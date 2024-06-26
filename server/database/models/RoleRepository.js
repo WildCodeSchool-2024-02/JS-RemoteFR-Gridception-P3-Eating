@@ -5,7 +5,7 @@ class RoleRepository extends AbstractRepository {
     super({ table: "role" });
   }
 
-  async read() {
+  async browse() {
     const [rows] = await this.database.query(`
         SELECT * FROM ${this.table}`);
     return rows;
