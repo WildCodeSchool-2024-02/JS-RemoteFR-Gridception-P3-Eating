@@ -12,7 +12,7 @@ class QuantityRepository extends AbstractRepository {
     return rows;
   }
 
-  async readOneById(id) {
+  async read(id) {
     const [rows] = await this.database.query(
       `
         SELECT * FROM ${this.table} WHERE id = ?
@@ -21,7 +21,6 @@ class QuantityRepository extends AbstractRepository {
     );
     return rows[0];
   }
-
 
   async readByRecipeId(id) {
     const [rows] = await this.database.query(
@@ -34,7 +33,8 @@ class QuantityRepository extends AbstractRepository {
       [id]
     );
     return rows;
-    
+  }
+
   async add(newQuantity) {
     const query = `
       INSERT INTO ${this.table} SET ?
