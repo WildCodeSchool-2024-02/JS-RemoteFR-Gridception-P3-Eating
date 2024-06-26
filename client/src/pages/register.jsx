@@ -1,7 +1,7 @@
 import { useState } from "react";
 import welcome from "../assets/images/welcome.png";
 import NavBar from "../components/NavBar";
-import "./styles/register.css";
+import "../styles/register.css";
 
 export default function Register() {
   const [firstname, setFirstname] = useState("");

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
-import "./styles/login.css";
+import "../styles/login.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");

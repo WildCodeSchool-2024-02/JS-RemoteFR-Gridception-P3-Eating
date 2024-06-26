@@ -1,18 +1,21 @@
+const FavoriteRepository = require("../../database/models/FavoriteRepository");
 const tables = require("../../database/tables");
+
+const favoriteRepo = new FavoriteRepository();
+
+const browse = async (req, res, next) => {
+  try {
+    const favorites = await favoriteRepo.browse();
+    res.json(favorites);
+  } catch (error) {
+    next(error);
+  }
+};
 
 const read = async (req, res, next) => {
   try {
     const favorites = await tables.favorite.read();
     res.json(favorites);
-  } catch (err) {
-    next(err);
-  }
-};
-
-const readOneById = async (req, res, next) => {
-  try {
-    const favorite = await tables.favorite.readOneById(req.params.id);
-    res.json(favorite);
   } catch (err) {
     next(err);
   }
@@ -29,19 +32,40 @@ const add = async (req, res, next) => {
   }
 };
 
+const edit = async (req, res, next) => {
+  const { id } = req.params;
+  const updatedFavoriteData = req.body;
+  try {
+    const success = await favoriteRepo.edit(req.params.id, updatedFavoriteData);
+    if (success) {
+      const updatedFavorite = { id, ...updatedFavoriteData };
+      res.json(updatedFavorite);
+    } else {
+      res.status(404).json({ message: "Favorite not found" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 const deleteFav = async (req, res, next) => {
   const { id } = req.params;
-
   try {
-    const success = await tables.favorite.destroy(id);
+    const success = await favoriteRepo.delete(id);
     if (success) {
       res.json({ message: "Favorite deleted successfully" });
     } else {
       res.status(404).json({ message: "Favorite not found" });
     }
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 };
 
-module.exports = { read, readOneById, add, deleteFav };
+module.exports = {
+  browse,
+  read,
+  add,
+  edit,
+  deleteFav,
+};
