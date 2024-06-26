@@ -29,24 +29,18 @@ class RoleRepository extends AbstractRepository {
   }
 
   async edit(role) {
-    // Execute the SQL UPDATE query to update a specific category
     const [result] = await this.database.query(
       `update ${this.table} set role = ? where id = ?`,
       [role.role, role.id]
     );
-
-    // Return how many rows were affected
     return result.affectedRows;
   }
 
   async destroy(id) {
-    // Execute the SQL DELETE query to delete a specific category
     const [result] = await this.database.query(
       `delete from ${this.table} where id = ?`,
       [id]
     );
-
-    // Return how many rows were affected
     return result.affectedRows;
   }
 }
