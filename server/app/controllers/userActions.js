@@ -1,8 +1,8 @@
 const tables = require("../../database/tables");
 
-const read = async (req, res, next) => {
+const browse = async (req, res, next) => {
   try {
-    const users = await tables.user.read();
+    const users = await tables.user.browse();
     res.json(users);
   } catch (error) {
     next(error);
@@ -18,7 +18,41 @@ const readOneById = async (req, res, next) => {
   }
 };
 
+const add = async (req, res, next) => {
+  const user = req.body;
+
+  try {
+    const insertId = await tables.user.add(user);
+    res.json({ insertId });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const edit = async (req, res, next) => {
+  const user = { ...req.body, id: req.params.id };
+
+  try {
+    await tables.user.edit(user);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const destroy = async (req, res, next) => {
+  try {
+    await tables.user.destroy(req.params.id);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
-  read,
+  browse,
   readOneById,
+  add,
+  edit,
+  destroy,
 };
