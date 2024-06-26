@@ -6,12 +6,12 @@ const {
   read,
   readOneById,
   add,
-  deleteFav,
+  destroy,
 } = require("../../controllers/favoriteAction");
 
 router.get("/", read);
 router.get("/:id", readOneById);
 router.post("/", add);
-router.delete("/", deleteFav);
+router.delete("/:id", destroy);
 
 module.exports = router;

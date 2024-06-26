@@ -26,10 +26,10 @@ class FavoriteRepository extends AbstractRepository {
     return result.insertId;
   }
 
-  async destroy(favoriteId) {
+  async destroy(id) {
     const [result] = await this.database.query(
       `DELETE FROM ${this.table} WHERE id = ?`,
-      [favoriteId]
+      [id]
     );
 
     return result.affectedRows;

@@ -29,19 +29,12 @@ const add = async (req, res, next) => {
   }
 };
 
-const deleteFav = async (req, res, next) => {
-  const { id } = req.params;
-
+const destroy = async (req, res, next) => {
   try {
-    const success = await tables.favorite.destroy(id);
-    if (success) {
-      res.json({ message: "Favorite deleted successfully" });
-    } else {
-      res.status(404).json({ message: "Favorite not found" });
-    }
+    await tables.favorite.destroy(req.params.id);
+    res.sendStatus(204);
   } catch (err) {
     next(err);
   }
 };
-
-module.exports = { read, readOneById, add, deleteFav };
+module.exports = { read, readOneById, add, destroy };
