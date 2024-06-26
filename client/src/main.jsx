@@ -30,6 +30,23 @@ const router = createBrowserRouter([
       {
         element: <RecipePage />,
         path: "/RecipePage/:id",
+        loader: async ({ params }) => {
+          const { id } = params;
+
+          if (!id) {
+            throw new Error("ID de recette non défini");
+          }
+
+          const recipesResponse = await fetch(
+            "http://localhost:3310/api/recipes"
+          );
+          const quantityResponse = await fetch(
+            `http://localhost:3310/api/quantities/recipe/${id}`
+          );
+          const recipesData = await recipesResponse.json();
+          const quantityData = await quantityResponse.json();
+          return { recipes: recipesData, quantity: quantityData };
+        },
       },
       {
         element: <CommentCaMarche />,

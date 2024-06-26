@@ -14,7 +14,6 @@ tables.user = new UserRepository();
 tables.role = new RoleRepository();
 tables.favorite = new FavoriteRepository();
 tables.quantity = new QuantityRepository();
-
 tables.recipe = new RecipeRepository();
 
 module.exports = new Proxy(tables, {

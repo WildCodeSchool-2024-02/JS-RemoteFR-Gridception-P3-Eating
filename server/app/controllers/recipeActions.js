@@ -41,10 +41,19 @@ const edit = async (req, res, next) => {
     }
 };
 
+const deleteRecipe = async (req, res, next) => {
+  try {
+    await tables.recipe.delete(req.params.id);
+    res.sendStatus(204);
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
-    browse,
-    readOneById,
-    add,
-    edit
-}
+  browse,
+  readOneById,
+  add,
+  edit,
+  deleteRecipe,
+};
