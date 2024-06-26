@@ -10,7 +10,6 @@ function CommentCaMarche() {
   return (
     <>
       <h1 className="pageTitle">Comment ça marche</h1>
-      <img className="flecheGauche" src={flècheGauche} alt="" />
       <div className="Content">
         <section className="column1">
           <div className="one">
@@ -23,7 +22,6 @@ function CommentCaMarche() {
             <p>Je me connecte avec mon compte</p>
             <img className="img2" src={deco2} alt="deco2" />
           </div>
-          <img className="flècheMilieu" src={flècheMilieu} alt="flècheMilieu" />
         </section>
 
         <section className="column2">
@@ -37,7 +35,6 @@ function CommentCaMarche() {
             <p>Je cuisine ce que j'ai choisi</p>
             <img className="img4" src={deco4} alt="deco4" />
           </div>
-          <img className="flècheDroite" src={flècheDroite} alt="" />
         </section>
       </div>
       <div className="containerButton">
