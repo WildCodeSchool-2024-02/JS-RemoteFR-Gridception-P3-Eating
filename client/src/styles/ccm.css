@@ -51,35 +51,15 @@ p {
   text-align: center;
   align-content: center;
 }
-.flecheGauche {
-  position: absolute;
-  left: -15px;
-  bottom: 5rem;
-  z-index: -1;
-}
-.flècheDroite {
-  position: absolute;
-  bottom: 0;
-  right: 8rem;
-  z-index: -1;
-}
-.flècheMilieu {
-  position: absolute;
-  left: 55rem;
-  bottom: 10rem;
-  min-width: 15rem;
-}
-.Blé {
+.ble{
   position: absolute;
   right: 0;
   bottom: -19rem;
   z-index: -2;
 }
 @media screen and (max-width: 830px) {
-  .Blé,
-  .flecheGauche,
-  .flècheMilieu,
-  .flècheDroite {
+  .ble
+  {
     display: none;
   }
   .mainContent {
