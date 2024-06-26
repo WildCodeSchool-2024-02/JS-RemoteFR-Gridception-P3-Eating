@@ -37,8 +37,10 @@ function HomePage() {
   return (
     <section className="w-screen h-screen uppercase">
       <div className="md:flex md:absolute items-center right-[32%]">
+        <label htmlFor="recipe-search" className="sr-only ">Rechercher une recette</label>
         <input
-          className="rounded-xl h-11 w-[29vw] bg-zinc-100 border border-neutral-400 text-center"
+          id="recipe-search"
+          className="rounded-xl h-11 w-[27vw] bg-white border border-green-800 text-center text-black shadow-md"
           type="text"
           placeholder="Rechercher une recette"
         />
@@ -49,19 +51,19 @@ function HomePage() {
           alt="plat1"
           className="absolute w-[450px] top-[15%] left-[12%] z-20"
         />
-        <div className="absolute bg-green-600 w-[20%] h-[65%] left-[15%] top-0 text-green-600">
+        <div className="absolute bg-green-800 w-[20%] h-[65%] left-[15%] top-0 text-green-800">
           x
         </div>
         <div className="flex flex-row absolute right-[22%] mt-6 items-center h-[50%] w-[30%]">
-          <p className="z-20 text-[2.5rem] font-bold ">
+          <h1 className="z-20 text-[2.5rem] font-bold ">
             Découvrez le goût authentique du partage avec nos plats sains et savoureux
-          </p>
-          <button type="button" className="bg-green-600 text-black text-[13px] uppercase w-[7rem] absolute bottom-16 right-28 rounded-xl p-3 font-semibold cursor-pointer">
+          </h1>
+          <button type="button" className="bg-green-800 text-white text-[13px] uppercase w-[7rem] absolute bottom-16 right-28 rounded-xl p-3 font-semibold cursor-pointer">
             <p> Créez votre recette</p>
           </button>
         </div>
       </div>
-      <div className="w-screen h-[50%] flex-wrap justify-center mt-8 ml-20">
+      <div className="w-screen h-[50%] flex-wrap justify-center mt-8 pl-20">
         <div>
           <swiper-container
             centered-slides="true"
@@ -71,7 +73,7 @@ function HomePage() {
             {recipes &&
               recipes.map((recipe) => (
                 <swiper-slide key={recipe.id}>
-                  <div className="h-[30rem] w-[30rem]">
+                  <div className="h-[31rem] w-[28rem] relative">
                     <Link key={recipe.id} to={`/RecipePage/${recipe.id}`}>
                       <img
                         className="h-[220px] w-[220px] rounded-3xl absolute z-20 object-cover"
@@ -79,15 +81,15 @@ function HomePage() {
                         alt={recipe.title}
                       />
                     </Link>
-                    <div className="absolute top-[15%] left-16 flex flex-col items-center justify-center space-y-4 p-4 w-[22rem] h-[22rem] bg-green-600 rounded-3xl text-center">
-                      <div className="absolute top-4 left-[37%] h-[60px] w-[15rem] justify-center space-x-8 flex">
-                        <div className="flex flex-col w-[5rem] h-full items-center ">
+                    <div className="absolute top-[15%] left-16 flex flex-col items-center justify-center space-y-4 p-4 w-fit h-[75%] bg-green-800 rounded-3xl text-center shadow-2xl">
+                      <div className="absolute top-4 left-[40%] h-[60px] w-[15rem] justify-center space-x-8 flex">
+                        <div className="flex flex-col w-[5rem] h-full items-center">
                           <img
                             src="../src/assets/images/vege.png"
                             alt="vege"
                             className="h-[40px] w-[40px]"
                           />
-                          <p className="font-semibold text-[13px] pt-1">{recipe.category_name}</p>
+                          <p className="font-semibold text-lg pt-1 text-white">{recipe.category_name}</p>
                         </div>
                         <div className="flex flex-col">
                           <img
@@ -95,19 +97,17 @@ function HomePage() {
                             alt="clock"
                             className="h-[40px] w-[40px]"
                           />
-                          <p className="font-semibold text-[13px] pt-1">{recipe.time} min</p>
+                          <p className="font-semibold text-lg pt-1 text-white">{recipe.time} min</p>
                         </div>
                       </div>
-                      <h2 className="w-[80%] font-bold text-xl pt-28">
+                      <h2 className="w-[80%] font-bold text-2xl pt-28 text-white">
                         {recipe.title}
                       </h2>
-                      <p className="line-clamp-3 text-black">{recipe.descriptionText}</p>
                     </div>
                   </div>
                 </swiper-slide>
               ))
             }
-
           </swiper-container>
         </div>
       </div>
