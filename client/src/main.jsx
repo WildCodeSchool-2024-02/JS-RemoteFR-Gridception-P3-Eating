@@ -9,8 +9,11 @@ import RecipePage from "./pages/RecipePage";
 import CommentCaMarche from "./pages/CommentCaMarche";
 import RecipesPage from "./pages/RecipesPage";
 
+/* eslint-disable-next-line prefer-destructuring */
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+
 const recipesLoader = async () => {
-  const response = await fetch(`http://localhost:3310/api/recipes`);
+  const response = await fetch(`${VITE_API_URL}/api/recipes`);
   const data = await response.json();
   return data;
 };
