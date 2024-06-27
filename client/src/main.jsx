@@ -59,14 +59,6 @@ const router = createBrowserRouter([
         path: "/RecipesPage",
         loader: recipesLoader,
       },
-      // {
-      //   element: <Login />,
-      //   path: "/Login",
-      // },
-      // {
-      //   element: <Register />,
-      //   path: "/RegisterPage",
-      // },
     ],
   },
   {
