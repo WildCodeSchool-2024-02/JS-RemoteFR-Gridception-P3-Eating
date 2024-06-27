@@ -14,7 +14,7 @@ class FavoriteRepository extends AbstractRepository {
   }
 
   async read() {
-    const [rows] = await this.database.query("SELECT * FROM favorite");
+    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
     return rows;
   }
 
