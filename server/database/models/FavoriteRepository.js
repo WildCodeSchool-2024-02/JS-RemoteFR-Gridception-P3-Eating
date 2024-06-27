@@ -18,13 +18,27 @@ class FavoriteRepository extends AbstractRepository {
     return rows;
   }
 
-  async add(favorite) {
+  async readByFavoriteId(id) {
+    const [rows] = await this.database.query(
+      `
+      SELECT * FROM ${this.table} q 
+      INNER JOIN recipe r ON q.recipe_id = r.id
+      INNER JOIN user i ON q.user_id = i.id
+      WHERE r.id = ?
+      `,
+      [id]
+    );
+    return rows;
+  }
+
+  async add(favorite) {    
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (recipe_id, user_id) VALUES (?, ?)`,
       [favorite.recipe_id, favorite.user_id]
     );
     return result.insertId;
   }
+
 
   async edit(id, updatedFavorite) {
     const query = `

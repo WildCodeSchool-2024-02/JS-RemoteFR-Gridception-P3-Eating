@@ -18,6 +18,15 @@ const read = async (req, res, next) => {
   }
 };
 
+const readByFavoriteId = async (req, res, next) => {
+  try {
+    const quantity = await tables.quantity.readByFavoriteId(req.params.id);
+    res.json(quantity);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const add = async (req, res, next) => {
   const favorite = req.body;
   try {
@@ -54,4 +63,4 @@ const destroy = async (req, res, next) => {
 };
 
 
-module.exports = { browse, read, add, edit, destroy };
+module.exports = { browse, read, add, edit, readByFavoriteId, destroy };
