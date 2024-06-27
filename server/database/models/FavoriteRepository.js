@@ -6,16 +6,16 @@ class FavoriteRepository extends AbstractRepository {
   }
 
   async browse() {
-    const [rows] = await this.database.query("SELECT * FROM favorite");
+    const [rows] = await this.database.query(`
+    SELECT * FROM ${this.table}
+    `);
+
     return rows;
   }
 
-  async readOneById(id) {
-    const [rows] = await this.database.query(
-      "SELECT * FROM favorite WHERE user_id = ?",
-      [id]
-    );
-    return rows[0];
+  async read() {
+    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
+    return rows;
   }
 
   async add(favorite) {
@@ -24,6 +24,14 @@ class FavoriteRepository extends AbstractRepository {
       [favorite.recipe_id, favorite.user_id]
     );
     return result.insertId;
+  }
+
+  async edit(id, updatedFavorite) {
+    const query = `
+      UPDATE ${this.table} SET ? WHERE id = ?
+    `;
+    const [result] = await this.database.query(query, [updatedFavorite, id]);
+    return result.affectedRows > 0;
   }
 
   async destroy(userId) {

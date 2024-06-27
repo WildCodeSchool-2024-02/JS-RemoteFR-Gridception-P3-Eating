@@ -8,6 +8,8 @@ import HomePage from "./pages/HomePage";
 import RecipePage from "./pages/RecipePage";
 import CommentCaMarche from "./pages/CommentCaMarche";
 import RecipesPage from "./pages/RecipesPage";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 /* eslint-disable-next-line prefer-destructuring */
 const VITE_API_URL = import.meta.env.VITE_API_URL;
@@ -58,6 +60,14 @@ const router = createBrowserRouter([
         loader: recipesLoader,
       },
     ],
+  },
+  {
+    element: <Login />,
+    path: "/Login",
+  },
+  {
+    element: <Register />,
+    path: "/RegisterPage",
   },
 ]);
 

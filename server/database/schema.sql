@@ -52,7 +52,7 @@ CREATE TABLE `recipe` (
     `time` INT NOT NULL,
     `category_id` INT UNSIGNED NOT NULL,
     `image` VARCHAR(250) nOT NULL DEFAULT "JPG",
-    FOREIGN KEY (`category_id`) REFERENCES `category` (id)
+    FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
 );
 
 -- Création de la table `favorite`
@@ -246,7 +246,6 @@ VALUES (
     );
 
 INSERT INTO favorite (recipe_id, user_id) VALUES (1, 1), (2, 2);
-
 
 INSERT INTO `quantity` (`recipe_id`, `ingredient_id`, `quantity`) VALUES
 (1, 17, '25g'),  -- Persil
