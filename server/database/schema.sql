@@ -64,7 +64,7 @@ CREATE TABLE `quantity` (
     `recipe_id` INT UNSIGNED NOT NULL,
     `ingredient_id` INT UNSIGNED NOT NULL,
     `quantity` INT NOT NULL,
-    FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (id),
+    FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`),
     FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`)
 );
 
