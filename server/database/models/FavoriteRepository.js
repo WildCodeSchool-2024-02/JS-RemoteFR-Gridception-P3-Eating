@@ -9,6 +9,7 @@ class FavoriteRepository extends AbstractRepository {
     const [rows] = await this.database.query(`
     SELECT * FROM ${this.table}
     `);
+
     return rows;
   }
 
@@ -33,10 +34,10 @@ class FavoriteRepository extends AbstractRepository {
     return result.affectedRows > 0;
   }
 
-  async delete(favoriteId) {
+  async destroy(userId) {
     const [result] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE id = ?`,
-      [favoriteId]
+      `DELETE FROM ${this.table} WHERE user_id = ?`,
+      [userId]
     );
 
     return result.affectedRows;

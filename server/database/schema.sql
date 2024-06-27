@@ -1,4 +1,3 @@
--- SQLBook: Code
 DROP TABLE IF EXISTS role;
 
 DROP TABLE IF EXISTS ingredient;
@@ -13,23 +12,27 @@ DROP TABLE IF EXISTS favorite;
 
 DROP TABLE IF EXISTS quantity;
 
+-- Création de la table `role`
 CREATE TABLE `role` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `role` VARCHAR(20) NOT NULL
 );
 
+-- Création de la table `ingredient`
 CREATE TABLE `ingredient` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(100) NOT NULL,
     `calories` INT NOT NULL
 );
 
+-- Création de la table `category`
 CREATE TABLE `category` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE user (
+-- Création de la table `user`
+CREATE TABLE `user` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `firstname` VARCHAR(100),
     `lastname` VARCHAR(100),
@@ -40,10 +43,11 @@ CREATE TABLE user (
     FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
 );
 
+-- Création de la table `recipe`
 CREATE TABLE `recipe` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `title` VARCHAR(100),
-    `descriptionText` VARCHAR(10000),
+    `descriptionText` TEXT,
     `steps` TEXT NOT NULL,
     `time` INT NOT NULL,
     `category_id` INT UNSIGNED NOT NULL,
@@ -51,6 +55,7 @@ CREATE TABLE `recipe` (
     FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
 );
 
+-- Création de la table `favorite`
 CREATE TABLE `favorite` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `recipe_id` INT UNSIGNED NOT NULL,
@@ -59,14 +64,16 @@ CREATE TABLE `favorite` (
     FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 );
 
+-- Création de la table `quantity`
 CREATE TABLE `quantity` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `recipe_id` INT UNSIGNED NOT NULL,
     `ingredient_id` INT UNSIGNED NOT NULL,
-    `quantity` INT NOT NULL,
+    `quantity` VARCHAR(100) NOT NULL,
     FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`),
     FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`)
 );
+
 
 INSERT INTO role (role) VALUES ('user'), ('visitor'), ('admin');
 
@@ -240,13 +247,37 @@ VALUES (
 
 INSERT INTO favorite (recipe_id, user_id) VALUES (1, 1), (2, 2);
 
-INSERT INTO
-    quantity (
-        recipe_id,
-        ingredient_id,
-        quantity
-    )
-VALUES (1, 1, 3),
-    (1, 4, 6),
-    (2, 5, 4),
-    (2, 3, 10);
+INSERT INTO `quantity` (`recipe_id`, `ingredient_id`, `quantity`) VALUES
+(1, 17, '25g'),  -- Persil
+(1, 18, '2 gousses'),  -- Gousses d'ail
+(1, 19, '2'),  -- Oignons
+(1, 20, '300g'),  -- Riz
+(1, 21, '400g'),  -- Champignons de Paris
+(1, 22, '400g'),  -- Blanc de poulet
+(1, 23, '15g'),  -- Paprika fumé en poudre
+(1, 24, '50g'),  -- Concentré de tomate
+(1, 25, '200ml'),  -- Crème liquide
+(1, 26, '50ml'),  -- Sauce Worcestershire
+(1, 11, '4 cs'),  -- Huile d'olive
+(1, 27, '2 cc'),  -- Moutarde
+(1, 4, 'au goût'),  -- Sel
+(1, 5, 'au goût');  -- Poivre
+
+INSERT INTO `quantity` (`recipe_id`, `ingredient_id`, `quantity`) VALUES
+(2, 1, '300g'),  -- Pois chiches
+(2, 29, '2'),  -- Poivrons grillés
+(2, 7, '100g'),  -- Salade
+(2, 8, '2'),  -- Avocat
+(2, 30, '2 cs'),  -- Citron vert
+(2, 31, '10g'),  -- Coriandre
+(2, 32, '50g'),  -- Crème de fromage à la grecque
+(2, 11, '2 cs');  -- Huile d'olive
+
+INSERT INTO `quantity` (`recipe_id`, `ingredient_id`, `quantity`) VALUES
+(3, 13, '400g'),  -- Patates douces
+(3, 8, '1'),  -- Avocat
+(3, 35, '200g'),  -- Falafels
+(3, 36, '50g'),  -- Sauce yaourt-menthe
+(3, 9, '50g'),  -- Tomates cerises
+(3, 37, '10g'),  -- Menthe
+(3, 38, '20g');  -- Graines de courge

@@ -7,13 +7,13 @@ const {
   read,
   edit,
   add,
-  deleteFav,
+  destroy,
 } = require("../../controllers/favoriteAction");
 
 router.get("/", browse);
 router.get("/:id", read);
 router.put("/:id", edit);
 router.post("/", add);
-router.delete("/:id", deleteFav);
+router.delete("/:userId", destroy);
 
 module.exports = router;

@@ -44,24 +44,14 @@ const edit = async (req, res, next) => {
   }
 };
 
-const deleteFav = async (req, res, next) => {
-  const { id } = req.params;
+const destroy = async (req, res, next) => {
   try {
-    const success = await tables.favorite.delete(id);
-    if (success) {
-      res.json({ message: "Favorite deleted successfully" });
-    } else {
-      res.status(404).json({ message: "Favorite not found" });
-    }
-  } catch (error) {
-    next(error);
+    await tables.favorite.destroy(req.params.userId);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
   }
 };
 
-module.exports = {
-  browse,
-  read,
-  add,
-  edit,
-  deleteFav,
-};
+
+module.exports = { browse, read, add, edit, destroy };

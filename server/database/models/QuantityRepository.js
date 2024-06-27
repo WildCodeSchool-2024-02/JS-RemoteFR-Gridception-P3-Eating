@@ -22,6 +22,19 @@ class QuantityRepository extends AbstractRepository {
     return rows[0];
   }
 
+  async readByRecipeId(id) {
+    const [rows] = await this.database.query(
+      `
+      SELECT * FROM ${this.table} q 
+      INNER JOIN recipe r ON q.recipe_id = r.id
+      INNER JOIN ingredient i ON q.ingredient_id = i.id
+      WHERE r.id = ?
+      `,
+      [id]
+    );
+    return rows;
+  }
+
   async add(newQuantity) {
     const query = `
       INSERT INTO ${this.table} SET ?
