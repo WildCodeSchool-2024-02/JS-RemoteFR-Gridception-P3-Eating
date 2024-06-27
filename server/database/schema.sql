@@ -37,7 +37,7 @@ CREATE TABLE user (
     `email` VARCHAR(255) NOT NULL UNIQUE,
     `role_id` INT UNSIGNED NOT NULL,
     `password` VARCHAR(255) NOT NULL,
-    FOREIGN KEY (`role_id`) REFERENCES `role` (id)
+    FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
 );
 
 CREATE TABLE `recipe` (
@@ -48,15 +48,15 @@ CREATE TABLE `recipe` (
     `time` INT NOT NULL,
     `category_id` INT UNSIGNED NOT NULL,
     `image` VARCHAR(250) nOT NULL DEFAULT "JPG",
-    FOREIGN KEY (`category_id`) REFERENCES `category` (id)
+    FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
 );
 
 CREATE TABLE `favorite` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `recipe_id` INT UNSIGNED NOT NULL,
     `user_id` INT UNSIGNED NOT NULL,
-    FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (id),
-    FOREIGN KEY (`user_id`) REFERENCES `user` (id)
+    FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 );
 
 CREATE TABLE `quantity` (
@@ -65,7 +65,7 @@ CREATE TABLE `quantity` (
     `ingredient_id` INT UNSIGNED NOT NULL,
     `quantity` INT NOT NULL,
     FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (id),
-    FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (id)
+    FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`)
 );
 
 INSERT INTO role (role) VALUES ('user'), ('visitor'), ('admin');

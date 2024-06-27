@@ -1,10 +1,8 @@
-const CategoryRepository = require('../../database/models/CategoryRepository');
-
-const categoryRepo = new CategoryRepository();
+const tables = require("../../database/tables");
 
 const browse = async (req, res, next ) => {
   try {
-    const categories = await categoryRepo.browse();
+    const categories = await tables.category.browse();
     res.json(categories);
   } catch (error) {
     next(error);
@@ -13,7 +11,7 @@ const browse = async (req, res, next ) => {
 
 const read = async (req, res, next) => {
   try {
-    const category = await categoryRepo.read(req.params.id);
+    const category = await tables.category.read(req.params.id);
     if (category) {
       res.json(category);
       } else {
@@ -27,7 +25,7 @@ const read = async (req, res, next) => {
   const add = async (req, res, next) => {
     const newCategoryData = req.body;
     try {
-      const insertedId = await categoryRepo.add(newCategoryData);
+      const insertedId = await tables.category.add(newCategoryData);
       const insertedCategory = { id: insertedId, ...newCategoryData };
       res.status(201).json(insertedCategory);
     } catch (error) {
@@ -39,7 +37,7 @@ const read = async (req, res, next) => {
     const { id } = req.params;
     const updatedCategoryData = req.body;
     try {
-      const success = await categoryRepo.edit(req.params.id, updatedCategoryData);
+      const success = await tables.category.edit(req.params.id, updatedCategoryData);
       if (success) {
         const updatedCategory = { id, ...updatedCategoryData };
         res.json(updatedCategory);
@@ -54,7 +52,7 @@ const read = async (req, res, next) => {
   const deleteCategory = async (req, res, next) => {
     const { id } = req.params;
     try {
-      const success = await categoryRepo.delete(id);
+      const success = await tables.category.delete(id);
       if (success) {
         res.json({ message: 'Category deleted successfully' });
       } else {
