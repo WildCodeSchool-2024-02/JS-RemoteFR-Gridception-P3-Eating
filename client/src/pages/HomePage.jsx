@@ -58,9 +58,13 @@ function HomePage() {
           <h1 className="z-20 text-[2.5rem] font-bold ">
             Découvrez le goût authentique du partage avec nos plats sains et savoureux
           </h1>
-          <button type="button" className="bg-green-800 text-white text-[13px] uppercase w-[7rem] absolute bottom-16 right-28 rounded-xl p-3 font-semibold cursor-pointer">
-            <p> Créez votre recette</p>
-          </button>
+          <div className="z-20">
+            <Link to="/Create_recipe" className="cursor-pointer">
+              <button type="button" className="bg-green-800 text-white text-[13px] uppercase w-[7rem] absolute bottom-16 right-28 rounded-xl p-3 font-semibold ">
+                Créez votre recette
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
       <div className="w-screen h-[50%] flex-wrap justify-center mt-8 pl-20">

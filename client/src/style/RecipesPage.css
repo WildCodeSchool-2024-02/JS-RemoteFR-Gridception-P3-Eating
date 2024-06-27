@@ -10,7 +10,7 @@
   height: 2.75rem;
   width: 26vw;
   background-color: #f5f5f5;
-  border: 1px solid #a3a3a3;
+  border: 1px solid rgb(22 101 52);
   text-align: center;
 }
 
@@ -21,7 +21,8 @@
   align-items: center;
   text-align: center;
   font-size: 18px;
-  background-color: #16a34a;
+  background-color: rgb(22 101 52);
+  color: white;
   width: 20vw;
   height: 35vh;
   margin: 3rem;
