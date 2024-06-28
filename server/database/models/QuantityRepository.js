@@ -7,16 +7,23 @@ class QuantityRepository extends AbstractRepository {
 
   async browse() {
     const [rows] = await this.database.query(`
-        SELECT * FROM ${this.table}
-        `);
+      SELECT q.*, r.title AS recipe_title, i.name AS ingredient_name
+      FROM ${this.table} AS q
+      INNER JOIN recipe AS r ON q.recipe_id = r.id
+      INNER JOIN ingredient AS i ON q.ingredient_id = i.id
+    `);
     return rows;
   }
 
   async read(id) {
     const [rows] = await this.database.query(
       `
-        SELECT * FROM ${this.table} WHERE id = ?
-        `,
+        SELECT q.*, r.title AS recipe_title, i.name AS ingredient_name
+        FROM ${this.table} AS q
+        INNER JOIN recipe AS r ON q.recipe_id = r.id
+        INNER JOIN ingredient AS i ON q.ingredient_id = i.id
+        WHERE q.id = ?
+      `,
       [id]
     );
     return rows[0];
