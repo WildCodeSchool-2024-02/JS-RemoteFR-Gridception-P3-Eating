@@ -5,8 +5,7 @@ function RecipePage() {
   const { recipes, quantity: initialQuantity } = useLoaderData();
   const { id } = useParams();
   const [prep, setPrep] = useState(null);
-  // eslint-disable-next-line no-unused-vars
-  const [quantity, setQuantity] = useState(initialQuantity);
+  const [quantity] = useState(initialQuantity);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,7 +34,7 @@ function RecipePage() {
           style={{ width: "500px", height: "500px" }}
         >
           <img
-            src="../src/assets/images/plat.png"
+            src={prep.image}
             alt="plat1"
             className="h-[350px] w-[350px] rounded-3xl object-cover"
           />
@@ -56,6 +55,10 @@ function RecipePage() {
               </li>
             ))}
         </ul>
+        <h2 className="flex justify-center text-3xl font-semibold m-6">
+          étapes de préparation :{" "}
+        </h2>
+        <ul className="list-disc pl-5 space-y-2">{prep.steps}</ul>
         <p className="mt-12">{prep.descriptionText}</p>
       </div>
     </section>

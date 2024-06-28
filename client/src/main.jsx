@@ -39,11 +39,9 @@ const router = createBrowserRouter([
             throw new Error("ID de recette non défini");
           }
 
-          const recipesResponse = await fetch(
-            "http://localhost:3310/api/recipes"
-          );
+          const recipesResponse = await fetch(`${VITE_API_URL}/api/recipes`);
           const quantityResponse = await fetch(
-            `http://localhost:3310/api/quantities/recipe/${id}`
+            `${VITE_API_URL}/api/quantities/recipe/${id}`
           );
           const recipesData = await recipesResponse.json();
           const quantityData = await quantityResponse.json();

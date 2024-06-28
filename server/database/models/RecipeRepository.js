@@ -30,26 +30,30 @@ class RecipeRepository extends AbstractRepository {
   }
 
   async add(recipe) {
-    const { title, descriptionText, steps, time, categoryId, image } = recipe;
+
+    const { title, descriptionText, steps, time, image, categoryId } = recipe;
     const [result] = await this.database.query(
       `
-          INSERT INTO ${this.table} (title, descriptionText, steps, time, category_id, image)
-          VALUES (?, ?, ?, ?, ?, ?)
+          INSERT INTO ${this.table} (title, descriptionText, steps, time, image, category_id)
+          VALUES (?, ?, ?, ?, ?)
           `,
-      [title, descriptionText, steps, time, categoryId, image]
+      [title, descriptionText, steps, time, image, categoryId]
+
     );
     return result.insertId;
   }
 
   async edit(id, recipe) {
-    const { title, descriptionText, steps, time, categoryId, image } = recipe;
+
+    const { title, descriptionText, steps, time, image, categoryId } = recipe;
     const [result] = await this.database.query(
       `
           UPDATE ${this.table}
-          SET title = ?, descriptionText = ?, steps = ?, time = ?, category_id = ?, image = ?
+          SET title = ?, descriptionText = ?, steps = ?, time = ?, image = ? ,category_id = ?
           WHERE id = ?
           `,
-      [title, descriptionText, steps, time, categoryId, image, id]
+      [title, descriptionText, steps, time, image, categoryId, id]
+
     );
     return result.affectedRows;
   }
