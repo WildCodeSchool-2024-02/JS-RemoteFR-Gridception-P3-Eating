@@ -38,7 +38,7 @@ class UserRepository extends AbstractRepository {
   }
 
   async login(email, password) {
-    console.info("Registering user:", email, password);
+    
     const [rows] = await this.database.query(
       `SELECT * FROM ${this.table} WHERE email = ?`,
       [email]
@@ -60,7 +60,7 @@ class UserRepository extends AbstractRepository {
   }
 
   async register(user) {
-    console.info("Registering user:", user);
+    
 
     
     const roleId = user.role_id || 1; 
@@ -80,7 +80,7 @@ class UserRepository extends AbstractRepository {
         user.password,
       ]
     );
-    console.info("Inscription réussi:", result);
+    
     return result.insertId;
   }
 
