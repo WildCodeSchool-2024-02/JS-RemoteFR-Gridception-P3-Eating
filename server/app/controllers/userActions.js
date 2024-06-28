@@ -29,6 +29,28 @@ const add = async (req, res, next) => {
   }
 };
 
+const login = async (req, res, next) => {
+  try {
+    await tables.user.login(req.body.email, req.body.password);
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const register = async (req, res, next) => {
+  const user = req.body;
+  console.info("Received register request:", user);
+
+  try {
+    const insertId = await tables.user.register(user);
+    res.json({ insertId });
+  } catch (err) {
+    console.error("Error during registration:", err);
+    next(err);
+  }
+};
+
 const edit = async (req, res, next) => {
   const user = { ...req.body, id: req.params.id };
 
@@ -54,5 +76,7 @@ module.exports = {
   readOneById,
   add,
   edit,
+  login,
+  register,
   destroy,
 };
