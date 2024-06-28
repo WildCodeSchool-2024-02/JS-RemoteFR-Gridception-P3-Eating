@@ -17,7 +17,7 @@ function RecipesPage() {
         <input
           className="search-input"
           type="text"
-          placeholder="Rechercher une recette"
+          placeholder="RECHERCHER UNE RECETTE"
           onChange={handleSearchTerm}
         />
       </div>
@@ -37,6 +37,22 @@ function RecipesPage() {
                 />
               </Link>
               <h2>{recipe.title}</h2>
+              <div className="time-category-recepies">
+                <div className="category-recipes">
+                  <img
+                    src="../src/assets/images/vege.png"
+                    alt="catégorie de la recette"
+                  />
+                  <h3>{recipe.category_name}</h3>
+                </div>
+                <div className="time-recipes">
+                  <img
+                    src="../src/assets/images/clock.png"
+                    alt="temps de préparation"
+                  />
+                  <h3>{recipe.time} min</h3>
+                </div>
+              </div>
             </div>
           ))}
       </div>

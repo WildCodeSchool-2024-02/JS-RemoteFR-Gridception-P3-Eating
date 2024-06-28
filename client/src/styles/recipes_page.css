@@ -1,3 +1,7 @@
+.recipes-page {
+  text-transform: uppercase;
+}
+
 .search-bar {
   display: flex;
   align-items: center;
@@ -21,9 +25,9 @@
   align-items: center;
   text-align: center;
   font-size: 18px;
-  background-color: #16a34a;
+  background-color: #065f46;
   width: 20vw;
-  height: 35vh;
+  height: 45vh;
   margin: 3rem;
   border-radius: 0.75rem;
 }
@@ -41,9 +45,32 @@
   width: 15vw;
 }
 
-h2 {
+.card-recipes > h2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
   font-weight: bold;
+  color: white;
+}
+
+.time-category-recepies > div > h3 {
+  font-weight: bold;
+  color: white;
+}
+
+.time-category-recepies {
+  display: flex;
+  gap: 3rem;
+}
+
+.time-category-recepies > div > img {
+  width: 2vw;
+  height: 2hw;
+}
+
+.category-recipes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
