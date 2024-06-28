@@ -13,32 +13,21 @@ class FavoriteRepository extends AbstractRepository {
     return rows;
   }
 
-  async read() {
-    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
-    return rows;
-  }
-
-  async readByFavoriteId(id) {
+  async readOneById(id) {
     const [rows] = await this.database.query(
-      `
-      SELECT * FROM ${this.table} q 
-      INNER JOIN recipe r ON q.recipe_id = r.id
-      INNER JOIN user i ON q.user_id = i.id
-      WHERE r.id = ?
-      `,
+      `SELECT * FROM ${this.table} WHERE id = ?`,
       [id]
     );
-    return rows;
+    return rows[0];
   }
 
-  async add(favorite) {    
+  async add(favorite) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (recipe_id, user_id) VALUES (?, ?)`,
       [favorite.recipe_id, favorite.user_id]
     );
     return result.insertId;
   }
-
 
   async edit(id, updatedFavorite) {
     const query = `
@@ -48,10 +37,19 @@ class FavoriteRepository extends AbstractRepository {
     return result.affectedRows > 0;
   }
 
-  async destroy(userId) {
+  async destroyUser(userId) {
     const [result] = await this.database.query(
       `DELETE FROM ${this.table} WHERE user_id = ?`,
       [userId]
+    );
+
+    return result.affectedRows;
+  }
+
+  async destroyFavorite(id) {
+    const [result] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE id = ?`,
+      [id]
     );
 
     return result.affectedRows;

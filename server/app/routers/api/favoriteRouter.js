@@ -4,19 +4,18 @@ const router = express.Router();
 
 const {
   browse,
-  read,
+  readOneById,
   edit,
   add,
-  destroy,
-  readByFavoriteId
+  destroyFavorite,
+  destroyUser
 } = require("../../controllers/favoriteAction");
 
 router.get("/", browse);
-router.get("/:id", read);
-router.get("/favorite/:id", readByFavoriteId);
+router.get("/:id", readOneById);
 router.put("/:id", edit);
 router.post("/", add);
-router.delete("/users/:userId", destroy);
-
+router.delete("/users/:userId", destroyUser);
+router.delete("/:id", destroyFavorite);
 
 module.exports = router;
