@@ -30,6 +30,7 @@ class RecipeRepository extends AbstractRepository {
   }
 
   async add(recipe) {
+
     const { title, descriptionText, steps, time, image, categoryId } = recipe;
     const [result] = await this.database.query(
       `
@@ -37,11 +38,13 @@ class RecipeRepository extends AbstractRepository {
           VALUES (?, ?, ?, ?, ?)
           `,
       [title, descriptionText, steps, time, image, categoryId]
+
     );
     return result.insertId;
   }
 
   async edit(id, recipe) {
+
     const { title, descriptionText, steps, time, image, categoryId } = recipe;
     const [result] = await this.database.query(
       `
@@ -50,6 +53,7 @@ class RecipeRepository extends AbstractRepository {
           WHERE id = ?
           `,
       [title, descriptionText, steps, time, image, categoryId, id]
+
     );
     return result.affectedRows;
   }

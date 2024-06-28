@@ -16,11 +16,11 @@ export default function NavBar() {
           <li>
             <Link to="/CommentCaMarche"> Comment ça marche ? </Link>
           </li>
-          <li className="border border-green-800 p-3 rounded-xl">
-            <Link to="/"> S'enregister </Link>
+          <li className="border border-green-500 p-3 rounded-xl">
+            <Link to="/RegisterPage"> S'enregister </Link>
           </li>
-          <li className="bg-green-800 p-3 rounded-xl text-white">
-            <Link to="/"> Se connecter </Link>
+          <li className="bg-green-500 p-3 rounded-xl">
+            <Link to="/Login"> Se connecter </Link>
           </li>
         </ul>
       </div>
