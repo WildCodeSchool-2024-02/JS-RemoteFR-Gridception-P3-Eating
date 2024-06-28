@@ -13,9 +13,12 @@ class FavoriteRepository extends AbstractRepository {
     return rows;
   }
 
-  async read() {
-    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
-    return rows;
+  async readOneById(id) {
+    const [rows] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE id = ?`,
+      [id]
+    );
+    return rows[0];
   }
 
   async add(favorite) {
@@ -34,10 +37,19 @@ class FavoriteRepository extends AbstractRepository {
     return result.affectedRows > 0;
   }
 
-  async destroy(userId) {
+  async destroyUser(userId) {
     const [result] = await this.database.query(
       `DELETE FROM ${this.table} WHERE user_id = ?`,
       [userId]
+    );
+
+    return result.affectedRows;
+  }
+
+  async destroyFavorite(id) {
+    const [result] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE id = ?`,
+      [id]
     );
 
     return result.affectedRows;

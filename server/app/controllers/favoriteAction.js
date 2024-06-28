@@ -1,3 +1,4 @@
+
 const tables = require("../../database/tables");
 
 const browse = async (req, res, next) => {
@@ -9,12 +10,12 @@ const browse = async (req, res, next) => {
   }
 };
 
-const read = async (req, res, next) => {
+const readOneById = async (req, res, next) => {
   try {
-    const favorites = await tables.favorite.read();
-    res.json(favorites);
-  } catch (err) {
-    next(err);
+    const favorite = await tables.favorite.readOneById(req.params.id);
+    res.json(favorite);
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -44,9 +45,17 @@ const edit = async (req, res, next) => {
   }
 };
 
-const destroy = async (req, res, next) => {
+const destroyUser = async (req, res, next) => {
   try {
-    await tables.favorite.destroy(req.params.userId);
+    await tables.favorite.destroyUser(req.params.userId);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+};
+const destroyFavorite = async (req, res, next) => {
+  try {
+    await tables.favorite.destroyFavorite(req.params.id);
     res.sendStatus(204);
   } catch (err) {
     next(err);
@@ -54,4 +63,4 @@ const destroy = async (req, res, next) => {
 };
 
 
-module.exports = { browse, read, add, edit, destroy };
+module.exports = { browse, readOneById, add, edit, destroyUser, destroyFavorite };
