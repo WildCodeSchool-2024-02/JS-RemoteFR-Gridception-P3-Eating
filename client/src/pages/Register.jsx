@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import welcome from "../assets/images/welcome.png";
 import NavBar from "../components/NavBar";
 import "../styles/register.css";
@@ -9,9 +10,25 @@ export default function Register() {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3310/api/users/register",
+        {
+          firstname,
+          lastname,
+          email,
+          password,
+        }
+      );
+      setMessage(response.data.message);
+    } catch (error) {
+      setMessage(error.response);
+    }
   };
 
   return (
@@ -26,7 +43,7 @@ export default function Register() {
               <hr />
               <p className="deja-compte">
                 Si vous possédez déjà un compte merci de vous
-                <span className="button-connect">connecter ! </span>
+                <span className="button-connect"> connecter ! </span>
               </p>
               <div data-mdb-input-init className="form-group">
                 <input
@@ -83,6 +100,7 @@ export default function Register() {
               >
                 S'inscrire
               </button>
+              {message && <p>{message}</p>}
             </div>
           </div>
         </section>

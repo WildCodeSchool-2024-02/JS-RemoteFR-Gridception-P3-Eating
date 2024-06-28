@@ -26,7 +26,6 @@ function RecipePage() {
 
   return (
     <section className="min-h-screen bg-white flex flex-col md:flex-row">
-      
       <div className="md:w-2/3 p-4 flex flex-col items-center">
         <h1 className="text-3xl font-bold mb-4 text-center">{prep.title}</h1>
         <div
@@ -42,7 +41,6 @@ function RecipePage() {
         <div className="flex text-gray-600 mt-4">45 min</div>
       </div>
 
-      
       <div className="md:w-1/3 h-screen mr-6 ml-6 md:mr-64 md:ml-24 bg-gray-200 shadow-inner flex flex-col p-6">
         <h2 className="flex justify-center text-3xl font-semibold m-12 mb-18">
           Ingrédients

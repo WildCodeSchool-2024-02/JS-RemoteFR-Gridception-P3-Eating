@@ -1,23 +1,42 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import NavBar from "../components/NavBar";
 import graille from "../assets/images/graille.png";
-
 import "../styles/login.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const closeErrorModal = () => setShowErrorModal(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3310/api/users/login",
+        {
+          email,
+          password,
+        }
+      );
+      console.info(response.data);
+    } catch (error) {
+      setErrorMessage(error.response.data.error);
+      setShowErrorModal(true);
+    }
+  };
 
   return (
     <>
       <div>
         <div className="background">
           <NavBar />
-          <form method="post">
+          <form method="post" onSubmit={handleSubmit}>
             <section>
               <div className="card-center">
                 <img src={graille} alt="grailleimg" className="img-graille" />
@@ -25,8 +44,8 @@ export default function Login() {
                   <p className="bienvenue-texte">de retour ?</p>
                   <hr />
                   <p className="login-text">
-                    Entrez vos informations de{"  "}
-                    <span className="connexion-text"> connexion</span>
+                    Entrez vos informations de{" "}
+                    <span className="connexion-text">connexion</span>
                   </p>
                   <div data-mdb-input-init className="form-group">
                     <input
@@ -78,7 +97,7 @@ export default function Login() {
             <button type="button" className="close" onClick={closeErrorModal}>
               &times;
             </button>
-            <p>Échec de connexion ! Essayez à nouveau.</p>
+            <p>{errorMessage}</p>
           </div>
         </div>
       )}
