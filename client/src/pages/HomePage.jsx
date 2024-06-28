@@ -6,7 +6,6 @@ import { register } from "swiper/element-bundle";
 register();
 
 function HomePage() {
-
   console.info(useLoaderData());
   const dataRecipes = useLoaderData();
 
@@ -31,20 +30,10 @@ function HomePage() {
     return () => {
       window.removeEventListener("resize", setSlidesPerview);
     };
-
   }, [dataRecipes]);
 
   return (
     <section className="w-screen h-screen uppercase">
-      <div className="md:flex md:absolute items-center right-[32%]">
-        <label htmlFor="recipe-search" className="sr-only ">Rechercher une recette</label>
-        <input
-          id="recipe-search"
-          className="rounded-xl h-11 w-[27vw] bg-white border border-green-800 text-center text-black shadow-md"
-          type="text"
-          placeholder="Rechercher une recette"
-        />
-      </div>
       <div className="h-[60%] ml-[10%] mr-[10%] flex">
         <img
           src="../src/assets/images/plat.png"
@@ -56,9 +45,13 @@ function HomePage() {
         </div>
         <div className="flex flex-row absolute right-[22%] mt-6 items-center h-[50%] w-[30%]">
           <h1 className="z-20 text-[2.5rem] font-bold ">
-            Découvrez le goût authentique du partage avec nos plats sains et savoureux
+            Découvrez le goût authentique du partage avec nos plats sains et
+            savoureux
           </h1>
-          <button type="button" className="bg-green-800 text-white text-[13px] uppercase w-[7rem] absolute bottom-16 right-28 rounded-xl p-3 font-semibold cursor-pointer">
+          <button
+            type="button"
+            className="bg-green-800 text-white text-[13px] uppercase w-[7rem] absolute bottom-16 right-28 rounded-xl p-3 font-semibold cursor-pointer"
+          >
             <p> Créez votre recette</p>
           </button>
         </div>
@@ -89,7 +82,9 @@ function HomePage() {
                             alt="vege"
                             className="h-[40px] w-[40px]"
                           />
-                          <p className="font-semibold text-lg pt-1 text-white">{recipe.category_name}</p>
+                          <p className="font-semibold text-lg pt-1 text-white">
+                            {recipe.category_name}
+                          </p>
                         </div>
                         <div className="flex flex-col">
                           <img
@@ -97,7 +92,9 @@ function HomePage() {
                             alt="clock"
                             className="h-[40px] w-[40px]"
                           />
-                          <p className="font-semibold text-lg pt-1 text-white">{recipe.time} min</p>
+                          <p className="font-semibold text-lg pt-1 text-white">
+                            {recipe.time} min
+                          </p>
                         </div>
                       </div>
                       <h2 className="w-[80%] font-bold text-2xl pt-28 text-white">
@@ -106,8 +103,7 @@ function HomePage() {
                     </div>
                   </div>
                 </swiper-slide>
-              ))
-            }
+              ))}
           </swiper-container>
         </div>
       </div>
