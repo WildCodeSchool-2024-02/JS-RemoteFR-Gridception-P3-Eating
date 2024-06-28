@@ -1,38 +1,113 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
+
+function IngredientModal({ isOpen, onClose, onSave }) {
+    const [name, setName] = useState('');
+    const [calories, setCalories] = useState('');
+    const [quantity, setQuantity] = useState('');
+
+    const handleSave = () => {
+        onSave({ name, calories, quantity });
+        setName('');
+        setCalories('');
+        setQuantity('');
+    };
+
+    return (
+        isOpen && (
+            <div className="fixed inset-0 flex items-center justify-center z-50">
+                <div className="bg-white p-4 rounded shadow-lg max-w-sm w-full">
+                    <h2 className="text-xl font-semibold mb-4">Ajouter un nouvel ingrédient</h2>
+                    <div className="mb-4">
+                        <label htmlFor="ingredientName" className="block text-sm font-semibold text-gray-700">Nom</label>
+                        <input
+                            id="ingredientName"
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="mt-1 block w-full border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm"
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="ingredientCalories" className="block text-sm font-semibold text-gray-700">Calories</label>
+                        <input
+                            id="ingredientCalories"
+                            type="text"
+                            value={calories}
+                            onChange={(e) => setCalories(e.target.value)}
+                            className="mt-1 block w-full border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm"
+                        />
+                    </div>
+                    <div className="flex justify-end">
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="mr-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none"
+                        >
+                            Annuler
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleSave}
+                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-white bg-green-800 hover:bg-green-900 focus:outline-none"
+                        >
+                            Sauvegarder
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )
+    );
+}
+
+IngredientModal.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired
+};
 
 export default function CreateRecipePage() {
     const [recipes, setRecipes] = useState([]);
     const [ingredients, setIngredients] = useState([]);
-    const [newIngredient, setNewIngredient] = useState('');
+    // eslint-disable-next-line no-unused-vars
+    const [quantities, setQuantities] = useState({});
     const [formData, setFormData] = useState({
         title: '',
         description: '',
-        steps: '',
-        time: '',
         category: '',
+        time: '',
+        ingredients: [],
+        steps: '',
         image: '',
-        type: '',
-        ingredients: []
     });
     const [formError, setFormError] = useState(null);
     const [selectedIngredientsList, setSelectedIngredientsList] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const recipesResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/recipes`);
                 const ingredientsResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/ingredients`);
+                const quantitiesResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/quantities`);
 
-                if (!recipesResponse.ok || !ingredientsResponse.ok) {
+                if (!recipesResponse.ok || !ingredientsResponse.ok || !quantitiesResponse.ok) {
                     throw new Error('Failed to fetch data');
                 }
 
                 const recipesData = await recipesResponse.json();
                 const ingredientsData = await ingredientsResponse.json();
+                const quantitiesData = await quantitiesResponse.json();
 
                 setRecipes(recipesData);
                 setIngredients(ingredientsData);
+
+                const quantitiesMap = {};
+                quantitiesData.forEach(quantity => {
+                    quantitiesMap[quantity.ingredient_name] = quantity.quantity;
+                });
+                setQuantities(quantitiesMap);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -40,6 +115,7 @@ export default function CreateRecipePage() {
 
         fetchData();
     }, []);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -57,52 +133,40 @@ export default function CreateRecipePage() {
         });
     };
 
-    const handleNewIngredientChange = (e) => {
-        setNewIngredient(e.target.value);
-    };
-
-    const addNewIngredient = () => {
-        if (newIngredient.trim() !== '') {
-            // Check if the ingredient already exists
-            const existingIngredient = ingredients.find(ingredient => ingredient.name.toLowerCase() === newIngredient.trim().toLowerCase());
+    const addNewIngredient = (newIngredientObj) => {
+        if (newIngredientObj.name.trim() !== '') {
+            const existingIngredient = ingredients.find(ingredient => ingredient.name.toLowerCase() === newIngredientObj.name.trim().toLowerCase());
 
             if (!existingIngredient) {
-                // Add new ingredient to the list
-                const newIngredientObj = { id: Date.now(), name: newIngredient.trim() };
-                setIngredients(prevIngredients => [...prevIngredients, newIngredientObj]);
-                // Add new ingredient to formData
+                const newIngredientWithId = { id: Date.now(), ...newIngredientObj };
+                setIngredients(prevIngredients => [...prevIngredients, newIngredientWithId]);
                 setFormData(prevFormData => ({
                     ...prevFormData,
-                    ingredients: [...prevFormData.ingredients, newIngredientObj.name]
+                    ingredients: [...prevFormData.ingredients, newIngredientWithId.name]
                 }));
-                // Add new ingredient to selected ingredients list
-                setSelectedIngredientsList(prevList => [...prevList, newIngredientObj.name]);
+                setSelectedIngredientsList(prevList => [...prevList, newIngredientWithId.name]);
             } else {
-                // If ingredient already exists, just add to formData
                 setFormData(prevFormData => ({
                     ...prevFormData,
                     ingredients: [...prevFormData.ingredients, existingIngredient.name]
                 }));
-                // Add existing ingredient to selected ingredients list if not already added
                 if (!selectedIngredientsList.includes(existingIngredient.name)) {
                     setSelectedIngredientsList(prevList => [...prevList, existingIngredient.name]);
                 }
             }
 
-            // Clear the newIngredient input field
-            setNewIngredient('');
+            setIsModalOpen(false);
         }
     };
 
-
     const handleRemoveSelectedIngredient = (ingredientName) => {
-        // Remove from formData ingredients
+
         const updatedIngredients = formData.ingredients.filter(ingredient => ingredient !== ingredientName);
         setFormData({
             ...formData,
             ingredients: updatedIngredients
         });
-        // Remove from selected ingredients list
+
         setSelectedIngredientsList(prevList => prevList.filter(item => item !== ingredientName));
     };
 
@@ -112,23 +176,28 @@ export default function CreateRecipePage() {
         }
     };
 
+    const handleQuantityChange = (e, ingredientName) => {
+        const { value } = e.target;
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            quantity: {
+                ...prevFormData.quantity,
+                [ingredientName]: value
+            }
+        }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!formData.title || !formData.category || !formData.time || !formData.ingredients.length) {
-            setFormError('Please fill in all required fields.');
+            setFormError('Veuillez remplir tous les champs obligatoires.');
             return;
         }
         setFormError(null);
 
         try {
-            let url = `${import.meta.env.VITE_API_URL}/api/recipes`;
-            let method = 'POST';
-
-            // If formData has an id, it means we are updating an existing recipe
-            if (formData.id) {
-                url += `/${formData.id}`;
-                method = 'PUT';
-            }
+            const url = `${import.meta.env.VITE_API_URL}/api/recipes`;
+            const method = 'POST';
 
             const response = await fetch(url, {
                 method,
@@ -139,31 +208,28 @@ export default function CreateRecipePage() {
             });
 
             if (response.ok) {
-                const message = formData.id ? 'Recipe updated successfully!' : 'Recipe created successfully!';
                 // eslint-disable-next-line no-alert
-                alert(message);
+                alert('Recette créée avec succès!');
                 setFormData({
                     title: '',
                     description: '',
-                    steps: '',
-                    time: '',
                     category: '',
+                    time: '',
+                    ingredients: [],
+                    steps: '',
                     image: '',
-                    type: '',
-                    ingredients: []
                 });
                 setSelectedIngredientsList([]);
             } else {
-                const errorData = await response.json(); // Assuming backend sends JSON error details
-                console.error('Error:', errorData);
-                setFormError('Failed to save recipe. Please try again.');
+                const errorData = await response.json();
+                console.error('Erreur:', errorData);
+                setFormError('Échec de l\'enregistrement de la recette. Veuillez réessayer.');
             }
         } catch (error) {
-            console.error('Error:', error);
-            setFormError('Failed to save recipe. Please try again.');
+            console.error('Erreur:', error);
+            setFormError('Échec de l\'enregistrement de la recette. Veuillez réessayer.');
         }
     };
-
 
     return (
         <div className="max-w-4xl mx-auto p-4 pb-20">
@@ -189,7 +255,7 @@ export default function CreateRecipePage() {
                         name="description"
                         value={formData.description}
                         onChange={handleChange}
-                        className="mt-1 block w-full h-[10rem] border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm"
+                        className="mt-1 block w-full h-[8rem] border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm"
                     />
                 </div>
                 <div>
@@ -208,8 +274,7 @@ export default function CreateRecipePage() {
                                 <option key={recipe.id} value={recipe.category_name}>{recipe.category_name}</option>
                             ))}
                         </select>
-                    )
-                    }
+                    )}
                 </div>
                 <div>
                     <label htmlFor="time" className="block text-sm font-semibold text-gray-700">Temps de préparation</label>
@@ -226,64 +291,85 @@ export default function CreateRecipePage() {
                 <div>
                     <label htmlFor="ingredients" className="block text-sm font-semibold text-gray-700">Ingrédients</label>
                     <div className="flex items-center">
-                        {ingredients.length > 0 && (
-                            <select
-                                id="ingredients"
-                                name="ingredients"
-                                multiple
-                                value={formData.ingredients}
-                                onChange={handleIngredientChange}
-                                className="mt-1 block w-full h-[10rem] border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm mr-2"
-                                required
-                            >
-                                {ingredients.map(ingredient => (
-                                    <option
-                                        key={ingredient.id}
-                                        value={ingredient.name}
-                                        onDoubleClick={() => handleDoubleClickIngredient(ingredient.name)}
-                                    >
-                                        {ingredient.name}
-                                    </option>
-                                ))}
-                            </select>
-                        )}
+                        <ul className="divide-y divide-gray-200 w-full ">
+                            {ingredients.length > 0 && (
+                                <select
+                                    id="ingredients"
+                                    name="ingredients"
+                                    multiple
+                                    value={formData.ingredients}
+                                    onChange={handleIngredientChange}
+                                    className=" mt-1 block w-full h-[10rem] border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm mr-2"
+                                    required
+                                >
+                                    {ingredients.map(ingredient => (
+                                        <option
+                                            key={ingredient.id}
+                                            value={ingredient.name}
+                                            onDoubleClick={() => handleDoubleClickIngredient(ingredient.name)}
+                                            className='h-7 flex justify-between items-center space-x-2'
+                                        >
+                                            <p>{ingredient.name}</p>
+                                            <p>({ingredient.calories || 'N/A'} kcal / unit)</p>
+                                        </option>
+                                    ))}
+                                </select>
+                            )}
+                        </ul>
                     </div>
                     <label htmlFor="selectedIngredients" className="block text-sm font-semibold text-gray-700 mt-4">Ingrédients sélectionnés</label>
                     <div className="mt-2 h-[10rem] border border-gray-300 rounded-xl text-sm p-1 overflow-y-auto">
                         {selectedIngredientsList.length === 0 ? (
                             <p>Aucun ingrédient sélectionné pour le moment.</p>
                         ) : (
-                            <ul className="divide-y divide-gray-200">
+                            <ul className="divide-y divide-gray-200 w-full">
                                 {selectedIngredientsList.map((ingredient) => (
-                                    <li key={ingredient.id} className="flex justify-between py-1">
-                                        <span>{ingredient}</span>
+                                    <li key={ingredient.id} className="flex py-1">
+                                        <div className="flex w-full items-center justify-between">
+                                            <div className="w-[30%]">{ingredient}</div>
+                                            <span className="w-20">{ingredient.calories} kcal/unit</span>
+                                            <div className="flex items-center">
 
-                                        <button
-                                            type="button"
-                                            className="text-red-600 ml-2"
-                                            onClick={() => handleRemoveSelectedIngredient(ingredient)}
-                                        >
-                                            Retirer
-                                        </button>
+                                                <div className="flex items-center">
+                                                    <label htmlFor={`quantity_${ingredient}`} className="ml-4 mr-2">
+                                                        Quantité:
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        id={`quantity_${ingredient}`}
+                                                        name={`quantity_${ingredient}`}
+                                                        value={
+                                                            formData.quantity && formData.quantity[ingredient]
+                                                                ? formData.quantity[ingredient]
+                                                                : ''
+                                                        }
+                                                        onChange={(e) => handleQuantityChange(e, ingredient)}
+                                                        className="border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm w-20 mr-1"
+                                                    />
+                                                    <span>gr</span>
+                                                </div>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                className="text-red-600 ml-2"
+                                                onClick={() => handleRemoveSelectedIngredient(ingredient)}
+                                            >
+                                                Retirer
+                                            </button>
+                                        </div>
                                     </li>
                                 ))}
                             </ul>
+
                         )}
                     </div>
                     <div className="mt-2 flex items-center">
-                        <input
-                            type="text"
-                            value={newIngredient}
-                            onChange={handleNewIngredientChange}
-                            placeholder="Ajouter un nouvel ingrédient"
-                            className="mt-1 block w-full border text-black border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm"
-                        />
                         <button
                             type="button"
-                            onClick={addNewIngredient}
-                            className="ml-2 inline-flex items-center px-2 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-white bg-green-800 hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-800"
+                            onClick={() => setIsModalOpen(true)}
+                            className="inline-flex items-center px-2 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-white bg-green-800 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-800"
                         >
-                            Ajouter
+                            Ajouter un ingrédient
                         </button>
                     </div>
                 </div>
@@ -311,12 +397,17 @@ export default function CreateRecipePage() {
                 <div>
                     <button
                         type="submit"
-                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-white bg-green-800 hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-800"
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-white bg-green-800 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-800"
                     >
                         Créer la recette
                     </button>
                 </div>
             </form>
+            <IngredientModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSave={addNewIngredient}
+            />
         </div>
     );
 }
