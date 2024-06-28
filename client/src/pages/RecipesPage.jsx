@@ -1,7 +1,7 @@
 import { useLoaderData, Link } from "react-router-dom";
 import { useState } from "react";
 
-import "../styles/RecipesPage.css";
+import "../styles/recipes_page.css";
 
 function RecipesPage() {
   const dataRecipes = useLoaderData();
