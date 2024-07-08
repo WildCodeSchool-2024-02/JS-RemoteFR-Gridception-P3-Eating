@@ -6,7 +6,7 @@ import "./index.css";
 import App from "./App";
 import HomePage from "./pages/HomePage";
 import RecipePage from "./pages/RecipePage";
-import CommentCaMarche from "./pages/CommentCaMarche";
+import UserGuide from "./pages/UserGuide";
 import RecipesPage from "./pages/RecipesPage";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       },
       {
         element: <RecipePage />,
-        path: "/RecipePage/:id",
+        path: "/recettes/:id",
         loader: async ({ params }) => {
           const { id } = params;
 
@@ -49,23 +49,23 @@ const router = createBrowserRouter([
         },
       },
       {
-        element: <CommentCaMarche />,
-        path: "/CommentCaMarche",
+        element: <UserGuide />,
+        path: "/étapes",
       },
       {
         element: <RecipesPage />,
-        path: "/RecipesPage",
+        path: "/recettes",
         loader: recipesLoader,
       },
     ],
   },
   {
     element: <Login />,
-    path: "/Login",
+    path: "/se-connecter",
   },
   {
     element: <Register />,
-    path: "/RegisterPage",
+    path: "/s-enregistrer",
   },
 ]);
 

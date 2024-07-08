@@ -6,21 +6,21 @@ export default function NavBar() {
     <nav className="h-28 uppercase">
       <div className=" flex">
         <img className="h-28 pl-20 pt-2" src={Logo} alt="logo_site" />
-        <ul className="w-screen flex flex-end justify-center space-x-12 ml-[20%] text-s font-bold flex-row items-center ">
+        <ul className="w-screen flex flex-end justify-center space-x-12 ml-[20%] text-s font-bold flex-row items-center">
           <li className="green">
             <Link to="/">Accueil</Link>
           </li>
           <li>
-            <Link to="/RecipesPage">Recettes</Link>
+            <Link to="/recettes">Recettes</Link>
           </li>
           <li>
-            <Link to="/CommentCaMarche"> Comment ça marche ? </Link>
+            <Link to="/étapes"> Comment ça marche ? </Link>
           </li>
           <li className="border border-green-500 p-3 rounded-xl">
-            <Link to="/RegisterPage"> S'enregister </Link>
+            <Link to="/s-enregistrer"> S'enregister </Link>
           </li>
           <li className="bg-green-500 p-3 rounded-xl">
-            <Link to="/Login"> Se connecter </Link>
+            <Link to="/se-connecter"> Se connecter </Link>
           </li>
         </ul>
       </div>
