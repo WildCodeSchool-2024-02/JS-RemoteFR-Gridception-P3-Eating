@@ -27,19 +27,6 @@ function UserGuide() {
             <p className="p-userguide">Je trouve la recette de mes rêves</p>
             <img className="img1-userguide" src={deco1} alt="deco1" />
           </div>
-          <div className="two-userguide">
-            <img
-              className="two-green-userguide"
-              src={twoGreen}
-              alt="twoGreen"
-            />
-            <h2 className="h2-userguide">UN CLIC</h2>
-            <p className="p-userguide">Je me connecte avec mon compte</p>
-            <img className="img2-ccm" src={deco2} alt="deco2" />
-          </div>
-        </section>
-
-        <section className="column2-userguide">
           <div className="three-userguide">
             <img
               className="three-green-userguide"
@@ -52,6 +39,20 @@ function UserGuide() {
             </p>
             <img className="img3-userguide" src={deco3} alt="deco3" />
           </div>
+        </section>
+
+        <section className="column2-userguide">
+          <div className="two-userguide">
+            <img
+              className="two-green-userguide"
+              src={twoGreen}
+              alt="twoGreen"
+            />
+            <h2 className="h2-userguide">UN CLIC</h2>
+            <p className="p-userguide">Je me connecte avec mon compte</p>
+            <img className="img2-ccm" src={deco2} alt="deco2" />
+          </div>
+
           <div className="four-userguide">
             <img
               className="four-green-userguide"
@@ -65,7 +66,7 @@ function UserGuide() {
         </section>
       </div>
       <div className="container-button-userguide">
-        <Link className="button-userguide" to="/RecipePage">
+        <Link className="button-userguide" to="/recettes">
           Recettes
         </Link>
       </div>

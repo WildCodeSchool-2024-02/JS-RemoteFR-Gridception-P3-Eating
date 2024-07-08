@@ -9,6 +9,7 @@ import RecipePage from "./pages/RecipePage";
 import UserGuide from "./pages/UserGuide";
 import RecipesPage from "./pages/RecipesPage";
 import Register from "./pages/Register";
+import CreateRecipe from "./pages/CreateRecipe";
 import Login from "./pages/Login";
 
 /* eslint-disable-next-line prefer-destructuring */
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
         element: <RecipesPage />,
         path: "/recettes",
         loader: recipesLoader,
+      },
+      {
+        element: <CreateRecipe />,
+        path: "/CreerUneRecette",
       },
     ],
   },
