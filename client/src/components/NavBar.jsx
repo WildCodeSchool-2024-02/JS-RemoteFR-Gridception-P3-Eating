@@ -16,10 +16,10 @@ export default function NavBar() {
           <li>
             <Link to="/étapes"> Comment ça marche ? </Link>
           </li>
-          <li className="border border-green-500 p-3 rounded-xl">
+          <li className="border border-green-800 p-3 rounded-xl">
             <Link to="/s-enregistrer"> S'enregister </Link>
           </li>
-          <li className="bg-green-500 p-3 rounded-xl">
+          <li className="bg-green-800 p-3 rounded-xl text-white">
             <Link to="/se-connecter"> Se connecter </Link>
           </li>
         </ul>

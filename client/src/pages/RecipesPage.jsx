@@ -29,7 +29,7 @@ function RecipesPage() {
           )
           .map((recipe) => (
             <div className="card-recipes" key={recipe.id}>
-              <Link key={recipe.id} to={`/RecipePage/${recipe.id}`}>
+              <Link key={recipe.id} to={`/recettes/${recipe.id}`}>
                 <img
                   className="image-slider-recipies"
                   src={recipe.image}

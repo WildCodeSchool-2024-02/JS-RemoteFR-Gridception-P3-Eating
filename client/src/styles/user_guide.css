@@ -10,7 +10,7 @@
   margin-top: 8rem;
 }
 .h2-userguide {
-  color: green;
+  color: #065f46;
   font-size: 2rem;
 }
 .p-userguide {
@@ -42,7 +42,7 @@
   justify-content: center;
 }
 .button-userguide {
-  background-color: #4a8e4d;
+  background-color: #065f46;
   width: 22rem;
   height: 5rem;
   border-radius: 8px;
