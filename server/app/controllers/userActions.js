@@ -1,3 +1,4 @@
+const argon2 = require("argon2");
 const tables = require("../../database/tables");
 
 const browse = async (req, res, next) => {
@@ -30,11 +31,25 @@ const add = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
+  const { email, password } = req.body;
   try {
-    await tables.user.login(req.body.email, req.body.password);
-    res.sendStatus(200);
-  } catch (error) {
-    next(error);
+    const user = await tables.user.findOneByEmail(email);
+
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    const passwordMatch = await argon2.verify(user.password, password);
+
+    if (!passwordMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    return res.json({
+      user: { id: user.id, userName: user.username, role: user.role },
+    });
+  } catch (err) {
+    return next(err);
   }
 };
 

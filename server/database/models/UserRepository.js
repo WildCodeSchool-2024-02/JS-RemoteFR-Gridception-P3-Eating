@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const AbstractRepository = require("./AbstractRepository");
 
-
 class UserRepository extends AbstractRepository {
   constructor() {
     super({ table: "user" });
@@ -37,35 +36,24 @@ class UserRepository extends AbstractRepository {
     return result.insertId;
   }
 
-  async login(email, password) {
-    
+  async findOneByEmail(email) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE email = ?`,
+      `
+      SELECT *
+      FROM ${this.table} u
+      JOIN role r
+      ON u.role_id = r.id
+      WHERE email = ?`,
       [email]
     );
 
-    if (rows.length === 0) {
-      throw new Error("Utilisateur non trouvé");
-    }
-
-    const user = rows[0];
-    const isPasswordValid= await bcrypt.compare(password, user.password)
-    
-    if (!isPasswordValid) {
-      throw new Error("Mot de passe incorrect");
-    }
-
-    console.info("connecté avec succès:");
-    return user;
+    return rows[0];
   }
 
   async register(user) {
-    
+    const roleId = user.role_id || 1;
 
-    
-    const roleId = user.role_id || 1; 
-
-    const hashedPassword = await bcrypt.hash(user.password, 10)
+    const hashedPassword = await bcrypt.hash(user.password, 10);
 
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (firstname, lastname, username, email, role_id, password)
@@ -75,15 +63,14 @@ class UserRepository extends AbstractRepository {
         user.lastname,
         user.username,
         user.email,
-        roleId, 
+        roleId,
         hashedPassword,
         user.password,
       ]
     );
-    
+
     return result.insertId;
   }
-
 
   async edit(user) {
     const [result] = await this.database.query(
