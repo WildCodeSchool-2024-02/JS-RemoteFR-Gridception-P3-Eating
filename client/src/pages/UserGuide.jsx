@@ -50,7 +50,7 @@ function UserGuide() {
             />
             <h2 className="h2-userguide">UN CLIC</h2>
             <p className="p-userguide">Je me connecte avec mon compte</p>
-            <img className="img2-ccm" src={deco2} alt="deco2" />
+            <img className="img2-userguide" src={deco2} alt="deco2" />
           </div>
 
           <div className="four-userguide">
