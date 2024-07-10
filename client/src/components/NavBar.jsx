@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 import Logo from "../assets/images/logo.png";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -26,17 +25,25 @@ export default function NavBar() {
             <Link to="/étapes"> Comment ça marche ? </Link>
           </li>
 
-          <li>
-            <Link to={`/privé/profil/${auth.userName}`}>Profil</Link>
-          </li>
+          {auth ? (
+            <>
+              <li>
+                <Link to={`/privé/profil/${auth.userName}`}>Profil</Link>
+              </li>
 
-          <li>
-            <Link to="/privé/recettes/creation">Création de recette</Link>
-          </li>
+              <li>
+                <Link to="/privé/recettes/creation">Création de recette</Link>
+              </li>
 
-          <li>
-            <Link to="/admin">Admin</Link>
-          </li>
+              <li>
+                <Link to="/admin">Admin</Link>
+              </li>
+            </>
+          ) : (
+            <li>
+              <Link to="/se-connecter"> Se connecter </Link>
+            </li>
+          )}
 
           <li className="border border-green-800 p-3 rounded-xl">
             <Link to="/s-enregistrer"> S'enregister </Link>
