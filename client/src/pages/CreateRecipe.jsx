@@ -56,21 +56,68 @@ export default function CreateRecipePage() {
   };
 
   const handleIngredientChange = (e) => {
-    const selectedIngredients = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
+    const updateIngredients = formData.ingredients;
+
+    const [selectedIngredient] = ingredients.filter(
+      (ingredient) => ingredient.name === e.target.value
     );
+
+    updateIngredients.push({ ...selectedIngredient, quantity: "" });
+
     setFormData({
       ...formData,
-      ingredients: selectedIngredients,
+      ingredients: updateIngredients,
     });
+  };
+
+  const handleQuantityChange = (id, quantity) => {
+    const newIngredients = formData.ingredients.map((ingredient) =>
+      ingredient.id === id ? { ...ingredient, quantity } : ingredient
+    );
+
+    setFormData({ ...formData, ingredients: newIngredients });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const newFormData = formData;
+
+    const [currentCategory] = categories.filter(
+      (category) => category.name === formData.name
+    );
+
+    newFormData.categoryId = currentCategory.id;
+
     try {
-      axios.post(`${import.meta.env.VITE_API_URL}/api/recipes`);
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/recipes`,
+        newFormData
+      );
+
+      await formData.ingredients.forEach((ingredient) => {
+        axios.post(`${import.meta.env.VITE_API_URL}/api/quantities`, {
+          ...ingredient,
+          recipe_id: data.recipe,
+        });
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSaveNewIngredient = async (ingredientInfo) => {
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/ingredients`,
+        { ingredientInfo }
+      );
+
+      const currentIngredients = ingredients;
+
+      currentIngredients.push(data);
+
+      setIngredients(currentIngredients);
     } catch (error) {
       console.error(error);
     }
@@ -81,7 +128,7 @@ export default function CreateRecipePage() {
       <h1 className="text-2xl font-bold mb-4">
         Création d'une nouvelle recette
       </h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form className="space-y-4">
         <div>
           <label
             htmlFor="title"
@@ -194,6 +241,21 @@ export default function CreateRecipePage() {
             className="block text-xl font-semibold text-gray-700 mt-6 pb-2"
           >
             Ingrédients sélectionnés
+            <p>
+              {formData.ingredients.map((ingredient) => (
+                <span key={ingredient.id}>
+                  {ingredient.name}
+                  <input
+                    type="text"
+                    min="0"
+                    value={ingredient.quantity}
+                    onChange={(e) =>
+                      handleQuantityChange(ingredient.id, e.target.value)
+                    }
+                  />
+                </span>
+              ))}
+            </p>
           </label>
           <div className="mt-2 flex items-center">
             <button
@@ -240,6 +302,7 @@ export default function CreateRecipePage() {
           <button
             type="submit"
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-white bg-green-800 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-800"
+            onClick={handleSubmit}
           >
             Créer la recette
           </button>
@@ -249,6 +312,7 @@ export default function CreateRecipePage() {
       <ModalRecipeCreation
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onSave={(ingredientInfo) => handleSaveNewIngredient(ingredientInfo)}
       />
     </div>
   );

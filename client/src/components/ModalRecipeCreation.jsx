@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 function ModalRecipeCreation({ isOpen, onClose, onSave }) {
   const [name, setName] = useState("");
   const [calories, setCalories] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [setQuantity] = useState("");
 
   const handleSave = () => {
-    onSave({ name, calories, quantity });
+    onSave({ name, calories });
     setName("");
     setCalories("");
     setQuantity("");

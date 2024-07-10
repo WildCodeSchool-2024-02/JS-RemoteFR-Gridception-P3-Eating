@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import welcome from "../assets/images/welcome.png";
-import NavBar from "../components/NavBar";
 import "../styles/register.css";
 import ble from "../assets/images/ble.png";
 
@@ -33,7 +32,6 @@ export default function Register() {
 
   return (
     <div className="background">
-      <NavBar />
       <form method="post" onSubmit={handleSubmit}>
         <section>
           <div className="card-center">

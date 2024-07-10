@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import NavBar from "../components/NavBar";
 import graille from "../assets/images/graille.png";
 import "../styles/login.css";
 import { useAuth } from "../contexts/AuthContext";
@@ -43,7 +42,6 @@ export default function Login() {
     <>
       <div>
         <div className="background">
-          <NavBar />
           <form method="post" onSubmit={handleSubmit}>
             <section>
               <div className="card-center">

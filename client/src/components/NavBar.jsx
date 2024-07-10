@@ -3,7 +3,7 @@ import Logo from "../assets/images/logo.png";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function NavBar() {
-  const { auth } = useAuth();
+  const { auth, logout } = useAuth();
 
   return (
     <nav className="h-28 uppercase">
@@ -38,20 +38,24 @@ export default function NavBar() {
               <li>
                 <Link to="/admin">Admin</Link>
               </li>
+
+              <li>
+                <button type="button" onClick={logout}>
+                  Se déconnecter
+                </button>
+              </li>
             </>
           ) : (
-            <li>
-              <Link to="/se-connecter"> Se connecter </Link>
-            </li>
+            <>
+              <li className="bg-green-800 p-3 rounded-xl text-white">
+                <Link to="/se-connecter"> Se connecter </Link>
+              </li>
+
+              <li className="border border-green-800 p-3 rounded-xl">
+                <Link to="/s-enregistrer"> S'enregister </Link>
+              </li>
+            </>
           )}
-
-          <li className="border border-green-800 p-3 rounded-xl">
-            <Link to="/s-enregistrer"> S'enregister </Link>
-          </li>
-
-          <li className="bg-green-800 p-3 rounded-xl text-white">
-            <Link to="/se-connecter"> Se connecter </Link>
-          </li>
         </ul>
       </div>
     </nav>
