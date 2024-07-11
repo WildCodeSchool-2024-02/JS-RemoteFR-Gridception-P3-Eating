@@ -62,7 +62,7 @@ CREATE TABLE `favorite` (
     `recipe_id` INT UNSIGNED NOT NULL,
     `user_id` INT UNSIGNED NOT NULL,
     FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 );
 
 -- Création de la table `quantity`

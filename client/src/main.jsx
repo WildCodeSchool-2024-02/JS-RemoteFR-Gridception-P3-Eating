@@ -16,7 +16,6 @@ import RecipesPage from "./pages/RecipesPage";
 import Register from "./pages/Register";
 import CreateRecipe from "./pages/CreateRecipe";
 import UserManagement from "./pages/UserManagement";
-import UserInformation from "./pages/UserInformation";
 import Login from "./pages/Login";
 
 import { AuthProvider } from "./contexts/AuthContext";
@@ -88,10 +87,6 @@ const router = createBrowserRouter([
         element: <AuthUserVerification />,
         children: [
           {
-            element: <Profile />,
-            path: "profil/:username",
-          },
-          {
             element: <CreateRecipe />,
             path: "recettes/creation",
           },
@@ -113,7 +108,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/admin/utilisateur/:id",
-            element: <UserInformation />,
+            element: <Profile />,
             loader: async ({ params }) => {
               const response = await axios.get(
                 `${import.meta.env.VITE_API_URL}/api/users/${params.id}`

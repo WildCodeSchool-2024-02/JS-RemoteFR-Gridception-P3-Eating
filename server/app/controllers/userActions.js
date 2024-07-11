@@ -1,6 +1,13 @@
 const argon2 = require("argon2");
 const tables = require("../../database/tables");
 
+const hashingOptions = {
+  type: argon2.argon2id,
+  memoryCost: 19 * 2 ** 10,
+  timeCost: 2,
+  parallelism: 1,
+};
+
 const browse = async (req, res, next) => {
   try {
     const users = await tables.user.browse();
@@ -16,17 +23,6 @@ const readOneById = async (req, res, next) => {
     res.json(user);
   } catch (error) {
     next(error);
-  }
-};
-
-const add = async (req, res, next) => {
-  const user = req.body;
-
-  try {
-    const insertId = await tables.user.add(user);
-    res.json({ insertId });
-  } catch (err) {
-    next(err);
   }
 };
 
@@ -55,7 +51,10 @@ const login = async (req, res, next) => {
 
 const register = async (req, res, next) => {
   const user = req.body;
-  console.info("Received register request:", user);
+
+  const hashedPassword = await argon2.hash(user.password, hashingOptions);
+
+  user.password = hashedPassword;
 
   try {
     const insertId = await tables.user.register(user);
@@ -96,7 +95,6 @@ const destroy = async (req, res, next) => {
 module.exports = {
   browse,
   readOneById,
-  add,
   edit,
   login,
   register,
