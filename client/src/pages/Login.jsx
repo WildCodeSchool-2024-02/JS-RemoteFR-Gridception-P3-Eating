@@ -85,7 +85,7 @@ export default function Login() {
                   </button>
                   <p className="login-text">
                     Vous n'avez pas encore de compte ?
-                    <Link to="/register">
+                    <Link to="/s-enregistrer">
                       <span className="button-inscrire">S'inscrire</span>
                     </Link>
                   </p>
