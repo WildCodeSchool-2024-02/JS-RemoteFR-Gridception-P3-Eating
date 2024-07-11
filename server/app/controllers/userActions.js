@@ -1,13 +1,6 @@
 const argon2 = require("argon2");
 const tables = require("../../database/tables");
 
-const hashingOptions = {
-  type: argon2.argon2id,
-  memoryCost: 19 * 2 ** 10,
-  timeCost: 2,
-  parallelism: 1,
-};
-
 const browse = async (req, res, next) => {
   try {
     const users = await tables.user.browse();
@@ -62,10 +55,7 @@ const login = async (req, res, next) => {
 
 const register = async (req, res, next) => {
   const user = req.body;
-
-  const hashedPassword = await argon2.hash(user.password, hashingOptions);
-
-  user.password = hashedPassword;
+  console.info("Received register request:", user);
 
   try {
     const insertId = await tables.user.register(user);
@@ -77,22 +67,29 @@ const register = async (req, res, next) => {
 };
 
 const edit = async (req, res, next) => {
-  const user = { ...req.body, id: req.params.id };
-
   try {
-    await tables.user.edit(user);
-    res.sendStatus(204);
-  } catch (err) {
-    next(err);
+    const affectedRows = await tables.user.edit(req.params.id, req.body);
+    if (affectedRows > 0) {
+      res.json({ message: "User updated successfully" });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    next(error);
   }
 };
 
 const destroy = async (req, res, next) => {
+  const { id } = req.params;
   try {
-    await tables.user.destroy(req.params.id);
-    res.sendStatus(204);
-  } catch (err) {
-    next(err);
+    const success = await tables.user.destroy(id);
+    if (success) {
+      res.json({ message: "User deleted successfully" });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    next(error);
   }
 };
 

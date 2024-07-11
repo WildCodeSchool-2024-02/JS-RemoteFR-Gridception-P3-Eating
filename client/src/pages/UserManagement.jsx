@@ -7,6 +7,7 @@ function UserManagement() {
   const [editUserData, setEditUserData] = useState({
     firstname: "",
     lastname: "",
+    username: "",
     email: "",
     password: "",
   });
@@ -16,6 +17,7 @@ function UserManagement() {
     setEditUserData({
       firstname: user.firstname,
       lastname: user.lastname,
+      username: user.username,
       email: user.email,
       password: user.password,
     });
@@ -49,7 +51,6 @@ function UserManagement() {
       setEditUserData();
       setEditUserId(null);
 
-      // Reload the page after successful update
       window.location.reload();
     } catch (error) {
       console.error("Error updating user:", error);
@@ -85,7 +86,7 @@ function UserManagement() {
           {users.map((user) => (
             <div
               key={user.id}
-              className="bg-white border-2 border-[#96333e] rounded-lg shadow-md p-6 transition-transform transform hover:-translate-y-2"
+              className="bg-white border-2 border-green-800 rounded-lg shadow-md p-6 transition-transform transform hover:-translate-y-2"
             >
               {editUserId === user.id ? (
                 <div>
@@ -95,7 +96,7 @@ function UserManagement() {
                     value={editUserData.firstname}
                     onChange={handleInputChange}
                     className="border p-2 w-full mb-2 rounded-md"
-                    placeholder="First Name"
+                    placeholder="Prénom"
                   />
                   <input
                     type="text"
@@ -103,7 +104,15 @@ function UserManagement() {
                     value={editUserData.lastname}
                     onChange={handleInputChange}
                     className="border p-2 w-full mb-2 rounded-md"
-                    placeholder="Last Name"
+                    placeholder="Nom"
+                  />
+                  <input
+                    type="text"
+                    name="username"
+                    value={editUserData.username}
+                    onChange={handleInputChange}
+                    className="border p-2 w-full mb-2 rounded-md"
+                    placeholder="Pseudo"
                   />
                   <input
                     type="email"
@@ -119,12 +128,12 @@ function UserManagement() {
                     value={editUserData.password}
                     onChange={handleInputChange}
                     className="border p-2 w-full mb-2 rounded-md text-gray-300"
-                    placeholder="Password"
+                    placeholder="Mot de passe"
                   />
                   <div className="flex justify-end mt-4">
                     <button
                       type="button"
-                      className="bg-red-400 text-white py-1 px-3 rounded-md hover:bg-red-600 hover:text-white mr-2"
+                      className="bg-green-800 text-white py-1 px-3 rounded-md hover:bg-green-800 hover:text-white mr-2"
                       onClick={() => handleEditSubmit(user)}
                     >
                       Enregistrer
@@ -147,15 +156,12 @@ function UserManagement() {
                     <strong>Email:</strong> {user.email}
                   </p>
                   <p className="text-black] mb-1">
-                    <strong>Role:</strong> {user.r_name}
-                  </p>
-                  <p className="text-black mb-1">
-                    <strong>Service:</strong> {user.s_name}
+                    <strong>Pseudo:</strong> {user.username}
                   </p>
                   <div className="flex justify-end mt-4">
                     <button
                       type="button"
-                      className="bg-red-400 text-white py-1 px-3 rounded-md hover:bg-red-600 hover:text-white mr-2"
+                      className="bg-green-800 text-white py-1 px-3 rounded-md hover:bg-green-800 hover:text-white mr-2"
                       onClick={() => handleEditClick(user)}
                     >
                       Editer

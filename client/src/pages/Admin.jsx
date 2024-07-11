@@ -4,11 +4,8 @@ export default function Admin() {
   const user = useLoaderData();
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden w-full max-w-md">
+      <div className="bg-white shadow-lg rounded-lg overflow-hidden w-full max-w-md -mt-40">
         <div className="px-6 py-8">
-          <h1 className="text-2xl font-bold text-center mt-4 mb-2">
-            {user.firstname} {user.lastname}
-          </h1>
           <div className="flex flex-col gap-4">
             <Link to={`/admin/utilisateur/${user.id}`} className="admin-link">
               <div className="flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-gray-200 w-full transition duration-300">
@@ -59,7 +56,7 @@ export default function Admin() {
         <div className="flex justify-center py-4">
           <button
             type="submit"
-            className="mt-6 bg-red-400 text-white py-3 px-4 rounded-md hover:bg-red-600 transition duration-300"
+            className="mt-6 bg-green-800 text-white py-3 px-4 rounded-md hover:bg-red-600 transition duration-300"
           >
             Se déconnecter
           </button>

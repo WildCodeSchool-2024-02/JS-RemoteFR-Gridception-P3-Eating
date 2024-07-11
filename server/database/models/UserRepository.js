@@ -68,18 +68,17 @@ class UserRepository extends AbstractRepository {
     return result.insertId;
   }
 
-  async edit(user) {
+  async edit(id, user) {
     const [result] = await this.database.query(
-      `update ${this.table} set firstname = ?, lastname = ?, username = ?, email = ?, role_id = ?, password = ? 
+      `update ${this.table} set firstname = ?, lastname = ?, username = ?, email = ?, password = ? 
       where id = ?`,
       [
         user.firstname,
         user.lastname,
         user.username,
         user.email,
-        user.role_id,
         user.password,
-        user.id,
+        id,
       ]
     );
     return result.affectedRows;
