@@ -1,6 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  redirect,
+} from "react-router-dom";
+import axios from "axios";
 
 import App from "./App";
 
@@ -10,6 +15,8 @@ import UserGuide from "./pages/UserGuide";
 import RecipesPage from "./pages/RecipesPage";
 import Register from "./pages/Register";
 import CreateRecipe from "./pages/CreateRecipe";
+import UserManagement from "./pages/UserManagement";
+import UserInformation from "./pages/UserInformation";
 import Login from "./pages/Login";
 
 import { AuthProvider } from "./contexts/AuthContext";
@@ -97,6 +104,62 @@ const router = createBrowserRouter([
           {
             path: "",
             element: <Admin />,
+            loader: async ({ params }) => {
+              const response = await axios.get(
+                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+              );
+              return response.data;
+            },
+          },
+          {
+            path: "/admin/utilisateur/:id",
+            element: <UserInformation />,
+            loader: async ({ params }) => {
+              const response = await axios.get(
+                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+              );
+              return response.data;
+            },
+            action: async ({ request, params }) => {
+              const formData = await request.formData();
+              console.info(request.method);
+              switch (request.method.toLowerCase()) {
+                case "put": {
+                  await axios.put(
+                    `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
+                    {
+                      firstname: formData.get("firstname"),
+                      lastname: formData.get("lastname"),
+                      username: formData.get("username"),
+                      email: formData.get("email"),
+                      password: formData.get("password"),
+                    }
+                  );
+
+                  return redirect(`/admin/${params.id}`);
+                }
+                case "delete": {
+                  await axios.delete(
+                    `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+                  );
+
+                  return redirect(`/`);
+                }
+
+                default:
+                  throw new Response("", { status: 405 });
+              }
+            },
+          },
+          {
+            path: "/admin/utilisateurgestion",
+            element: <UserManagement />,
+            loader: async () => {
+              const response = await axios.get(
+                `${import.meta.env.VITE_API_URL}/api/users/`
+              );
+              return response.data;
+            },
           },
         ],
       },
