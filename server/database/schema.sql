@@ -1,3 +1,4 @@
+-- SQLBook: Code
 DROP TABLE IF EXISTS role;
 
 DROP TABLE IF EXISTS ingredient;

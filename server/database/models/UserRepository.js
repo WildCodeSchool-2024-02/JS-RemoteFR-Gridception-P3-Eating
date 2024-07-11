@@ -1,4 +1,3 @@
-const bcrypt = require("bcrypt");
 const AbstractRepository = require("./AbstractRepository");
 
 class UserRepository extends AbstractRepository {
@@ -53,20 +52,10 @@ class UserRepository extends AbstractRepository {
   async register(user) {
     const roleId = user.role_id || 1;
 
-    const hashedPassword = await bcrypt.hash(user.password, 10);
-
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (firstname, lastname, username, email, role_id, password)
-      VALUES (?, ?, ?, ?, ?, ?)`,
-      [
-        user.firstname,
-        user.lastname,
-        user.username,
-        user.email,
-        roleId,
-        hashedPassword,
-        user.password,
-      ]
+      `INSERT INTO ${this.table} (username, email, role_id, password)
+      VALUES (?, ?, ?, ?)`,
+      [user.username, user.email, roleId, user.password]
     );
 
     return result.insertId;

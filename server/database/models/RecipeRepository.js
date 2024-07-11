@@ -32,7 +32,7 @@ class RecipeRepository extends AbstractRepository {
   async add(recipe) {
     const parsedRecipe = {
       ...recipe,
-      category: parseInt(recipe.category, 10),
+      category: parseInt(recipe.categoryId, 10),
       time: parseInt(recipe.time, 10),
     };
 

@@ -23,10 +23,11 @@ class IngredientRepository extends AbstractRepository {
   }
 
   async add(newIngredient) {
-    const query = `
-      INSERT INTO ${this.table} SET ?
-    `;
-    const [result] = await this.database.query(query, newIngredient);
+    const [result] = await this.database.query(
+      `
+      INSERT INTO ${this.table} (name, calories) VALUES (?, ?)`,
+      [newIngredient.name, newIngredient.calories]
+    );
     return result.insertId;
   }
 

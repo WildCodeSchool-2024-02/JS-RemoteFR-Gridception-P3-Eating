@@ -21,6 +21,7 @@ const readOneById = async (req, res, next) => {
 const add = async (req, res, next) => {
   try {
     const recipe = await tables.recipe.add(req.body);
+
     res.status(201).json({ recipe });
   } catch (error) {
     console.error(error);
