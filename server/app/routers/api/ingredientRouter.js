@@ -2,12 +2,19 @@ const express = require("express");
 
 const router = express.Router();
 
-const { browse, read, edit, add, deleteIngredient } = require("../../controllers/ingredientActions");
+const {
+  browse,
+  read,
+  edit,
+  add,
+  deleteIngredient,
+} = require("../../controllers/ingredientActions");
 
 router.get("/", browse);
 router.get("/:id", read);
 router.put("/:id", edit);
 router.post("/", add);
 router.delete("/:id", deleteIngredient);
+router.get("/ingredient/:recipeId");
 
 module.exports = router;

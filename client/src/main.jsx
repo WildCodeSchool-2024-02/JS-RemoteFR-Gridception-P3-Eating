@@ -17,6 +17,7 @@ import Register from "./pages/Register";
 import CreateRecipe from "./pages/CreateRecipe";
 import UserManagement from "./pages/UserManagement";
 import Login from "./pages/Login";
+import EditRecipe from "./pages/EditRecipe";
 
 import { AuthProvider } from "./contexts/AuthContext";
 import AuthUserVerification from "./components/AuthUserVerification";
@@ -83,12 +84,33 @@ const router = createBrowserRouter([
         path: "/s-enregistrer",
       },
       {
-        path: "privé",
+        path: "utilisateur",
         element: <AuthUserVerification />,
         children: [
           {
             element: <CreateRecipe />,
             path: "recettes/creation",
+          },
+          {
+            element: <EditRecipe />,
+            path: "recettes/edition/:id",
+            loader: async ({ params }) => {
+              const categoriesResponse = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/categories`
+              );
+              const ingredientsResponse = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/ingredients`
+              );
+              const recipeResponse = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/recipes/${params.id}`
+              );
+
+              const categoriesToJson = await categoriesResponse.json();
+              const ingredientsToJson = await ingredientsResponse.json();
+              const recipeToJson = await recipeResponse.json();
+
+              return [categoriesToJson, ingredientsToJson, recipeToJson];
+            },
           },
         ],
       },

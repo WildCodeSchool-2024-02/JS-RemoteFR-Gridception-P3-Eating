@@ -49,14 +49,21 @@ class RecipeRepository extends AbstractRepository {
   }
 
   async edit(id, recipe) {
-    const { title, descriptionText, steps, time, image, categoryId } = recipe;
+    const parsedRecipe = {
+      ...recipe,
+      category: parseInt(recipe.categoryId, 10),
+      time: parseInt(recipe.time, 10),
+    };
+
+    const { title, description, steps, time, image, category } = parsedRecipe;
+
     const [result] = await this.database.query(
       `
           UPDATE ${this.table}
           SET title = ?, descriptionText = ?, steps = ?, time = ?, image = ? ,category_id = ?
           WHERE id = ?
           `,
-      [title, descriptionText, steps, time, image, categoryId, id]
+      [title, description, steps, time, image, category, id]
     );
     return result.affectedRows;
   }
