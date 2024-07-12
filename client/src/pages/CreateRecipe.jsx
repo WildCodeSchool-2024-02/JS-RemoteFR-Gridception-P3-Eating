@@ -24,7 +24,7 @@ export default function CreateRecipePage() {
     async function fetchData() {
       try {
         const categoriesResponse = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/recipes`
+          `${import.meta.env.VITE_API_URL}/api/categories`
         );
         const ingredientsResponse = await fetch(
           `${import.meta.env.VITE_API_URL}/api/ingredients`
@@ -84,7 +84,7 @@ export default function CreateRecipePage() {
     const newFormData = formData;
 
     const [currentCategory] = categories.filter(
-      (category) => category.name === formData.name
+      (category) => category.name === formData.category
     );
 
     newFormData.categoryId = currentCategory.id;
@@ -179,8 +179,8 @@ export default function CreateRecipePage() {
             >
               <option value="">Sélectionnez une catégorie</option>
               {categories.map((category) => (
-                <option key={category.id} value={category.category_name}>
-                  {category.category_name}
+                <option key={category.id} value={category.name}>
+                  {category.name}
                 </option>
               ))}
             </select>
