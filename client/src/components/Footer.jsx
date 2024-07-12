@@ -5,7 +5,6 @@ export default function Footer() {
   return (
     <div className="footer-green">
       <p>Made by @Eating NAM NAM</p>
-
       <a
         href="https://github.com/WildCodeSchool-2024-02/JS-RemoteFR-Gridception-P3-Eating/blob/main/README.md"
         target="_blank"
