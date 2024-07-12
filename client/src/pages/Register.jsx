@@ -1,13 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import welcome from "../assets/images/welcome.png";
-import NavBar from "../components/NavBar";
 import "../styles/register.css";
 import ble from "../assets/images/ble.png";
 
 export default function Register() {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
+  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -17,10 +17,11 @@ export default function Register() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3310/api/users/register",
+        `${import.meta.env.VITE_API_URL}/api/users`,
         {
           firstname,
           lastname,
+          username,
           email,
           password,
         }
@@ -33,7 +34,6 @@ export default function Register() {
 
   return (
     <div className="background">
-      <NavBar />
       <form method="post" onSubmit={handleSubmit}>
         <section>
           <div className="card-center">
@@ -64,6 +64,18 @@ export default function Register() {
                   value={lastname}
                   onChange={(e) => setLastname(e.target.value)}
                   placeholder="Nom"
+                  required
+                />
+              </div>
+
+              <div data-mdb-input-init className="form-group">
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={username}
+                  onChange={(e) => setUserName(e.target.value)}
+                  placeholder="Pseudo"
                   required
                 />
               </div>

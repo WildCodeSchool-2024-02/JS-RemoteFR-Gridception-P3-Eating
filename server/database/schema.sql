@@ -1,3 +1,4 @@
+-- SQLBook: Code
 DROP TABLE IF EXISTS role;
 
 DROP TABLE IF EXISTS ingredient;
@@ -61,7 +62,7 @@ CREATE TABLE `favorite` (
     `recipe_id` INT UNSIGNED NOT NULL,
     `user_id` INT UNSIGNED NOT NULL,
     FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 );
 
 -- Création de la table `quantity`
@@ -73,7 +74,6 @@ CREATE TABLE `quantity` (
     FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`),
     FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`)
 );
-
 
 INSERT INTO role (role) VALUES ('user'), ('visitor'), ('admin');
 
@@ -92,15 +92,15 @@ VALUES (
         'LM',
         'martin@martin.fr',
         1,
-        'toto'
+        "$argon2id$v=19$m=65536,t=5,p=1$FkjcCc0+F15P0N5TLh3ndQ$FkttWmV6YpXwaqtjrKfALtaYkwyHv2ongXDP/C6bvY4"
     ),
     (
         'Amel',
         'Bonnevie',
         'AB',
-        'bonnevie@bonneviefr',
+        'bonnevie@bonnevie.fr',
         3,
-        'tata'
+        "$argon2id$v=19$m=65536,t=5,p=1$FkjcCc0+F15P0N5TLh3ndQ$FkttWmV6YpXwaqtjrKfALtaYkwyHv2ongXDP/C6bvY4"
     );
 
 INSERT INTO
@@ -132,7 +132,7 @@ VALUES ('Pois', 50),
     ("Sauce Worcestershire", 78),
     ("Huile d'olive", 884),
     ("Moutarde", 66),
-    ("Epices mexicaines", 361),
+    ("Épices mexicaines", 361),
     ("Concombre", 15),
     ("Citron", 29),
     ("Coriandre", 22),
@@ -143,7 +143,7 @@ VALUES ('Pois', 50),
     ("Menthe", 58),
     ("Falafels", 333),
     ("Sauce yaourt-menthe", 107),
-    ("graines de courge", 446),
+    ("Graines de courge", 446),
     (
         "Vinaigre balsamique noir",
         112
@@ -247,37 +247,53 @@ VALUES (
 
 INSERT INTO favorite (recipe_id, user_id) VALUES (1, 1), (2, 2);
 
-INSERT INTO `quantity` (`recipe_id`, `ingredient_id`, `quantity`) VALUES
-(1, 17, '25g'),  -- Persil
-(1, 18, '2 gousses'),  -- Gousses d'ail
-(1, 19, '2'),  -- Oignons
-(1, 20, '300g'),  -- Riz
-(1, 21, '400g'),  -- Champignons de Paris
-(1, 22, '400g'),  -- Blanc de poulet
-(1, 23, '15g'),  -- Paprika fumé en poudre
-(1, 24, '50g'),  -- Concentré de tomate
-(1, 25, '200ml'),  -- Crème liquide
-(1, 26, '50ml'),  -- Sauce Worcestershire
-(1, 11, '4 cs'),  -- Huile d'olive
-(1, 27, '2 cc'),  -- Moutarde
-(1, 4, 'au goût'),  -- Sel
-(1, 5, 'au goût');  -- Poivre
-
-INSERT INTO `quantity` (`recipe_id`, `ingredient_id`, `quantity`) VALUES
-(2, 1, '300g'),  -- Pois chiches
-(2, 29, '2'),  -- Poivrons grillés
-(2, 7, '100g'),  -- Salade
-(2, 8, '2'),  -- Avocat
-(2, 30, '2 cs'),  -- Citron vert
-(2, 31, '10g'),  -- Coriandre
-(2, 32, '50g'),  -- Crème de fromage à la grecque
-(2, 11, '2 cs');  -- Huile d'olive
-
-INSERT INTO `quantity` (`recipe_id`, `ingredient_id`, `quantity`) VALUES
-(3, 13, '400g'),  -- Patates douces
-(3, 8, '1'),  -- Avocat
-(3, 35, '200g'),  -- Falafels
-(3, 36, '50g'),  -- Sauce yaourt-menthe
-(3, 9, '50g'),  -- Tomates cerises
-(3, 37, '10g'),  -- Menthe
-(3, 38, '20g');  -- Graines de courge
+INSERT INTO
+    `quantity` (
+        `recipe_id`,
+        `ingredient_id`,
+        `quantity`
+    )
+VALUES (1, 17, '25g'), -- Persil
+    (1, 18, '2 gousses'), -- Gousses d'ail
+    (1, 19, '2'), -- Oignons
+    (1, 20, '300g'), -- Riz
+    (1, 21, '400g'), -- Champignons de Paris
+    (1, 22, '400g'), -- Blanc de poulet
+    (1, 23, '15g'), -- Paprika fumé en poudre
+    (1, 24, '50g'), -- Concentré de tomate
+    (1, 25, '200ml'), -- Crème liquide
+    (1, 26, '50ml'), -- Sauce Worcestershire
+    (1, 11, '4 cs'), -- Huile d'olive
+    (1, 27, '2 cc'), -- Moutarde
+    (1, 4, 'au goût'), -- Sel
+    (1, 5, 'au goût');
+-- Poivre
+INSERT INTO
+    `quantity` (
+        `recipe_id`,
+        `ingredient_id`,
+        `quantity`
+    )
+VALUES (2, 1, '300g'), -- Pois chiches
+    (2, 29, '2'), -- Poivrons grillés
+    (2, 7, '100g'), -- Salade
+    (2, 8, '2'), -- Avocat
+    (2, 30, '2 cs'), -- Citron vert
+    (2, 31, '10g'), -- Coriandre
+    (2, 32, '50g'), -- Crème de fromage à la grecque
+    (2, 11, '2 cs');
+-- Huile d'olive
+INSERT INTO
+    `quantity` (
+        `recipe_id`,
+        `ingredient_id`,
+        `quantity`
+    )
+VALUES (3, 13, '400g'), -- Patates douces
+    (3, 8, '1'), -- Avocat
+    (3, 35, '200g'), -- Falafels
+    (3, 36, '50g'), -- Sauce yaourt-menthe
+    (3, 9, '50g'), -- Tomates cerises
+    (3, 37, '10g'), -- Menthe
+    (3, 38, '20g');
+-- Graines de courge

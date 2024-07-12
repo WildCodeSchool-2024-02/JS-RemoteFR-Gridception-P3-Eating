@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import NavBar from "../components/NavBar";
 import graille from "../assets/images/graille.png";
 import "../styles/login.css";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -13,18 +13,25 @@ export default function Login() {
 
   const closeErrorModal = () => setShowErrorModal(false);
 
+  const { VITE_API_URL } = import.meta.env;
+
+  const { login } = useAuth();
+
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:3310/api/users/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${VITE_API_URL}/api/users/login`, {
+        email,
+        password,
+      });
       console.info(response.data);
+
+      login(response.data.user);
+
+      navigate(`/privé/profil/${response.data.user.userName}`);
     } catch (error) {
       setErrorMessage(error.response.data.error);
       setShowErrorModal(true);
@@ -35,7 +42,6 @@ export default function Login() {
     <>
       <div>
         <div className="background">
-          <NavBar />
           <form method="post" onSubmit={handleSubmit}>
             <section>
               <div className="card-center">
@@ -79,7 +85,7 @@ export default function Login() {
                   </button>
                   <p className="login-text">
                     Vous n'avez pas encore de compte ?
-                    <Link to="/register">
+                    <Link to="/s-enregistrer">
                       <span className="button-inscrire">S'inscrire</span>
                     </Link>
                   </p>

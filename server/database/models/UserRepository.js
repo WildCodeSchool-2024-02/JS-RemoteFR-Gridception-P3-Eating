@@ -1,6 +1,4 @@
-const bcrypt = require("bcrypt");
 const AbstractRepository = require("./AbstractRepository");
-
 
 class UserRepository extends AbstractRepository {
   constructor() {
@@ -21,82 +19,43 @@ class UserRepository extends AbstractRepository {
     return rows[0];
   }
 
-  async add(user) {
-    const [result] = await this.database.query(
-      ` INSERT INTO ${this.table} (firstname, lastname, username, email, role_id, password)
-      VALUES (?, ?, ?, ?, ?, ?)`,
-      [
-        user.firstname,
-        user.lastname,
-        user.username,
-        user.email,
-        user.role_id,
-        user.password,
-      ]
-    );
-    return result.insertId;
-  }
-
-  async login(email, password) {
-    
+  async findOneByEmail(email) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE email = ?`,
+      `
+      SELECT *
+      FROM ${this.table} u
+      JOIN role r
+      ON u.role_id = r.id
+      WHERE email = ?`,
       [email]
     );
 
-    if (rows.length === 0) {
-      throw new Error("Utilisateur non trouvé");
-    }
-
-    const user = rows[0];
-    const isPasswordValid= await bcrypt.compare(password, user.password)
-    
-    if (!isPasswordValid) {
-      throw new Error("Mot de passe incorrect");
-    }
-
-    console.info("connecté avec succès:");
-    return user;
+    return rows[0];
   }
 
   async register(user) {
-    
-
-    
-    const roleId = user.role_id || 1; 
-
-    const hashedPassword = await bcrypt.hash(user.password, 10)
+    const roleId = user.role_id || 1;
 
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (firstname, lastname, username, email, role_id, password)
-      VALUES (?, ?, ?, ?, ?, ?)`,
-      [
-        user.firstname,
-        user.lastname,
-        user.username,
-        user.email,
-        roleId, 
-        hashedPassword,
-        user.password,
-      ]
+      `INSERT INTO ${this.table} (username, email, role_id, password)
+      VALUES (?, ?, ?, ?)`,
+      [user.username, user.email, roleId, user.password]
     );
-    
+
     return result.insertId;
   }
 
-
-  async edit(user) {
+  async edit(id, user) {
     const [result] = await this.database.query(
-      `update ${this.table} set firstname = ?, lastname = ?, username = ?, email = ?, role_id = ?, password = ? 
+      `update ${this.table} set firstname = ?, lastname = ?, username = ?, email = ?, password = ? 
       where id = ?`,
       [
         user.firstname,
         user.lastname,
         user.username,
         user.email,
-        user.role_id,
         user.password,
-        user.id,
+        id,
       ]
     );
     return result.affectedRows;

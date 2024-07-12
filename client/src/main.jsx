@@ -1,23 +1,54 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  redirect,
+} from "react-router-dom";
+import axios from "axios";
 
-import "./index.css";
 import App from "./App";
+
 import HomePage from "./pages/HomePage";
 import RecipePage from "./pages/RecipePage";
-import CommentCaMarche from "./pages/CommentCaMarche";
+import UserGuide from "./pages/UserGuide";
 import RecipesPage from "./pages/RecipesPage";
 import Register from "./pages/Register";
+import CreateRecipe from "./pages/CreateRecipe";
+import UserManagement from "./pages/UserManagement";
 import Login from "./pages/Login";
 
-/* eslint-disable-next-line prefer-destructuring */
-const VITE_API_URL = import.meta.env.VITE_API_URL;
+import { AuthProvider } from "./contexts/AuthContext";
+import AuthUserVerification from "./components/AuthUserVerification";
+import AuthAdminVerification from "./components/AuthAdminVerification";
+
+import "./index.css";
+import Profile from "./pages/Profile";
+import Admin from "./pages/Admin";
+import Error404 from "./pages/Error404";
+
+const { VITE_API_URL } = import.meta.env;
 
 const recipesLoader = async () => {
   const response = await fetch(`${VITE_API_URL}/api/recipes`);
   const data = await response.json();
   return data;
+};
+
+const OneRecipeLoader = async ({ params }) => {
+  const { id } = params;
+
+  if (!id) {
+    throw new Error("ID de recette non défini");
+  }
+
+  const recipesResponse = await fetch(`${VITE_API_URL}/api/recipes`);
+  const quantityResponse = await fetch(
+    `${VITE_API_URL}/api/quantities/recipe/${id}`
+  );
+  const recipesData = await recipesResponse.json();
+  const quantityData = await quantityResponse.json();
+  return { recipes: recipesData, quantity: quantityData };
 };
 
 const router = createBrowserRouter([
@@ -30,42 +61,108 @@ const router = createBrowserRouter([
         loader: recipesLoader,
       },
       {
-        element: <RecipePage />,
-        path: "/RecipePage/:id",
-        loader: async ({ params }) => {
-          const { id } = params;
-
-          if (!id) {
-            throw new Error("ID de recette non défini");
-          }
-
-          const recipesResponse = await fetch(`${VITE_API_URL}/api/recipes`);
-          const quantityResponse = await fetch(
-            `${VITE_API_URL}/api/quantities/recipe/${id}`
-          );
-          const recipesData = await recipesResponse.json();
-          const quantityData = await quantityResponse.json();
-          return { recipes: recipesData, quantity: quantityData };
-        },
-      },
-      {
-        element: <CommentCaMarche />,
-        path: "/CommentCaMarche",
-      },
-      {
         element: <RecipesPage />,
-        path: "/RecipesPage",
+        path: "/recettes",
         loader: recipesLoader,
       },
+      {
+        element: <RecipePage />,
+        path: "/recettes/:id",
+        loader: OneRecipeLoader,
+      },
+      {
+        element: <UserGuide />,
+        path: "/étapes",
+      },
+      {
+        element: <Login />,
+        path: "/se-connecter",
+      },
+      {
+        element: <Register />,
+        path: "/s-enregistrer",
+      },
+      {
+        path: "privé",
+        element: <AuthUserVerification />,
+        children: [
+          {
+            element: <CreateRecipe />,
+            path: "recettes/creation",
+          },
+        ],
+      },
+      {
+        path: "admin",
+        element: <AuthAdminVerification />,
+        children: [
+          {
+            path: "",
+            element: <Admin />,
+            loader: async ({ params }) => {
+              const response = await axios.get(
+                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+              );
+              return response.data;
+            },
+          },
+          {
+            path: "/admin/utilisateur/:id",
+            element: <Profile />,
+            loader: async ({ params }) => {
+              const response = await axios.get(
+                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+              );
+              return response.data;
+            },
+            action: async ({ request, params }) => {
+              const formData = await request.formData();
+              console.info(request.method);
+              switch (request.method.toLowerCase()) {
+                case "put": {
+                  await axios.put(
+                    `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
+                    {
+                      firstname: formData.get("firstname"),
+                      lastname: formData.get("lastname"),
+                      username: formData.get("username"),
+                      email: formData.get("email"),
+                      password: formData.get("password"),
+                    }
+                  );
+
+                  return redirect(`/admin/${params.id}`);
+                }
+                case "delete": {
+                  await axios.delete(
+                    `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+                  );
+
+                  return redirect(`/`);
+                }
+
+                default:
+                  throw new Response("", { status: 405 });
+              }
+            },
+          },
+          {
+            path: "/admin/utilisateurgestion",
+            element: <UserManagement />,
+            loader: async () => {
+              const response = await axios.get(
+                `${import.meta.env.VITE_API_URL}/api/users/`
+              );
+              return response.data;
+            },
+          },
+        ],
+      },
+      {
+        path: "*",
+        element: <Error404 />,
+      },
     ],
-  },
-  {
-    element: <Login />,
-    path: "/Login",
-  },
-  {
-    element: <Register />,
-    path: "/RegisterPage",
   },
 ]);
 
@@ -73,6 +170,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

@@ -30,21 +30,25 @@ class RecipeRepository extends AbstractRepository {
   }
 
   async add(recipe) {
+    const parsedRecipe = {
+      ...recipe,
+      category: parseInt(recipe.categoryId, 10),
+      time: parseInt(recipe.time, 10),
+    };
 
-    const { title, descriptionText, steps, time, image, categoryId } = recipe;
+    const { title, description, steps, time, image, category } = parsedRecipe;
+
     const [result] = await this.database.query(
       `
           INSERT INTO ${this.table} (title, descriptionText, steps, time, image, category_id)
-          VALUES (?, ?, ?, ?, ?)
+          VALUES (?, ?, ?, ?, ?, ?)
           `,
-      [title, descriptionText, steps, time, image, categoryId]
-
+      [title, description, steps, time, image, category]
     );
     return result.insertId;
   }
 
   async edit(id, recipe) {
-
     const { title, descriptionText, steps, time, image, categoryId } = recipe;
     const [result] = await this.database.query(
       `
@@ -53,7 +57,6 @@ class RecipeRepository extends AbstractRepository {
           WHERE id = ?
           `,
       [title, descriptionText, steps, time, image, categoryId, id]
-
     );
     return result.affectedRows;
   }

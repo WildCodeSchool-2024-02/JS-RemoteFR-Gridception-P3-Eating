@@ -5,7 +5,6 @@ const router = express.Router();
 const {
   browse,
   readOneById,
-  add,
   login,
   register,
   edit,
@@ -16,11 +15,9 @@ router.get("/", browse);
 
 router.get("/:id", readOneById);
 
-router.post("/", add);
+router.post("/login", login);
 
-router.post("/login",login);
-
-router.post("/register", register)
+router.post("/register", register);
 
 router.put("/:id", edit);
 

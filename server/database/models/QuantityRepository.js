@@ -36,10 +36,11 @@ class QuantityRepository extends AbstractRepository {
   }
 
   async add(newQuantity) {
-    const query = `
-      INSERT INTO ${this.table} SET ?
-    `;
-    const [result] = await this.database.query(query, newQuantity);
+    const [result] = await this.database.query(
+      `INSERT INTO ${this.table} (recipe_id, ingredient_id, quantity)
+      VALUES (?, ?, ?)`,
+      [newQuantity.recipe_id, newQuantity.id, newQuantity.quantity]
+    );
     return result.insertId;
   }
 

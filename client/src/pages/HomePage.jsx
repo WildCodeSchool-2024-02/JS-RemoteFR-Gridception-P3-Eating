@@ -43,17 +43,21 @@ function HomePage() {
         <div className="absolute bg-green-800 w-[20%] h-[65%] left-[15%] top-0 text-green-800">
           x
         </div>
-        <div className="flex flex-row absolute right-[22%] mt-6 items-center h-[50%] w-[30%]">
+        <div className="flex flex-row absolute right-[16%] mt-6 items-center h-[50%] w-[40%]">
           <h1 className="z-20 text-[2.5rem] font-bold ">
             Découvrez le goût authentique du partage avec nos plats sains et
             savoureux
           </h1>
-          <button
-            type="button"
-            className="bg-green-800 text-white text-[13px] uppercase w-[7rem] absolute bottom-16 right-28 rounded-xl p-3 font-semibold cursor-pointer"
-          >
-            <p> Créez votre recette</p>
-          </button>
+          <div className="z-20">
+            <Link to="/privé/recettes/creation" className="cursor-pointer">
+              <button
+                type="button"
+                className="bg-orange-400 text-white text-[15px] uppercase w-[10rem] absolute bottom-16 right-28 rounded-xl p-5 font-semibold "
+              >
+                Créez votre recette
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
       <div className="w-screen h-[50%] flex-wrap justify-center mt-8 pl-20">
@@ -67,7 +71,7 @@ function HomePage() {
               recipes.map((recipe) => (
                 <swiper-slide key={recipe.id}>
                   <div className="h-[31rem] w-[28rem] relative">
-                    <Link key={recipe.id} to={`/RecipePage/${recipe.id}`}>
+                    <Link key={recipe.id} to={`/recettes/${recipe.id}`}>
                       <img
                         className="h-[220px] w-[220px] rounded-3xl absolute z-20 object-cover"
                         src={recipe.image}

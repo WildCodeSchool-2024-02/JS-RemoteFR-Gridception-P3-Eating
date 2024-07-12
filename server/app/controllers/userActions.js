@@ -1,4 +1,12 @@
+const argon2 = require("argon2");
 const tables = require("../../database/tables");
+
+const hashingOptions = {
+  type: argon2.argon2id,
+  memoryCost: 19 * 2 ** 10,
+  timeCost: 2,
+  parallelism: 1,
+};
 
 const browse = async (req, res, next) => {
   try {
@@ -18,29 +26,35 @@ const readOneById = async (req, res, next) => {
   }
 };
 
-const add = async (req, res, next) => {
-  const user = req.body;
-
-  try {
-    const insertId = await tables.user.add(user);
-    res.json({ insertId });
-  } catch (err) {
-    next(err);
-  }
-};
-
 const login = async (req, res, next) => {
+  const { email, password } = req.body;
   try {
-    await tables.user.login(req.body.email, req.body.password);
-    res.sendStatus(200);
-  } catch (error) {
-    next(error);
+    const user = await tables.user.findOneByEmail(email);
+
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    const passwordMatch = await argon2.verify(user.password, password);
+
+    if (!passwordMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    return res.json({
+      user: { id: user.id, userName: user.username, role: user.role },
+    });
+  } catch (err) {
+    return next(err);
   }
 };
 
 const register = async (req, res, next) => {
   const user = req.body;
-  console.info("Received register request:", user);
+
+  const hashedPassword = await argon2.hash(user.password, hashingOptions);
+
+  user.password = hashedPassword;
 
   try {
     const insertId = await tables.user.register(user);
@@ -52,29 +66,35 @@ const register = async (req, res, next) => {
 };
 
 const edit = async (req, res, next) => {
-  const user = { ...req.body, id: req.params.id };
-
   try {
-    await tables.user.edit(user);
-    res.sendStatus(204);
-  } catch (err) {
-    next(err);
+    const affectedRows = await tables.user.edit(req.params.id, req.body);
+    if (affectedRows > 0) {
+      res.json({ message: "User updated successfully" });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    next(error);
   }
 };
 
 const destroy = async (req, res, next) => {
+  const { id } = req.params;
   try {
-    await tables.user.destroy(req.params.id);
-    res.sendStatus(204);
-  } catch (err) {
-    next(err);
+    const success = await tables.user.destroy(id);
+    if (success) {
+      res.json({ message: "User deleted successfully" });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    next(error);
   }
 };
 
 module.exports = {
   browse,
   readOneById,
-  add,
   edit,
   login,
   register,
