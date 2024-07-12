@@ -7,7 +7,7 @@ export default function NavBar() {
 
   return (
     <nav className="h-28 uppercase">
-      <div className=" flex">
+      <div className=" flex ">
         <Link to="/" className="pl-10">
           <img
             className="h-[100px] w-[120px] pt-2"
