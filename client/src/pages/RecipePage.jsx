@@ -59,16 +59,23 @@ function RecipePage() {
         <ul className="list-disc pl-5 space-y-2">{prep.steps}</ul>
         <p className="mt-12">{prep.descriptionText}</p>
       </div>
-      <div className="z-20">
-        <Link to="/utilisateur/recettes/edition" className="cursor-pointer">
-          <button
-            type="button"
-            className="bg-orange-400 text-white text-[15px] uppercase w-[10rem] absolute bottom-16 right-28 rounded-xl p-5 font-semibold "
-          >
-            Modifier votre recette
-          </button>
-        </Link>
-      </div>
+
+      {recipes &&
+        recipes.map((recipe) => (
+          <div className="z-20" key={recipe.id}>
+            <Link
+              to={`/utilisateur/recettes/edition/${recipe.id}`}
+              className="cursor-pointer"
+            >
+              <button
+                type="button"
+                className="bg-orange-400 text-white text-[15px] uppercase w-[10rem] absolute bottom-16 right-28 rounded-xl p-5 font-semibold"
+              >
+                Modifier votre recette
+              </button>
+            </Link>
+          </div>
+        ))}
     </section>
   );
 }

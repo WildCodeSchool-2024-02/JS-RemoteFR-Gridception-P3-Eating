@@ -52,6 +52,29 @@ const OneRecipeLoader = async ({ params }) => {
   return { recipes: recipesData, quantity: quantityData };
 };
 
+const EditRecipeLoader = async ({ params }) => {
+  const { id } = params;
+
+  if (!id) {
+    throw new Error("ID de recette non défini pour Edit");
+  }
+  const categoriesResponse = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/categories`
+  );
+  const ingredientsResponse = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/ingredients`
+  );
+  const recipeResponse = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/recipes/${id}`
+  );
+
+  const categoriesToJson = await categoriesResponse.json();
+  const ingredientsToJson = await ingredientsResponse.json();
+  const recipeToJson = await recipeResponse.json();
+
+  return [categoriesToJson, ingredientsToJson, recipeToJson];
+};
+
 const router = createBrowserRouter([
   {
     element: <App />,
@@ -94,23 +117,7 @@ const router = createBrowserRouter([
           {
             element: <EditRecipe />,
             path: "recettes/edition/:id",
-            loader: async ({ params }) => {
-              const categoriesResponse = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/categories`
-              );
-              const ingredientsResponse = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/ingredients`
-              );
-              const recipeResponse = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/recipes/${params.id}`
-              );
-
-              const categoriesToJson = await categoriesResponse.json();
-              const ingredientsToJson = await ingredientsResponse.json();
-              const recipeToJson = await recipeResponse.json();
-
-              return [categoriesToJson, ingredientsToJson, recipeToJson];
-            },
+            loader: EditRecipeLoader,
           },
         ],
       },

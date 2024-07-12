@@ -52,6 +52,20 @@ class QuantityRepository extends AbstractRepository {
     return result.affectedRows > 0;
   }
 
+  async editByRecipeAndIngredient(recipeId, ingredientId, newQuantity) {
+    const query = `
+      UPDATE ${this.table}
+      SET quantity = ?
+      WHERE recipe_id = ? AND ingredient_id = ?
+    `;
+    const [result] = await this.database.query(query, [
+      newQuantity,
+      recipeId,
+      ingredientId,
+    ]);
+    return result.affectedRows > 0;
+  }
+
   async delete(id) {
     const query = `
       DELETE FROM ${this.table} WHERE id = ?

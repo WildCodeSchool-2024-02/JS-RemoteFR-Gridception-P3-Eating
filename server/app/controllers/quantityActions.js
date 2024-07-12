@@ -59,6 +59,29 @@ const edit = async (req, res, next) => {
   }
 };
 
+const editByRecipeAndIngredient = async (req, res, next) => {
+  const { recipeId, ingredientId } = req.params;
+  const { quantity } = req.body;
+  try {
+    const success = await tables.quantity.editByRecipeAndIngredient(
+      recipeId,
+      ingredientId,
+      quantity
+    );
+    if (success) {
+      const updatedQuantity = { recipeId, ingredientId, quantity };
+      res.json(updatedQuantity);
+    } else {
+      res
+        .status(404)
+        .json({
+          message: "Quantity not found for given recipe and ingredient",
+        });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
 const deleteQuantity = async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -79,5 +102,6 @@ module.exports = {
   readByRecipeId,
   add,
   edit,
+  editByRecipeAndIngredient,
   deleteQuantity,
 };

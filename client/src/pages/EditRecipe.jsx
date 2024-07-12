@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, useLoaderData } from "react-router-dom";
 import axios from "axios";
 import ModalRecipeCreation from "../components/ModalRecipeCreation";
@@ -15,51 +15,19 @@ export default function EditRecipe() {
 
   const [categories] = useState(categoriesData);
   const [ingredients, setIngredients] = useState(ingredientsData);
-  const [formData, setFormData] = useState(recipesData);
+  const [formData, setFormData] = useState(() => ({
+    ...recipesData,
+    ingredients: recipesData.ingredients || [],
+  }));
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const categoriesResponse = await fetch(
-  //         `${import.meta.env.VITE_API_URL}/api/categories`
-  //       );
-  //       const ingredientsResponse = await fetch(
-  //         `${import.meta.env.VITE_API_URL}/api/ingredients`
-  //       );
-  //       const recipeResponse = await fetch(
-  //         `${import.meta.env.VITE_API_URL}/api/recipes/${id}`
-  //       );
-
-  //       if (
-  //         !categoriesResponse.ok ||
-  //         !ingredientsResponse.ok ||
-  //         !recipeResponse.ok
-  //       ) {
-  //         throw new Error("Failed to fetch data");
-  //       }
-
-  //       const categoriesData = await categoriesResponse.json();
-  //       const ingredientsData = await ingredientsResponse.json();
-  //       const recipeData = await recipeResponse.json();
-
-  //       setCategories(categoriesData);
-  //       setIngredients(ingredientsData);
-  //       setFormData({
-  //         title: recipeData.title,
-  //         description: recipeData.description,
-  //         category: recipeData.category_name,
-  //         time: recipeData.time,
-  //         ingredients: recipeData.ingredients,
-  //         steps: recipeData.steps,
-  //         image: recipeData.image,
-  //       });
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   }
-
-  //   fetchData();
-  // }, [id]);
+  useEffect(() => {
+    if (!formData.ingredients) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        ingredients: [],
+      }));
+    }
+  }, [formData.ingredients]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,28 +37,31 @@ export default function EditRecipe() {
     });
   };
 
-  const handleIngredientChange = (e) => {
-    const updateIngredients = formData.ingredients;
-
-    const [selectedIngredient] = ingredients.filter(
-      (ingredient) => ingredient.name === e.target.value
-    );
-
-    updateIngredients.push({ ...selectedIngredient, quantity: "" });
+  const handleIngredientChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedIngredients = [...formData.ingredients];
+    updatedIngredients[index][name] = value;
 
     setFormData({
       ...formData,
-      ingredients: updateIngredients,
+      ingredients: updatedIngredients,
     });
   };
 
-  // const handleQuantityChange = (Id, quantity) => {
-  //   const newIngredients = ingredients.map((ingredient) =>
-  //     ingredient.id === Id ? { ...ingredient, quantity } : ingredient
-  //   );
-
-  //   setFormData({ ...formData, ingredients: newIngredients });
-  // };
+  const handleAddIngredient = (e) => {
+    const newIngredient = ingredients.find(
+      (ingredient) => ingredient.name === e.target.value
+    );
+    if (newIngredient) {
+      setFormData({
+        ...formData,
+        ingredients: [
+          ...formData.ingredients,
+          { ...newIngredient, quantity: "" },
+        ],
+      });
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -101,25 +72,30 @@ export default function EditRecipe() {
       (category) => category.name === formData.category
     );
 
-    newFormData.categoryId = currentCategory.id;
+    newFormData.category_id = currentCategory.id;
 
     try {
+      // Mise à jour de la recette
       await axios.put(
         `${import.meta.env.VITE_API_URL}/api/recipes/${id}`,
         newFormData
       );
 
-      await formData.ingredients.forEach((ingredient) => {
-        axios.put(
-          `${import.meta.env.VITE_API_URL}/api/quantities/${ingredient.id}`,
-          {
-            ...ingredient,
-            recipe_id: id,
-          }
-        );
-      });
+      // Mise à jour des quantités des ingrédients
+      await Promise.all(
+        formData.ingredients.map(async (ingredient) => {
+          await axios.put(
+            `${import.meta.env.VITE_API_URL}/api/quantities/${id}/${ingredient.id}`,
+            {
+              recipe_id: id,
+              ingredient_id: ingredient.id,
+              quantity: ingredient.quantity,
+            }
+          );
+        })
+      );
 
-      navigate.push(`/recipes/${id}`);
+      navigate(`/recipes/${id}`);
     } catch (error) {
       console.error(error);
     }
@@ -142,7 +118,7 @@ export default function EditRecipe() {
     <div className="max-w-4xl mx-auto p-4 pb-20">
       <h1 className="text-2xl font-bold mb-4">Édition de la recette</h1>
       {formData && (
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="title"
@@ -224,62 +200,34 @@ export default function EditRecipe() {
             >
               Ingrédients
             </label>
-            <div className="flex items-center">
-              <ul className="divide-y divide-gray-200 w-full">
-                {ingredients.length > 0 && (
-                  <select
-                    id="ingredients"
-                    name="ingredients"
-                    multiple
-                    value={ingredients.map((ingredient) => ingredient.name)}
-                    onChange={handleIngredientChange}
-                    className=" mt-1 block w-full h-[10rem] border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm mr-2"
-                    required
-                  >
-                    {ingredients.map((ingredient) => (
-                      <option
-                        key={ingredient.id}
-                        value={ingredient.name}
-                        className="h-7 flex justify-between items-center space-x-2"
-                      >
-                        {ingredient.name} - ({ingredient.calories || "N/A"} kcal
-                        / unit)
-                      </option>
-                    ))}
-                  </select>
-                )}
-              </ul>
-            </div>
-            <label
-              htmlFor="selectedIngredients"
-              className="block text-xl font-semibold text-gray-700 mt-6 pb-2"
+            <select
+              id="ingredients"
+              name="ingredients"
+              onChange={handleAddIngredient}
+              className="mt-1 block w-full border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm"
             >
-              Ingrédients sélectionnés
-              <p>
-                {/* {formData.ingredients.map((ingredient) => (
-                  <span key={ingredient.id}>
-                    {ingredient.name}
-                    <input
-                      type="text"
-                      min="0"
-                      value={ingredient.quantity}
-                      onChange={(e) =>
-                        handleQuantityChange(ingredient.id, e.target.value)
-                      }
-                    />
-                  </span>
-                ))} */}
-              </p>
-            </label>
-            <div className="mt-2 flex items-center">
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(true)}
-                className="inline-flex items-center px-2 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-white bg-green-800 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-800"
-              >
-                Ajouter un ingrédient
-              </button>
-            </div>
+              <option value="">Sélectionnez un ingrédient</option>
+              {ingredients.map((ingredient) => (
+                <option key={ingredient.id} value={ingredient.name}>
+                  {ingredient.name}
+                </option>
+              ))}
+            </select>
+            <ul className="mt-2">
+              {formData.ingredients.map((ingredient, index) => (
+                <li key={ingredient.id} className="flex items-center space-x-4">
+                  <span>{ingredient.name}</span>
+                  <input
+                    type="text"
+                    name="quantity"
+                    value={ingredient.quantity}
+                    onChange={(e) => handleIngredientChange(e, index)}
+                    className="mt-1 block w-full border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm"
+                    placeholder="Quantité"
+                  />
+                </li>
+              ))}
+            </ul>
           </div>
           <div>
             <label
@@ -316,7 +264,6 @@ export default function EditRecipe() {
             <button
               type="submit"
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-white bg-green-800 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-800"
-              onClick={handleSubmit}
             >
               Enregistrer les modifications
             </button>
