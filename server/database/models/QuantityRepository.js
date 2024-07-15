@@ -52,6 +52,17 @@ class QuantityRepository extends AbstractRepository {
     return result.affectedRows > 0;
   }
 
+  async editByRecipeId(newQuantity, id) {
+    const query = `
+      UPDATE ${this.table} q
+      INNER JOIN recipe r ON q.recipe_id = r.id
+      SET quantity = ?
+      WHERE r.id = ?
+    `;
+    const [result] = await this.database.query(query, [newQuantity, id]);
+    return result.affectedRows > 0;
+  }
+
   async delete(id) {
     const query = `
       DELETE FROM ${this.table} WHERE id = ?
