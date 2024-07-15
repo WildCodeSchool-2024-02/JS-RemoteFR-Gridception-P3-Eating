@@ -60,7 +60,10 @@ function RecipePage() {
         <p className="mt-12">{prep.descriptionText}</p>
       </div>
       <div className="z-20">
-        <Link to="/utilisateur/recettes/edition" className="cursor-pointer">
+        <Link
+          to={`/utilisateur/recettes/edition/${prep.id}`}
+          className="cursor-pointer"
+        >
           <button
             type="button"
             className="bg-orange-400 text-white text-[15px] uppercase w-[10rem] absolute bottom-16 right-28 rounded-xl p-5 font-semibold "
