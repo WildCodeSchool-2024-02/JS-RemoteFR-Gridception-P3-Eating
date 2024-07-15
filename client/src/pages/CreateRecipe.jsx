@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ModalRecipeCreation from "../components/ModalRecipeCreation";
+import Popup from "../components/Popup";
 
 export default function CreateRecipePage() {
+  const [showPopup, setShowPopup] = useState(false);
+
   const [categories, setCategories] = useState([]);
   const [ingredients, setIngredients] = useState([]);
 
@@ -80,6 +83,7 @@ export default function CreateRecipePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setShowPopup(false);
 
     const newFormData = formData;
 
@@ -120,6 +124,20 @@ export default function CreateRecipePage() {
       setIngredients(currentIngredients);
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const togglePopup = () => {
+    if (
+      formData.title !== "" &&
+      formData.description !== "" &&
+      formData.category !== "" &&
+      formData.time !== "" &&
+      formData.ingredients !== "" &&
+      formData.steps !== "" &&
+      formData.image !== ""
+    ) {
+      setShowPopup(true);
     }
   };
 
@@ -302,7 +320,7 @@ export default function CreateRecipePage() {
           <button
             type="submit"
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-white bg-green-800 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-800"
-            onClick={handleSubmit}
+            onClick={togglePopup}
           >
             Créer la recette
           </button>
@@ -314,6 +332,15 @@ export default function CreateRecipePage() {
         onClose={() => setIsModalOpen(false)}
         onSave={(ingredientInfo) => handleSaveNewIngredient(ingredientInfo)}
       />
+
+      {showPopup && (
+        <div className="popupContainer">
+          <Popup />
+          <button className="closePopup" type="submit" onClick={handleSubmit}>
+            Confirmer
+          </button>
+        </div>
+      )}
     </div>
   );
 }
