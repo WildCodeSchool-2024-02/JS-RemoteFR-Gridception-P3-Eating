@@ -32,11 +32,13 @@ export default function NavBar() {
           {auth ? (
             <>
               <li>
-                <Link to={`/privé/profil/${auth.userName}`}>Profil</Link>
+                <Link to={`/utilisateur/profil/${auth.userName}`}>Profil</Link>
               </li>
 
               <li>
-                <Link to="/privé/recettes/creation">Création de recette</Link>
+                <Link to="/utilisateur/recettes/creation">
+                  Création de recette
+                </Link>
               </li>
 
               <li>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useLoaderData } from "react-router-dom";
+import { Link, useParams, useLoaderData } from "react-router-dom";
 
 function RecipePage() {
   const { recipes, quantity: initialQuantity } = useLoaderData();
@@ -58,6 +58,19 @@ function RecipePage() {
         </h2>
         <ul className="list-disc pl-5 space-y-2">{prep.steps}</ul>
         <p className="mt-12">{prep.descriptionText}</p>
+      </div>
+      <div className="z-20">
+        <Link
+          to={`/utilisateur/recettes/edition/${prep.id}`}
+          className="cursor-pointer"
+        >
+          <button
+            type="button"
+            className="bg-orange-400 text-white text-[15px] uppercase w-[10rem] absolute bottom-16 right-28 rounded-xl p-5 font-semibold "
+          >
+            Modifier votre recette
+          </button>
+        </Link>
       </div>
     </section>
   );
