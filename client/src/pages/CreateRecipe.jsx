@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ModalRecipeCreation from "../components/ModalRecipeCreation";
 import Popup from "../components/Popup";
+import "../styles/popup.css";
 
 export default function CreateRecipePage() {
   const [showPopup, setShowPopup] = useState(false);
