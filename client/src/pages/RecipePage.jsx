@@ -38,7 +38,7 @@ function RecipePage() {
             className="h-[350px] w-[350px] rounded-3xl object-cover"
           />
         </div>
-        <div className="flex text-gray-600 mt-4">45 min</div>
+        <div className="flex text-gray-600 mt-4">Temps de préparation: {prep.time}min</div>
       </div>
 
       <div className="md:w-1/3 h-screen mr-6 ml-6 md:mr-64 md:ml-24 bg-gray-200 shadow-inner flex flex-col p-6">
