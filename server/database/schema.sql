@@ -39,7 +39,7 @@ CREATE TABLE `user` (
     `lastname` VARCHAR(100),
     `username` VARCHAR(100) NOT NULL,
     `email` VARCHAR(255) NOT NULL UNIQUE,
-    `role_id` INT UNSIGNED NOT NULL,
+    `role_id` INT UNSIGNED NOT NULL DEFAULT 1,
     `password` VARCHAR(255) NOT NULL,
     FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
 );
