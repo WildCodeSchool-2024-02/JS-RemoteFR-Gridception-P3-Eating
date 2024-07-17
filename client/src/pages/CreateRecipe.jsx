@@ -205,12 +205,12 @@ export default function CreateRecipePage() {
             </select>
           )}
         </div>
-        <div>
+        <div className="flex gap-2 pt-6 pb-4">
           <label
             htmlFor="time"
-            className="block text-xl font-semibold text-gray-700 pb-2 mt-6"
+            className="block text-xl font-semibold text-gray-700"
           >
-            Temps de préparation
+            Temps de préparation (en min)
           </label>
           <input
             id="time"
@@ -218,9 +218,10 @@ export default function CreateRecipePage() {
             name="time"
             value={formData.time}
             onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm"
+            className="block w-20 h-6 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm"
             required
           />
+
         </div>
         <div>
           <label
@@ -257,7 +258,7 @@ export default function CreateRecipePage() {
           </div>
           <label
             htmlFor="selectedIngredients"
-            className="block text-xl font-semibold text-gray-700 mt-6 pb-2"
+            className="block text-xl font-semibold text-gray-700 mt-8 pb-2"
           >
             <p className="mb-4">Ingrédients sélectionnés</p>
             <p>
@@ -266,7 +267,7 @@ export default function CreateRecipePage() {
                   <span className="w-20">{ingredient.name}</span>
 
                   <div className="flex gap-2">
-                    <span className="text-[15px] ">Quantité: </span>
+                    <span className="text-s ">Quantité: </span>
                     <input
                       type="text"
                       min="0"
@@ -336,7 +337,7 @@ export default function CreateRecipePage() {
           </button>
         </div>
       </form>
-      <img src="../../src/assets/images/ble.png" alt="ble" className="absolute -bottom-[80vh] right-0" />
+      <img src="../../src/assets/images/ble.png" alt="ble" className="absolute -bottom-[84vh] right-0" />
       <ModalRecipeCreation
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
