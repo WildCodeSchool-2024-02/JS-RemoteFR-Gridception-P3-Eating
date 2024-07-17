@@ -83,7 +83,23 @@ export default function EditRecipe() {
       //   })
       // );
 
+
       setIsConfirmModalOpen(false);
+
+      await Promise.all(
+        formData.ingredients.map(async (ingredient) => {
+          await axios.put(
+            `${import.meta.env.VITE_API_URL}/api/quantities/${id}/${ingredient.id}`,
+            {
+              recipe_id: id,
+              ingredient_id: ingredient.id,
+              quantity: ingredient.quantity,
+            }
+          );
+        })
+      );
+
+
       navigate(`/recipes/${id}`);
     } catch (error) {
       console.error(error);

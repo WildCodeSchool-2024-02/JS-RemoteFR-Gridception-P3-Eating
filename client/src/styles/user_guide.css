@@ -3,19 +3,23 @@
   justify-content: center;
   font-size: 3.5rem;
 }
+
 .content-userguide {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   margin-top: 8rem;
 }
+
 .h2-userguide {
-  color: #065f46;
+  color: rgb(22, 101, 52);
   font-size: 2rem;
 }
+
 .p-userguide {
   font-size: 1.5rem;
 }
+
 .h2-userguide,
 .p-userguide {
   display: flex;
@@ -36,17 +40,20 @@
 .three-userguide {
   margin-top: 7rem;
 }
+
 .two-userguide,
 .four-userguide {
   margin-top: 7rem;
 }
+
 .container-button-userguide {
   display: flex;
   justify-content: center;
   padding-top: 5rem;
 }
+
 .button-userguide {
-  background-color: #065f46;
+  background-color: rgb(22, 101, 52);
   width: 22rem;
   height: 5rem;
   border-radius: 8px;
@@ -60,9 +67,10 @@
 .ble-userguide {
   position: absolute;
   right: 0;
-  bottom: -19rem;
+  bottom: -53rem;
   z-index: -2;
 }
+
 .one-green-userguide,
 .two-green-userguide,
 .three-green-userguide,
@@ -79,9 +87,11 @@
   .content-userguide {
     flex-direction: column;
   }
+
   .page-title-userguide {
     font-size: 2.5rem;
   }
+
   .three-userguide {
     margin-top: 0;
   }

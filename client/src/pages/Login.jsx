@@ -31,7 +31,7 @@ export default function Login() {
 
       login(response.data.user);
 
-      navigate(`/utilisateur/profil/${response.data.user.userName}`);
+      navigate(`/`);
     } catch (error) {
       setErrorMessage(error.response.data.error);
       setShowErrorModal(true);

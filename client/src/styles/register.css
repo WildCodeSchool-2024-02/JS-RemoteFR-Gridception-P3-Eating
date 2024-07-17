@@ -14,7 +14,7 @@
   color: black;
   z-index: 1;
   margin-bottom: 0rem;
-  margin-top: 0rem;
+  margin-top: -2rem;
 }
 
 .card-center {
@@ -36,7 +36,9 @@
 }
 
 #firstname,
-#lastname {
+#lastname,
+#typeEmailX,
+#username {
   font-family: "Annie Use Your Telescope", cursive;
   font-size: 22px;
 }

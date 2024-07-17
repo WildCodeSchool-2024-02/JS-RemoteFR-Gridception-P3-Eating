@@ -85,7 +85,7 @@ export default function Profile() {
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2"
               htmlFor="firstname"
             >
               Prénom
@@ -102,7 +102,7 @@ export default function Profile() {
           </div>
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2"
               htmlFor="lastname"
             >
               Nom
@@ -118,7 +118,7 @@ export default function Profile() {
           </div>
           <div className="w-full px-3 mb-6 md:mb-0">
             <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block uppercase tracking-wide text-gray-700 text- font-bold mb-2"
               htmlFor="username"
             >
               Pseudo
@@ -132,9 +132,9 @@ export default function Profile() {
             // onChange={handleInputChange}
             />
           </div>
-          <div className="w-full px-3 mb-6">
+          <div className="w-full px-3 mb-6 mt-4">
             <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2"
               htmlFor="email"
             >
               Email
@@ -150,7 +150,7 @@ export default function Profile() {
           </div>
           <div className="w-full px-3 mb-6">
             <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2"
               htmlFor="password"
             >
               Mot de passe
@@ -167,20 +167,21 @@ export default function Profile() {
         </div>
         <button
           type="button"
-          className="bg-green-800 hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-green-800 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         // onClick={handleEditClick}
         >
           Modifier mes informations
         </button>
       </div>
-      <div className="text-center">
+      <div className="text-center mb-10">
         <button
           type="button"
-          className="text-red-600 hover:text-red-400 focus:outline-none"
+          className="text-white bg-gray-400 p-3 rounded-md hover:text-black focus:outline-none"
         // onClick={handleDelete}
         >
           Supprimer mon profil
         </button>
+        <img src="../../src/assets/images/ble.png" alt="ble" className="absolute -bottom-36 right-0" />
       </div>
     </div>
   );

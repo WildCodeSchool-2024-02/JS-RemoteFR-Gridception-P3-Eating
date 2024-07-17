@@ -47,6 +47,7 @@ const OneRecipeLoader = async ({ params }) => {
   const quantityResponse = await fetch(
     `${VITE_API_URL}/api/quantities/recipe/${id}`
   );
+
   const recipesData = await recipesResponse.json();
   const quantityData = await quantityResponse.json();
   return { recipes: recipesData, quantity: quantityData };
