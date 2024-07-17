@@ -14,6 +14,7 @@ function RecipesPage() {
   return (
     <section className="recipes-page">
       <div className="search-bar">
+        <img src="../../src/assets/images/ble.png" alt="ble" className="ble" />
         <input
           className="search-input"
           type="text"

@@ -95,7 +95,6 @@ const router = createBrowserRouter([
           {
             element: <Profile />,
             path: "/utilisateur/profil/:id",
-
           },
           {
             element: <EditRecipe />,

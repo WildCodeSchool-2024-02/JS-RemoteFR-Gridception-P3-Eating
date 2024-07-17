@@ -147,6 +147,7 @@ export default function CreateRecipePage() {
       <h1 className="text-2xl font-bold mb-4">
         Création d'une nouvelle recette
       </h1>
+      <img src="../../src/assets/images/ble.png" alt="ble" className="fixed right-0 bottom-0" />
       <form className="space-y-4">
         <div>
           <label
