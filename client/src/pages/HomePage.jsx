@@ -64,7 +64,9 @@ function HomePage() {
         </div>
       </div>
       <div className="w-screen flex-wrap justify-center -mt-8 pl-20 ">
-        <h2 className="text-xl font-bold pb-8 text-center">Dernières recettes ajoutées</h2>
+        <h2 className="text-xl font-bold pb-8 text-center">
+          Dernières recettes ajoutées
+        </h2>
         <div>
           <swiper-container
             centered-slides="true"
@@ -85,7 +87,7 @@ function HomePage() {
                           alt={recipe.title}
                         />
                       </Link>
-                      <div className="absolute top-[15%] left-16 flex flex-col items-center justify-center space-y-4 p-4 w-fit h-[75%] bg-green-800 rounded-3xl text-center shadow-2xl">
+                      <div className="absolute top-[15%] w-full left-16 flex flex-col items-center justify-center space-y-4 p-4 w-fit h-[75%] bg-green-800 rounded-3xl text-center shadow-2xl">
                         <div className="absolute top-4 left-[40%] h-[60px] w-[15rem] justify-center space-x-8 flex">
                           <div className="flex flex-col w-[5rem] h-full items-center">
                             <img
@@ -108,7 +110,7 @@ function HomePage() {
                             </p>
                           </div>
                         </div>
-                        <h2 className="w-[80%] font-bold text-2xl pt-28 text-white">
+                        <h2 className="w-full font-bold text-2xl pt-28 text-white">
                           {recipe.title}
                         </h2>
                       </div>
