@@ -21,6 +21,9 @@
   display: flex;
   justify-content: center;
 }
+.column2-userguide {
+  margin-top: 3rem;
+}
 
 .img1-userguide,
 .img2-userguide,
@@ -35,7 +38,7 @@
 }
 .two-userguide,
 .four-userguide {
-  margin-top: 3rem;
+  margin-top: 7rem;
 }
 .container-button-userguide {
   display: flex;
