@@ -337,7 +337,6 @@ export default function CreateRecipePage() {
           </button>
         </div>
       </form>
-      <img src="../../src/assets/images/ble.png" alt="ble" className="absolute -bottom-[84vh] right-0" />
       <ModalRecipeCreation
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

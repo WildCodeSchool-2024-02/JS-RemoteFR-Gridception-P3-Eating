@@ -132,7 +132,7 @@ export default function Profile() {
             // onChange={handleInputChange}
             />
           </div>
-          <div className="w-full px-3 mb-6">
+          <div className="w-full px-3 mb-6 mt-4">
             <label
               className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2"
               htmlFor="email"
@@ -181,7 +181,7 @@ export default function Profile() {
         >
           Supprimer mon profil
         </button>
-        <img src="../../src/assets/images/ble.png" alt="ble" className="absolute -bottom-32 right-0" />
+        <img src="../../src/assets/images/ble.png" alt="ble" className="absolute -bottom-36 right-0" />
       </div>
     </div>
   );

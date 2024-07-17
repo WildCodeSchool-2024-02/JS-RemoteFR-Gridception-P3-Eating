@@ -42,6 +42,7 @@ function RecipePage() {
       </div>
 
       <div className="md:w-1/3 h-screen overflow-auto mr-6 ml-6 md:mr-64 md:ml-24 bg-gray-200 shadow-inner flex flex-col p-6">
+        <p className="mt-12">{prep.descriptionText}</p>
         <h2 className="flex justify-center text-3xl font-semibold m-12 mb-18">
           Ingrédients
         </h2>
@@ -54,10 +55,10 @@ function RecipePage() {
             ))}
         </ul>
         <h2 className="flex justify-center text-3xl font-semibold m-6">
-          étapes de préparation :{" "}
+          Etapes de préparation :{" "}
         </h2>
         <ul className="list-disc pl-5 space-y-2">{prep.steps}</ul>
-        <p className="mt-12">{prep.descriptionText}</p>
+
       </div>
       <div className="z-20">
         <Link
