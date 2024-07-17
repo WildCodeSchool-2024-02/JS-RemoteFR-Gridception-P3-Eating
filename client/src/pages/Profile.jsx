@@ -1,174 +1,88 @@
-// import { useState } from "react";
-// import { useLoaderData } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Profile() {
   const { auth } = useAuth();
+  const [formData, setFormData] = useState({
+    firstname: auth.firstname || "",
+    lastname: auth.lastname || "",
+    username: auth.username || "",
+    email: auth.email || "",
+    password: ""
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // const [editUserId, setEditUserId] = useState(null);
-  // const [editUserData, setEditUserData] = useState({
-  //   firstname: "",
-  //   lastname: "",
-  //   username: "",
-  //   email: "",
-  //   password: "",
-  // });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
 
-  // const handleEditClick = () => {
-  //   setEditUserId(user.id);
-  //   setEditUserData({
-  //     firstname: auth.firstname,
-  //     lastname: auth.lastname,
-  //     username: auth.username,
-  //     email: auth.email,
-  //     password: auth.password,
-  //   });
-  // };
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/users/${auth.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setEditUserData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
+      if (!response.ok) {
+        throw new Error("Failed to update user");
+      }
 
-  // const handleEditSubmit = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `${import.meta.env.VITE_API_URL}/api/users/${user.id}`,
-  //       {
-  //         method: "PUT",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(editUserData),
-  //       }
-  //     );
+      setFormData({
+        ...formData,
+        password: ""
+      });
 
-  //     if (!response.ok) {
-  //       throw new Error("Failed to update user");
-  //     }
+      window.location.reload();
+    } catch (error) {
+      console.error("Error updating user:", error);
+    } finally {
+      setIsModalOpen(false);
+    }
+  };
 
-  //     setEditUserId(null);
-  //     window.location.reload();
-  //   } catch (error) {
-  //     console.error("Error updating user:", error);
-  //     setEditUserId(null);
-  //   }
-  // };
-
-  // const handleDelete = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `${import.meta.env.VITE_API_URL}/api/users/${user.id}`,
-  //       {
-  //         method: "DELETE",
-  //       }
-  //     );
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to delete user");
-  //     }
-  //     window.location.reload();
-  //   } catch (error) {
-  //     console.error("Error deleting user:", error);
-  //   }
-  // };
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   return (
-    <div>
+    <div className="h-screen">
       <div className="w-full max-w-lg mx-auto my-12 bg-white p-8 rounded-lg shadow-md">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
-          Je souhaite modifier mes informations
+          Mon profil eating
         </h1>
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2"
-              htmlFor="firstname"
-            >
-              Prénom
-            </label>
-            <input
-              className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              id="grid-first-name"
-              name="firstname"
-              type="text"
-              defaultValue={auth.firstname}
-            // value={editUserData.firstname}
-            // onChange={handleInputChange}
-            />
+        <div className="mb-8 space-y-4">
+          <div className="flex gap-4">
+            <p className="border border-gray-400 rounded-lg p-1 w-20 text-center">Prénom: </p>
+            <p className="p-1">{auth.firstname}</p>
           </div>
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2"
-              htmlFor="lastname"
-            >
-              Nom
-            </label>
-            <input
-              className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-              name="lastname"
-              type="text"
-              defaultValue={auth.lastname}
-            // value={editUserData.lastname}
-            // onChange={handleInputChange}
-            />
+          <div className="flex gap-4">
+            <p className="border border-gray-400 rounded-lg p-1 w-20 text-center">Nom: </p>
+            <p className="p-1">{auth.lastname}</p>
           </div>
-          <div className="w-full px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text- font-bold mb-2"
-              htmlFor="username"
-            >
-              Pseudo
-            </label>
-            <input
-              className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-              name="username"
-              type="text"
-              defaultValue={auth.userName}
-            // value={editUserData.username}
-            // onChange={handleInputChange}
-            />
+          <div className="flex gap-4">
+            <p className="border border-gray-400 rounded-lg p-1 w-20 text-center">Pseudo: </p>
+            <p className="p-1">{auth.username}</p>
           </div>
-          <div className="w-full px-3 mb-6 mt-4">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-              name="email"
-              type="email"
-              defaultValue={auth.email}
-            // value={editUserData.email}
-            // onChange={handleInputChange}
-            />
+          <div className="flex gap-4">
+            <p className="border border-gray-400 rounded-lg p-1 w-20 text-center">Email: </p>
+            <p className="p-1">{auth.email}</p>
           </div>
-          <div className="w-full px-3 mb-6">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2"
-              htmlFor="password"
-            >
-              Mot de passe
-            </label>
-            <input
-              className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-              name="password"
-              type="password"
-            // value={editUserData.password}
-            // onChange={handleInputChange}
-            />
-          </div>
-
         </div>
+
         <button
           type="button"
           className="bg-green-800 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        // onClick={handleEditClick}
+          onClick={toggleModal}
         >
           Modifier mes informations
         </button>
@@ -177,12 +91,113 @@ export default function Profile() {
         <button
           type="button"
           className="text-white bg-gray-400 p-3 rounded-md hover:text-black focus:outline-none"
-        // onClick={handleDelete}
         >
           Supprimer mon profil
         </button>
-        <img src="../../src/assets/images/ble.png" alt="ble" className="absolute -bottom-36 right-0" />
+        <img src="../../src/assets/images/ble.png" alt="ble" className="fixed right-0 bottom-0" />
       </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+            <h2 className="text-2xl font-bold mb-4">Modifier mes informations</h2>
+            <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="firstname"
+                >
+                  Prénom
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                  id="grid-first-name"
+                  name="firstname"
+                  type="text"
+                  value={formData.firstname}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="lastname"
+                >
+                  Nom
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                  name="lastname"
+                  type="text"
+                  value={formData.lastname}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="w-full px-3 mb-6 md:mb-0">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="username"
+                >
+                  Pseudo
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                  name="username"
+                  type="text"
+                  value={formData.username}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="w-full px-3 mb-6 mt-4">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="email"
+                >
+                  Email
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="w-full px-3 mb-6">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="password"
+                >
+                  Mot de passe
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                  name="password"
+                  type="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <button
+                type="button"
+                className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
+                onClick={toggleModal}
+              >
+                Annuler
+              </button>
+              <button
+                type="button"
+                className="bg-green-800 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                onClick={handleSubmit}
+              >
+                Enregistrer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

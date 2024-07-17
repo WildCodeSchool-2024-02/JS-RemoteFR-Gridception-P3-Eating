@@ -87,7 +87,7 @@ function HomePage() {
                           alt={recipe.title}
                         />
                       </Link>
-                      <div className="absolute top-[15%] w-full left-16 flex flex-col items-center justify-center space-y-4 p-4 w-fit h-[75%] bg-green-800 rounded-3xl text-center shadow-2xl">
+                      <div className="absolute top-[15%] w-full left-16 flex flex-col items-center justify-center space-y-4 p-4 h-[75%] bg-green-800 rounded-3xl text-center shadow-2xl">
                         <div className="absolute top-4 left-[40%] h-[60px] w-[15rem] justify-center space-x-8 flex">
                           <div className="flex flex-col w-[5rem] h-full items-center">
                             <img

@@ -75,3 +75,10 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.search-bar .ble {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: -2;
+}
