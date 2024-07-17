@@ -259,24 +259,33 @@ export default function CreateRecipePage() {
             htmlFor="selectedIngredients"
             className="block text-xl font-semibold text-gray-700 mt-6 pb-2"
           >
-            Ingrédients sélectionnés
+            <p className="mb-4">Ingrédients sélectionnés</p>
             <p>
               {formData.ingredients.map((ingredient) => (
-                <span key={ingredient.id}>
-                  {ingredient.name}
-                  <input
-                    type="text"
-                    min="0"
-                    value={ingredient.quantity}
-                    onChange={(e) =>
-                      handleQuantityChange(ingredient.id, e.target.value)
-                    }
-                  />
-                </span>
+                <div key={ingredient.id} className="flex space-x-4 space-y-2 items-end w-full">
+                  <span className="w-20">{ingredient.name}</span>
+
+                  <div className="flex gap-2">
+                    <span className="text-[15px] ">Quantité: </span>
+                    <input
+                      type="text"
+                      min="0"
+                      value={ingredient.quantity}
+                      onChange={(e) =>
+                        handleQuantityChange(ingredient.id, e.target.value)
+                      }
+                      className="bg-gray-200 rounded-lg ml-3 w-20 text-center"
+                    />
+                    <span>gr/ ml/ cs/ cc</span>
+                  </div>
+
+
+                </div>
+
               ))}
             </p>
           </label>
-          <div className="mt-2 flex items-center">
+          <div className="mt-4 flex items-center">
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
