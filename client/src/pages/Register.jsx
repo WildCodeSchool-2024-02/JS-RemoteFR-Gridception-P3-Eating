@@ -1,15 +1,18 @@
 import { useState } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 import welcome from "../assets/images/welcome.png";
 import ble from "../assets/images/ble.png";
 
 import "../styles/register.css";
 
+
 export default function Register() {
   const [message, setMessage] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const navigate = useNavigate();
 
   const [formDatas, setFormDatas] = useState({
     firstname: "",
@@ -39,7 +42,7 @@ export default function Register() {
         `${import.meta.env.VITE_API_URL}/api/users/register`,
         formDatas
       );
-
+      navigate(`/utilisateur/profil/${response.data.user.userName}`);
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response);
@@ -62,7 +65,7 @@ export default function Register() {
                 Si vous possédez déjà un compte merci de vous
                 <span className="button-connect"> connecter ! </span>
               </p>
-              <div className="form-group form-outline">
+              <div className="form-group form-outline bg-white rounded-lg">
                 <input
                   type="text"
                   id="firstname"
@@ -73,7 +76,7 @@ export default function Register() {
                 />
               </div>
 
-              <div className="form-group form-outline">
+              <div className="form-group form-outline bg-white rounded-lg">
                 <input
                   type="text"
                   id="lastname"
@@ -85,7 +88,7 @@ export default function Register() {
                 />
               </div>
 
-              <div className="form-group form-outline">
+              <div className="form-group form-outline bg-white rounded-lg font-Annie">
                 <input
                   type="text"
                   id="username"
@@ -97,7 +100,7 @@ export default function Register() {
                 />
               </div>
 
-              <div className="form-group form-outline">
+              <div className="form-group form-outline bg-white rounded-lg font-Annie">
                 <input
                   type="email"
                   id="typeEmailX"
@@ -109,7 +112,7 @@ export default function Register() {
                 />
               </div>
 
-              <div className="form-group form-outline">
+              <div className="form-group form-outline bg-white rounded-lg">
                 <input
                   type="password"
                   id="typePasswordX"

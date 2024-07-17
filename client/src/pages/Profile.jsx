@@ -173,7 +173,7 @@ export default function Profile() {
           Modifier mes informations
         </button>
       </div>
-      <div className="text-center">
+      <div className="text-center mb-10">
         <button
           type="button"
           className="text-red-600 hover:text-red-400 focus:outline-none"
@@ -181,6 +181,7 @@ export default function Profile() {
         >
           Supprimer mon profil
         </button>
+        <img src="../../src/assets/images/ble.png" alt="ble" className="absolute -bottom-20 right-0" />
       </div>
     </div>
   );
