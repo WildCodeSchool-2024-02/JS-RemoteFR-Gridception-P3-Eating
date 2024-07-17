@@ -1,4 +1,3 @@
--- SQLBook: Code
 DROP TABLE IF EXISTS role;
 
 DROP TABLE IF EXISTS ingredient;
@@ -13,26 +12,22 @@ DROP TABLE IF EXISTS favorite;
 
 DROP TABLE IF EXISTS quantity;
 
--- Création de la table `role`
 CREATE TABLE `role` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `role` VARCHAR(20) NOT NULL
 );
 
--- Création de la table `ingredient`
 CREATE TABLE `ingredient` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(100) NOT NULL,
     `calories` INT NOT NULL
 );
 
--- Création de la table `category`
 CREATE TABLE `category` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(100) NOT NULL
 );
 
--- Création de la table `user`
 CREATE TABLE `user` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `firstname` VARCHAR(100),
@@ -44,7 +39,6 @@ CREATE TABLE `user` (
     FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
 );
 
--- Création de la table `recipe`
 CREATE TABLE `recipe` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `title` VARCHAR(100),
@@ -56,7 +50,6 @@ CREATE TABLE `recipe` (
     FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
 );
 
--- Création de la table `favorite`
 CREATE TABLE `favorite` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `recipe_id` INT UNSIGNED NOT NULL,
@@ -65,7 +58,6 @@ CREATE TABLE `favorite` (
     FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 );
 
--- Création de la table `quantity`
 CREATE TABLE `quantity` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `recipe_id` INT UNSIGNED NOT NULL,
