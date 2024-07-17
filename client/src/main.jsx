@@ -93,6 +93,11 @@ const router = createBrowserRouter([
             path: "recettes/creation",
           },
           {
+            element: <Profile />,
+            path: "/utilisateur/profil/:id",
+
+          },
+          {
             element: <EditRecipe />,
             path: "recettes/edition/:id",
             loader: async ({ params }) => {

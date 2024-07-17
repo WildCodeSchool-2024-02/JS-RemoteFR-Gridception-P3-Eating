@@ -1,40 +1,60 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import welcome from "../assets/images/welcome.png";
-import "../styles/register.css";
 import ble from "../assets/images/ble.png";
 
+import "../styles/register.css";
+
+
 export default function Register() {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [username, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const navigate = useNavigate();
+
+  const [formDatas, setFormDatas] = useState({
+    firstname: "",
+    lastname: "",
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormDatas({ ...formDatas, [name]: value })
+  }
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (isSubmitting) return;
+
     try {
+
+      setIsSubmitting(true);
+
+
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/users`,
-        {
-          firstname,
-          lastname,
-          username,
-          email,
-          password,
-        }
+        `${import.meta.env.VITE_API_URL}/api/users/register`,
+        formDatas
       );
+      navigate(`/utilisateur/profil/${response.data.user.userName}`);
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response);
+    } finally {
+      setIsSubmitting(false)
     }
   };
 
+
   return (
     <div className="background">
-      <form method="post" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <section>
           <div className="card-center">
             <img src={welcome} className="img-welcome" alt="welcome" />
@@ -45,68 +65,67 @@ export default function Register() {
                 Si vous possédez déjà un compte merci de vous
                 <span className="button-connect"> connecter ! </span>
               </p>
-              <div data-mdb-input-init className="form-group">
+              <div className="form-group form-outline bg-white rounded-lg">
                 <input
                   type="text"
                   id="firstname"
                   name="firstname"
-                  value={firstname}
-                  onChange={(e) => setFirstname(e.target.value)}
+                  value={formDatas.firstname}
+                  onChange={(e) => handleChange(e)}
                   placeholder="Prénom"
                 />
               </div>
 
-              <div data-mdb-input-init className="form-group">
+              <div className="form-group form-outline bg-white rounded-lg">
                 <input
                   type="text"
                   id="lastname"
                   name="lastname"
-                  value={lastname}
-                  onChange={(e) => setLastname(e.target.value)}
+                  value={formDatas.lastname}
+                  onChange={(e) => handleChange(e)}
                   placeholder="Nom"
                   required
                 />
               </div>
 
-              <div data-mdb-input-init className="form-group">
+              <div className="form-group form-outline bg-white rounded-lg font-Annie">
                 <input
                   type="text"
                   id="username"
                   name="username"
-                  value={username}
-                  onChange={(e) => setUserName(e.target.value)}
+                  value={formDatas.username}
+                  onChange={(e) => handleChange(e)}
                   placeholder="Pseudo"
                   required
                 />
               </div>
 
-              <div data-mdb-input-init className="form-group">
+              <div className="form-group form-outline bg-white rounded-lg font-Annie">
                 <input
                   type="email"
                   id="typeEmailX"
                   name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={formDatas.email}
+                  onChange={(e) => handleChange(e)}
                   placeholder="Email"
                   required
                 />
               </div>
 
-              <div data-mdb-input-init className="form-group">
+              <div className="form-group form-outline bg-white rounded-lg">
                 <input
                   type="password"
                   id="typePasswordX"
                   name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={formDatas.password}
+                  onChange={(e) => handleChange(e)}
                   placeholder="Mot de passe"
                   required
                 />
               </div>
 
               <button
-                data-mdb-button-init
-                data-mdb-ripple-init
+
                 type="submit"
                 className="connexion-button"
               >

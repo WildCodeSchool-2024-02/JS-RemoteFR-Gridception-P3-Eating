@@ -16,7 +16,7 @@ export default function NavBar() {
           />
         </Link>
 
-        <ul className="w-screen flex flex-end justify-center space-x-12 ml-[20%] text-s font-bold flex-row items-center">
+        <ul className="w-screen flex flex-end justify-center space-x-6 ml-[20%] text-s font-bold flex-row items-center z-20">
           <li className="green">
             <Link to="/">Accueil</Link>
           </li>
@@ -46,7 +46,7 @@ export default function NavBar() {
               </li>
 
               <li>
-                <button type="button" onClick={logout}>
+                <button type="button" className="uppercase" onClick={logout}>
                   Se déconnecter
                 </button>
               </li>
