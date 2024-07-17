@@ -13,7 +13,7 @@ class UserRepository extends AbstractRepository {
 
   async readOneById(id) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE id = ?`,
+      `SELECT * FROM user u INNER JOIN role r ON u.role_id = r.id WHERE u.id = ?`,
       [id]
     );
     return rows[0];

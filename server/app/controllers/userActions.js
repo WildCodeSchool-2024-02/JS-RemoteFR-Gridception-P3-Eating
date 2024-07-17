@@ -42,7 +42,7 @@ const login = async (req, res, next) => {
     }
 
     return res.json({
-      user: { id: user.id, userName: user.username, role: user.role },
+      user: { id: user.id, firstname: user.firstname, lastname: user.lastname, username: user.username, email: user.email, password: user.password },
     });
   } catch (err) {
     return next(err);
