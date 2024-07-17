@@ -63,7 +63,8 @@ function HomePage() {
           </div>
         </div>
       </div>
-      <div className="w-screen flex-wrap justify-center mt-8 pl-20">
+      <div className="w-screen flex-wrap justify-center -mt-8 pl-20 ">
+        <h2 className="text-xl font-bold pb-8 text-center">Dernières recettes ajoutées</h2>
         <div>
           <swiper-container
             centered-slides="true"
