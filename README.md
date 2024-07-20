@@ -54,8 +54,8 @@ graph TD;
     Accueil-->CGU;
     Accueil-->Recettes;
     Recettes-->Recette-Id;
-    Recette-Id-->Modifier une recette;
-    Accueil-->Créer une recette;
+    Recette-Id-->Modifier-une-recette;
+    Accueil-->Créer-une-recette;
     Accueil-->Profil;
     Error404;
 ```
