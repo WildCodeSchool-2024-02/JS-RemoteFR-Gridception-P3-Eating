@@ -77,7 +77,7 @@ v1.1 en cours
 ## 💻 Modélisation de la base de données
 
 <p align="center"> 
-<img src="./client/src/assets/images/BDD.PNG">
+<img src="./client/src/assets/images/BDD.png">
 </p>
 
 ## 🛠️ Setup & utilisation
@@ -111,4 +111,4 @@ v1.1 en cours
 
 ### 👥 Créateurs :
 
-[Amel BONNEVIE](https://github.com/Amelitaaa) - [Lauryn MARTIN](https://github.com/Lauryn333) - [Abdel-Djalil HAMZAOUI](https://github.com/AbdelDjalilH) - [Anthony CHAMPION RODRIGUES](https://github.com/AnthonyChampion) - [Quentin THUILLIER](https://github.com/BigLZN)
+[Amel BONNEVIE](https://github.com/BonnevieAmel) - [Lauryn MARTIN](https://github.com/Lauryn333) - [Abdel-Djalil HAMZAOUI](https://github.com/AbdelDjalilH) - [Anthony CHAMPION RODRIGUES](https://github.com/AnthonyChampion) - [Quentin THUILLIER](https://github.com/BigLZN)
