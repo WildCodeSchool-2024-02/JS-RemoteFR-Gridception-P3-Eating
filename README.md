@@ -2,49 +2,49 @@
 <img src="./client/src/assets/images/logo.png">
 </p>
 
-## 🚀 Bienvenue sur notre projet 3 réalisé à la Wild Code School <br>
+## 🚀 Welcome on our third project achieved at the Wild Code School <br>
 
-## 💡 Le concept
+## 💡 Concept
 
-Une application qui permet de consulter et d'ajouter des nouvelles recettes.
+A cooking web application which let the users to consult recipes and add new ones.
 
-## 🖥️ Aperçu version desktop :
+## 🖥️ Desktop overview :
 
 <p align="center"> 
-<img src="./client/src/assets/images/Screen1.png"><img src="./client/src/assets/images/Screen2.png"><img src="./client/src/assets/images/Screen3.png"><img src="./client/src/assets/images/Screen4.png"><img src="./client/src/assets/images/Screen5.png"><img src="./client/src/assets/images/Screen6.png">
+<img src="./client/src/assets/images/Screen1.png"><img src="./client/src/assets/images/Screen2.png"><img src="./client/src/assets/images/Screen3.png"><img src="./client/src/assets/images/Screen4.png"><img src="./client/src/assets/images/Screen5.png"><img src="./client/src/assets/images/Screen6.png"><img src="./client/src/assets/images/Screen7.png"><img src="./client/src/assets/images/Screen8.png">
 </p>
 
-## 🛠️ Fonctionnalités:
+## 🛠️ Features:
 
-### 👥 Partie Visiteur:
+### 👥 The visitor user:
 
-- L'utilisateur peut s'inscire ou se connecter.
-- L'utilisateur peut consulter des recettes.
-- L'utilisateur peut accéder aux pages instructions.
+- The user can register and log in.
+- The user can look at recipies .
+- L'utilisateur can access to the instructions pages.
 
-### 🔒 Partie Utilisateur connecté:
+### 🔒 The logged user:
 
-- L'utilisateur peut se déconnecter.
-- L'utilisateur peut modifier son profil (mettre à jour ses informations).
-- L'utilisateur peut ajouter/modifier une recette.
+- The user can log out.
+- The user can update his profile (update his informations)
+- The user can add or update a recipe.
 
-### 🛡️ Partie Administrateur:
+### 🛡️ The admin user:
 
-- L'administrateur peut accéder au panel d'administration.
-- L'administrateur peut accéder à la liste des utilisateurs.
-- L'administrateur peut gérer les utilisateurs.
+- The administrator can access to the admin panel.
+- The administrator can access to the user's list.
+- The administrator can manage the users.
 
-### 📝 Dans cette version:
+### 📝 Current version:
 
-- Créer un compte / Se connecter
-- Il est possible d'ajouter une recette, et des ingredients.
-- Possibilté de changer ses infos personnels
-- Les pages sont fonctionnels
-- la version desktop est fonctionnel
+- Create an account / Log in
+- Possibility to add a recipe and ingredients.
+- Possibility to update personnels informations
+- The web pages are functional
+- The desktop version is functional
 
 ### 🔜 A venir:
 
-- Ajouter des recettes en favoris, les rendre consultable sur la page profil.
+- Add new recipies in favorites, the user can access to them on his profile page.
 
 ## 🏗️ Structure de l'application
 
@@ -70,43 +70,43 @@ v1.1 en cours
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
 ![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-## 💻 Modélisation de la base de données
+## 💻 Database modelization
 
 <p align="center"> 
 <img src="./client/src/assets/images/BDD.png">
 </p>
 
-## 🛠️ Setup & utilisation
+## 🛠️ Setup & use
 
-### 📜 Commandes disponibles
+### 📜 Available commands
 
-- `npm i` : Initialisation du frontend et du backend, ainsi que de tous les outils
-- `npm run db:migrate` : Exécute le script de migration de la base de données
-- `npm run db:seed`: Injecte dans la base de données
-- `npm run dev` : Démarre les deux serveurs (frontend + backend) dans un seul terminal
-- `npm run dev:client` : Démarre le serveur frontend React
-- `npm run dev:server` : Démarre le serveur backend Express
-- `lint` : Exécute les outils de validation et refuse le code non conforme (sera exécuté à chaque _commit_)
-- `fix` : Corrige les erreurs de linter (exécutez-le si `lint` grogne sur votre code !)
+- `npm i` : Initialisation of frontend and backend, as well as the other tool
+- `npm run db:migrate` : Run the database migration script
+- `npm run db:seed`: Seed the database
+- `npm run dev` : Starts both servers (frontend + backend) in one terminal
+- `npm run dev:client` : Starts the React frontend server
+- `npm run dev:server` : Starts the Express backend server
+- `lint` : Runs validation tools, and refuses unclean code (will be executed on every commit)
+- `fix` : Fixes linter errors (run it if lint growls on your code !)
 
 ## 📄 Plus d'informations
 
-- Le modèle utilisé pour ce projet est un modèle de fondation Fullstack réalisé par la Wild Code School.
+- The model used for this project is a full-stack foundation model created by the Wild Code School.
 
-- N'oubliez pas de créer vos fichiers .env pour le frontend et le backend en copiant les fichiers .env.sample de chaque répertoire.
+- Remember to create your .env files for the frontend and backend by copying the .env.sample files from each directory.
 
 ### 🔧 Outils utilisé :
 
-- _Concurrently_ : Permet de lancer plusieurs commandes simultanément dans la même interface de ligne de commande (CLI).
-- _Husky_ : Permet d'exécuter des commandes spécifiques déclenchées par des événements git.
-- _Vite_ : Alternative à Create-React-App, offrant moins d'outils pour une expérience plus fluide.
-- _ESLint_ : Outil de "qualité du code", garantit que les règles choisies seront appliquées.
-- _Prettier_ : Outil de "qualité du code" également, se concentre sur le guide de style.
-- _Airbnb Standard_ : L'un des "standards" les plus connus, bien qu'il ne soit pas officiellement lié à ES/JS.
-- _Nodemon_ : Permet de redémarrer le serveur à chaque mise à jour d'un fichier .js.
+- _Concurrently_ : Allows for several commands to run concurrently in the same CLI.
+- _Husky_ : Allows to execute specific commands that trigger on git events.
+- _Vite_ : Alternative to Create-React-App, packaging less tools for a more fluid experience.
+- _ESLint_ : Quality of code" tool, ensures chosen rules will be enforced.
+- _Prettier_ : Quality of code" tool as well, focuses on the styleguide.
+- _Airbnb Standard_ : One of the most known "standards", even though it's not officially linked to ES/JS.
+- _Nodemon_ : Allows to restart the server everytime a .js file is udated.
 
 ### 👥 Créateurs :
 
