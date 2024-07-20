@@ -50,13 +50,13 @@ A cooking web application which let the users to consult recipes and add new one
 
 ```mermaid
 graph TD;
-    Accueil;
-    Accueil-->CGU;
-    Accueil-->Recettes;
-    Recettes-->Recette-Id;
-    Recette-Id-->Modifier-une-recette;
-    Accueil-->Créer-une-recette;
-    Accueil-->Profil;
+    Home;
+    Home-->CGU;
+    Home-->Recipes;
+    Recipes-->Recipe-Id;
+    Recipe-Id-->Update-a-recipe;
+    Home-->Create-a-recipe;
+    Home-->Profile;
     Error404;
 ```
 
