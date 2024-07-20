@@ -55,7 +55,7 @@ graph TD;
     Home-->Recipes;
     Recipes-->Recipe-Id;
     Recipe-Id-->Update-a-recipe;
-    Home-->Create a recipe;
+    Home-->Create-a-recipe;
     Home-->Profile;
     Error404;
 ```
