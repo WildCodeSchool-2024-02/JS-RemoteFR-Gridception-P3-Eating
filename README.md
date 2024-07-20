@@ -57,7 +57,6 @@ graph TD;
     Recette-Id-->Modifier une recette;
     Accueil-->Créer une recette;
     Accueil-->Profil;
-
     Error404;
 ```
 
