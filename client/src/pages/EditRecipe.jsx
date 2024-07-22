@@ -212,43 +212,6 @@ export default function EditRecipe() {
             >
               <p className="mb-4">Ingrédients sélectionnés</p>
 
-              {/* {formData.ingredients.map((ingredient, index) => (
-                <div key={index}>
-                  <input
-                    id={`ingredient-name-${index}`}
-                    type="text"
-                    name={`ingredient-name-${index}`}
-                    value={ingredient.name}
-                    onChange={(e) =>
-                      handleIngredientChange(index, "name", e.target.value)
-                    }
-                    className="mt-1 block w-full border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm"
-                  />
-
-                  <input
-                    id={`ingredient-quantity-${index}`}
-                    type="text"
-                    name={`ingredient-quantity-${index}`}
-                    value={ingredient.quantity}
-                    onChange={(e) =>
-                      handleIngredientChange(index, "quantity", e.target.value)
-                    }
-                    className="mt-1 block w-full border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm"
-                  />
-
-                  <input
-                    id={`ingredient-calories-${index}`}
-                    type="text"
-                    name={`ingredient-calories-${index}`}
-                    value={ingredient.calories}
-                    onChange={(e) =>
-                      handleIngredientChange(index, "calories", e.target.value)
-                    }
-                    className="mt-1 block w-full border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-800 focus:border-green-800 sm:text-sm"
-                  />
-                </div>
-              ))} */}
-
               {formData.ingredients.map((ingredient) => (
                 <div key={ingredient.name}>
                   <span>{ingredient.name}</span>

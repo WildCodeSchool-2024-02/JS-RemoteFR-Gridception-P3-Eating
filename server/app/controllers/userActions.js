@@ -1,13 +1,6 @@
 const argon2 = require("argon2");
 const tables = require("../../database/tables");
 
-const hashingOptions = {
-  type: argon2.argon2id,
-  memoryCost: 19 * 2 ** 10,
-  timeCost: 2,
-  parallelism: 1,
-};
-
 const browse = async (req, res, next) => {
   try {
     const users = await tables.user.browse();
@@ -60,6 +53,12 @@ const login = async (req, res, next) => {
 const register = async (req, res, next) => {
   const user = req.body;
 
+  const hashingOptions = {
+    type: argon2.argon2id,
+    memoryCost: 19 * 2 ** 10,
+    timeCost: 2,
+    parallelism: 1,
+  };
   const hashedPassword = await argon2.hash(user.password, hashingOptions);
 
   user.password = hashedPassword;
