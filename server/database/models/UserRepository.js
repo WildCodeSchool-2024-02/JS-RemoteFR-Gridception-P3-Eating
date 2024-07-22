@@ -19,11 +19,11 @@ class UserRepository extends AbstractRepository {
     return rows[0];
   }
 
-
   async findOneByEmail(email) {
     const [rows] = await this.database.query(
       `
-      SELECT *
+      SELECT u.id, u.firstname, u.lastname, u.username, u.email, u.password,
+      r.role as role
       FROM ${this.table} u
       JOIN role r
       ON u.role_id = r.id
@@ -35,9 +35,9 @@ class UserRepository extends AbstractRepository {
   }
 
   async register(user) {
-
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (firstname, lastname, username, email, password)
+      `INSERT INTO ${this.table}
+      (firstname, lastname, username, email, password)
       VALUES (?, ?, ?, ?, ?)`,
       [user.firstname, user.lastname, user.username, user.email, user.password]
     );
@@ -47,16 +47,14 @@ class UserRepository extends AbstractRepository {
 
   async edit(id, user) {
     const [result] = await this.database.query(
-      `update ${this.table} set firstname = ?, lastname = ?, username = ?, email = ?, password = ? 
-      where id = ?`,
-      [
-        user.firstname,
-        user.lastname,
-        user.username,
-        user.email,
-        user.password,
-        id,
-      ]
+      `
+      UPDATE ${this.table} SET
+      firstname = ?, 
+      lastname = ?, 
+      username = ?, 
+      email = ? 
+      WHERE id = ?`,
+      [user.firstname, user.lastname, user.username, user.email, id]
     );
     return result.affectedRows;
   }

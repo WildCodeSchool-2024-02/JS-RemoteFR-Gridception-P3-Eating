@@ -1,56 +1,62 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import welcome from "../assets/images/welcome.png";
+import axios from "axios";
+
+import { useAuth } from "../contexts/AuthContext";
+
 import ble from "../assets/images/ble.png";
+import welcome from "../assets/images/welcome.png";
 
 import "../styles/register.css";
 
-
 export default function Register() {
-  const [message, setMessage] = useState("");
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const navigate = useNavigate();
-
   const [formDatas, setFormDatas] = useState({
+    email: "",
+    password: "",
     firstname: "",
     lastname: "",
     username: "",
-    email: "",
-    password: "",
   });
+
+  const { login } = useAuth();
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormDatas({ ...formDatas, [name]: value })
-  }
+    setFormDatas({
+      ...formDatas,
+      [name]: value,
+    });
+  };
 
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (isSubmitting) return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     try {
-
-      setIsSubmitting(true);
-
-
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/users/register`,
         formDatas
       );
-      navigate(`/utilisateur/profil/${response.data.user.userName}`);
-      setMessage(response.data.message);
+
+      console.info(response.data);
+
+      const newUser = {
+        email: formDatas.email,
+        firstname: formDatas.firstname,
+        lastname: formDatas.lastname,
+        username: formDatas.username,
+        id: response.data.insertId,
+        role: "user",
+      };
+
+      login(newUser);
+
+      navigate(`/utilisateur/${response.data.insertId}`);
     } catch (error) {
-      setMessage(error.response);
-    } finally {
-      setIsSubmitting(false)
+      console.error("Error during registration:", error);
     }
   };
-
 
   return (
     <div className="background">
@@ -62,7 +68,7 @@ export default function Register() {
               <p className="nouveau-texte">Nouveau ?</p>
               <hr />
               <p className="deja-compte">
-                Si vous possédez déjà un compte merci de vous
+                Si vous possédez déjà un compte merci de vous{" "}
                 <span className="button-connect"> connecter ! </span>
               </p>
               <div className="form-group form-outline bg-white rounded-lg">
@@ -124,14 +130,9 @@ export default function Register() {
                 />
               </div>
 
-              <button
-
-                type="submit"
-                className="connexion-button"
-              >
+              <button type="submit" className="connexion-button">
                 S'inscrire
               </button>
-              {message && <p>{message}</p>}
             </div>
           </div>
         </section>

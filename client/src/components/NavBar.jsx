@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import Logo from "../assets/images/logo.png";
 import { useAuth } from "../contexts/AuthContext";
+
+import Logo from "../assets/images/logo.png";
 
 export default function NavBar() {
   const { auth, logout } = useAuth();
@@ -32,7 +33,7 @@ export default function NavBar() {
           {auth ? (
             <>
               <li>
-                <Link to={`/utilisateur/profil/${auth.userName}`}>Profil</Link>
+                <Link to={`/utilisateur/${auth.username}`}>Profil</Link>
               </li>
 
               <li>
@@ -41,9 +42,11 @@ export default function NavBar() {
                 </Link>
               </li>
 
-              <li>
-                <Link to="/admin">Admin</Link>
-              </li>
+              {auth.role === "admin" && (
+                <li>
+                  <Link to="/admin">Admin</Link>
+                </li>
+              )}
 
               <li>
                 <button type="button" className="uppercase" onClick={logout}>

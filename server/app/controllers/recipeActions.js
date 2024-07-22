@@ -12,6 +12,7 @@ const browse = async (req, res, next) => {
 const readOneById = async (req, res, next) => {
   try {
     const recipes = await tables.recipe.readOneById(req.params.id);
+
     res.json(recipes);
   } catch (error) {
     next(error);
@@ -32,8 +33,12 @@ const add = async (req, res, next) => {
 const edit = async (req, res, next) => {
   try {
     const affectedRows = await tables.recipe.edit(req.params.id, req.body);
+
     if (affectedRows > 0) {
-      res.json({ message: "Recipe updated successfully" });
+      res.json({
+        message: "Recipe updated successfully",
+        recipeId: affectedRows,
+      });
     } else {
       res.status(404).json({ message: "Recipe not found" });
     }
