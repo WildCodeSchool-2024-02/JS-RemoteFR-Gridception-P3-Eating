@@ -61,19 +61,19 @@ function RecipePage() {
           Etapes de préparation :{" "}
         </h2>
         <ul className="list-disc pl-5 space-y-2">{prep.steps}</ul>
-      </div>
-      <div className="z-20">
-        <Link
-          to={`/utilisateur/recettes/edition/${prep.id}`}
-          className="cursor-pointer"
-        >
-          <button
-            type="button"
-            className="bg-orange-400 text-white text-[15px] uppercase w-[10rem] absolute bottom-16 right-28 rounded-xl p-5 font-semibold "
+        <div className="w-full flex justify-center">
+          <Link
+            to={`/utilisateur/recettes/edition/${prep.id}`}
+            className="cursor-pointer"
           >
-            Modifier votre recette
-          </button>
-        </Link>
+            <button
+              type="button"
+              className="bg-orange-400 text-white text-[15px] uppercase w-[10rem] mt-10 items-center rounded-xl p-5 font-semibold "
+            >
+              Modifier votre recette
+            </button>
+          </Link>
+        </div>
       </div>
     </section>
   );
