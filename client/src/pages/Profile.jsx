@@ -1,22 +1,24 @@
-import { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Profile() {
-  const { auth } = useAuth();
+  const { auth, login } = useAuth();
   const [formData, setFormData] = useState({
     firstname: auth.firstname || "",
     lastname: auth.lastname || "",
     username: auth.username || "",
     email: auth.email || "",
-    password: ""
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -37,12 +39,11 @@ export default function Profile() {
         throw new Error("Failed to update user");
       }
 
-      setFormData({
-        ...formData,
-        password: ""
-      });
+      const data = await response.json();
 
-      window.location.reload();
+      login(data.user);
+
+      navigate(`/utilisateur/${auth.id}`);
     } catch (error) {
       console.error("Error updating user:", error);
     } finally {
@@ -62,19 +63,27 @@ export default function Profile() {
         </h1>
         <div className="mb-8 space-y-4">
           <div className="flex gap-4">
-            <p className="border border-gray-400 rounded-lg p-1 w-20 text-center">Prénom: </p>
+            <p className="border border-gray-400 rounded-lg p-1 w-20 text-center">
+              Prénom:{" "}
+            </p>
             <p className="p-1">{auth.firstname}</p>
           </div>
           <div className="flex gap-4">
-            <p className="border border-gray-400 rounded-lg p-1 w-20 text-center">Nom: </p>
+            <p className="border border-gray-400 rounded-lg p-1 w-20 text-center">
+              Nom:{" "}
+            </p>
             <p className="p-1">{auth.lastname}</p>
           </div>
           <div className="flex gap-4">
-            <p className="border border-gray-400 rounded-lg p-1 w-20 text-center">Pseudo: </p>
+            <p className="border border-gray-400 rounded-lg p-1 w-20 text-center">
+              Pseudo:{" "}
+            </p>
             <p className="p-1">{auth.username}</p>
           </div>
           <div className="flex gap-4">
-            <p className="border border-gray-400 rounded-lg p-1 w-20 text-center">Email: </p>
+            <p className="border border-gray-400 rounded-lg p-1 w-20 text-center">
+              Email:{" "}
+            </p>
             <p className="p-1">{auth.email}</p>
           </div>
         </div>
@@ -94,13 +103,19 @@ export default function Profile() {
         >
           Supprimer mon profil
         </button>
-        <img src="../../src/assets/images/ble.png" alt="ble" className="fixed right-0 bottom-0" />
+        <img
+          src="../../src/assets/images/ble.png"
+          alt="ble"
+          className="fixed right-0 bottom-0"
+        />
       </div>
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
-            <h2 className="text-2xl font-bold mb-4">Modifier mes informations</h2>
+            <h2 className="text-2xl font-bold mb-4">
+              Modifier mes informations
+            </h2>
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
@@ -109,6 +124,7 @@ export default function Profile() {
                 >
                   Prénom
                 </label>
+
                 <input
                   className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                   id="grid-first-name"
@@ -118,6 +134,7 @@ export default function Profile() {
                   onChange={handleChange}
                 />
               </div>
+
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
@@ -125,6 +142,7 @@ export default function Profile() {
                 >
                   Nom
                 </label>
+
                 <input
                   className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   name="lastname"
@@ -133,6 +151,7 @@ export default function Profile() {
                   onChange={handleChange}
                 />
               </div>
+
               <div className="w-full px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
@@ -140,6 +159,7 @@ export default function Profile() {
                 >
                   Pseudo
                 </label>
+
                 <input
                   className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   name="username"
@@ -148,6 +168,7 @@ export default function Profile() {
                   onChange={handleChange}
                 />
               </div>
+
               <div className="w-full px-3 mb-6 mt-4">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
@@ -155,6 +176,7 @@ export default function Profile() {
                 >
                   Email
                 </label>
+
                 <input
                   className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   name="email"
@@ -163,22 +185,8 @@ export default function Profile() {
                   onChange={handleChange}
                 />
               </div>
-              <div className="w-full px-3 mb-6">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="password"
-                >
-                  Mot de passe
-                </label>
-                <input
-                  className="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                  name="password"
-                  type="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-              </div>
             </div>
+
             <div className="flex justify-end">
               <button
                 type="button"
@@ -187,6 +195,7 @@ export default function Profile() {
               >
                 Annuler
               </button>
+
               <button
                 type="button"
                 className="bg-green-800 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

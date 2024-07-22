@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import graille from "../assets/images/graille.png";
-import "../styles/login.css";
+
 import { useAuth } from "../contexts/AuthContext";
+
+import graille from "../assets/images/graille.png";
+
+import "../styles/login.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,13 +14,12 @@ export default function Login() {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const closeErrorModal = () => setShowErrorModal(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const { VITE_API_URL } = import.meta.env;
 
-  const { login } = useAuth();
-
-  const navigate = useNavigate();
+  const closeErrorModal = () => setShowErrorModal(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,6 +29,7 @@ export default function Login() {
         email,
         password,
       });
+
       console.info(response.data);
 
       login(response.data.user);

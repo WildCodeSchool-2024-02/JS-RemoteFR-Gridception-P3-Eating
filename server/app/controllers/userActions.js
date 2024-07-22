@@ -28,6 +28,7 @@ const readOneById = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
+
   try {
     const user = await tables.user.findOneByEmail(email);
 
@@ -42,7 +43,14 @@ const login = async (req, res, next) => {
     }
 
     return res.json({
-      user: { id: user.id, firstname: user.firstname, lastname: user.lastname, username: user.username, email: user.email, password: user.password },
+      user: {
+        id: user.id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+      },
     });
   } catch (err) {
     return next(err);
@@ -68,8 +76,20 @@ const register = async (req, res, next) => {
 const edit = async (req, res, next) => {
   try {
     const affectedRows = await tables.user.edit(req.params.id, req.body);
+
     if (affectedRows > 0) {
-      res.json({ message: "User updated successfully" });
+      const updatedUser = await tables.user.readOneById(req.params.id);
+
+      const response = {
+        email: updatedUser.email,
+        firstname: updatedUser.firstname,
+        lastname: updatedUser.lastname,
+        username: updatedUser.username,
+        id: updatedUser.id,
+        role: updatedUser.role,
+      };
+
+      res.json({ message: "User updated successfully", user: response });
     } else {
       res.status(404).json({ message: "User not found" });
     }
