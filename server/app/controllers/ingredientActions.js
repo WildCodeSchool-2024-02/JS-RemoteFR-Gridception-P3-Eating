@@ -1,11 +1,8 @@
-// ingredientActions.js
-const IngredientRepository = require('../../database/models/IngredientRepository');
-
-const ingredientRepo = new IngredientRepository();
+const tables = require("../../database/tables");
 
 const browse = async (req, res, next) => {
   try {
-    const ingredients = await ingredientRepo.browse();
+    const ingredients = await tables.ingredient.browse();
     res.json(ingredients);
   } catch (error) {
     next(error);
@@ -14,11 +11,11 @@ const browse = async (req, res, next) => {
 
 const read = async (req, res, next) => {
   try {
-    const ingredient = await ingredientRepo.read(req.params.id);
+    const ingredient = await tables.ingredient.read(req.params.id);
     if (ingredient) {
       res.json(ingredient);
     } else {
-      res.status(404).json({ message: 'Ingredient not found' });
+      res.status(404).json({ message: "Ingredient not found" });
     }
   } catch (error) {
     next(error);
@@ -26,10 +23,13 @@ const read = async (req, res, next) => {
 };
 
 const add = async (req, res, next) => {
-  const newIngredientData = req.body;
+  const { ingredientInfo } = req.body;
+
   try {
-    const insertedId = await ingredientRepo.add(newIngredientData);
-    const insertedIngredient = { id: insertedId, ...newIngredientData };
+    const insertedId = await tables.ingredient.add(ingredientInfo);
+
+    const insertedIngredient = { id: insertedId, ...ingredientInfo };
+
     res.status(201).json(insertedIngredient);
   } catch (error) {
     next(error);
@@ -40,26 +40,29 @@ const edit = async (req, res, next) => {
   const { id } = req.params;
   const updatedIngredientData = req.body;
   try {
-    const success = await ingredientRepo.edit(req.params.id, updatedIngredientData);
+    const success = await tables.ingredient.edit(
+      req.params.id,
+      updatedIngredientData
+    );
     if (success) {
       const updatedIngredient = { id, ...updatedIngredientData };
       res.json(updatedIngredient);
     } else {
-      res.status(404).json({ message: 'Ingredient not found' });
+      res.status(404).json({ message: "Ingredient not found" });
     }
   } catch (error) {
     next(error);
   }
 };
 
-const deleteRecipe = async (req, res, next) => {
+const deleteIngredient = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const success = await ingredientRepo.delete(id);
+    const success = await tables.ingredient.delete(id);
     if (success) {
-      res.json({ message: 'Ingredient deleted successfully' });
+      res.json({ message: "Ingredient deleted successfully" });
     } else {
-      res.status(404).json({ message: 'Ingredient not found' });
+      res.status(404).json({ message: "Ingredient not found" });
     }
   } catch (error) {
     next(error);
@@ -71,5 +74,5 @@ module.exports = {
   read,
   add,
   edit,
-  deleteRecipe
+  deleteIngredient,
 };

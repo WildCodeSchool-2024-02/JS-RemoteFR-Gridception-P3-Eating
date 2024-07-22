@@ -1,4 +1,3 @@
--- SQLBook: Code
 DROP TABLE IF EXISTS role;
 
 DROP TABLE IF EXISTS ingredient;
@@ -29,43 +28,43 @@ CREATE TABLE `category` (
     `name` VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE user (
+CREATE TABLE `user` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `firstname` VARCHAR(100),
     `lastname` VARCHAR(100),
     `username` VARCHAR(100) NOT NULL,
     `email` VARCHAR(255) NOT NULL UNIQUE,
-    `role_id` INT UNSIGNED NOT NULL,
+    `role_id` INT UNSIGNED NOT NULL DEFAULT 1,
     `password` VARCHAR(255) NOT NULL,
-    FOREIGN KEY (`role_id`) REFERENCES `role` (id)
+    FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
 );
 
 CREATE TABLE `recipe` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `title` VARCHAR(100),
-    `descriptionText` VARCHAR(10000),
+    `descriptionText` TEXT,
     `steps` TEXT NOT NULL,
     `time` INT NOT NULL,
     `category_id` INT UNSIGNED NOT NULL,
     `image` VARCHAR(250) nOT NULL DEFAULT "JPG",
-    FOREIGN KEY (`category_id`) REFERENCES `category` (id)
+    FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
 );
 
 CREATE TABLE `favorite` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `recipe_id` INT UNSIGNED NOT NULL,
     `user_id` INT UNSIGNED NOT NULL,
-    FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (id),
-    FOREIGN KEY (`user_id`) REFERENCES `user` (id)
+    FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `quantity` (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `recipe_id` INT UNSIGNED NOT NULL,
     `ingredient_id` INT UNSIGNED NOT NULL,
-    `quantity` INT NOT NULL,
-    FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (id),
-    FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (id)
+    `quantity` VARCHAR(100) NOT NULL,
+    FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`),
+    FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`)
 );
 
 INSERT INTO role (role) VALUES ('user'), ('visitor'), ('admin');
@@ -85,15 +84,15 @@ VALUES (
         'LM',
         'martin@martin.fr',
         1,
-        'toto'
+        "$argon2id$v=19$m=65536,t=5,p=1$FkjcCc0+F15P0N5TLh3ndQ$FkttWmV6YpXwaqtjrKfALtaYkwyHv2ongXDP/C6bvY4"
     ),
     (
         'Amel',
         'Bonnevie',
         'AB',
-        'bonnevie@bonneviefr',
+        'bonnevie@bonnevie.fr',
         3,
-        'tata'
+        "$argon2id$v=19$m=65536,t=5,p=1$FkjcCc0+F15P0N5TLh3ndQ$FkttWmV6YpXwaqtjrKfALtaYkwyHv2ongXDP/C6bvY4"
     );
 
 INSERT INTO
@@ -125,7 +124,7 @@ VALUES ('Pois', 50),
     ("Sauce Worcestershire", 78),
     ("Huile d'olive", 884),
     ("Moutarde", 66),
-    ("Epices mexicaines", 361),
+    ("Épices mexicaines", 361),
     ("Concombre", 15),
     ("Citron", 29),
     ("Coriandre", 22),
@@ -136,7 +135,7 @@ VALUES ('Pois', 50),
     ("Menthe", 58),
     ("Falafels", 333),
     ("Sauce yaourt-menthe", 107),
-    ("graines de courge", 446),
+    ("Graines de courge", 446),
     (
         "Vinaigre balsamique noir",
         112
@@ -241,12 +240,52 @@ VALUES (
 INSERT INTO favorite (recipe_id, user_id) VALUES (1, 1), (2, 2);
 
 INSERT INTO
-    quantity (
-        recipe_id,
-        ingredient_id,
-        quantity
+    `quantity` (
+        `recipe_id`,
+        `ingredient_id`,
+        `quantity`
     )
-VALUES (1, 1, 3),
-    (1, 4, 6),
-    (2, 5, 4),
-    (2, 3, 10);
+VALUES (1, 17, '25g'), -- Persil
+    (1, 18, '2 gousses'), -- Gousses d'ail
+    (1, 19, '2'), -- Oignons
+    (1, 20, '300g'), -- Riz
+    (1, 21, '400g'), -- Champignons de Paris
+    (1, 22, '400g'), -- Blanc de poulet
+    (1, 23, '15g'), -- Paprika fumé en poudre
+    (1, 24, '50g'), -- Concentré de tomate
+    (1, 25, '200ml'), -- Crème liquide
+    (1, 26, '50ml'), -- Sauce Worcestershire
+    (1, 11, '4 cs'), -- Huile d'olive
+    (1, 27, '2 cc'), -- Moutarde
+    (1, 4, 'au goût'), -- Sel
+    (1, 5, 'au goût');
+-- Poivre
+INSERT INTO
+    `quantity` (
+        `recipe_id`,
+        `ingredient_id`,
+        `quantity`
+    )
+VALUES (2, 1, '300g'), -- Pois chiches
+    (2, 29, '2'), -- Poivrons grillés
+    (2, 7, '100g'), -- Salade
+    (2, 8, '2'), -- Avocat
+    (2, 30, '2 cs'), -- Citron vert
+    (2, 31, '10g'), -- Coriandre
+    (2, 32, '50g'), -- Crème de fromage à la grecque
+    (2, 11, '2 cs');
+-- Huile d'olive
+INSERT INTO
+    `quantity` (
+        `recipe_id`,
+        `ingredient_id`,
+        `quantity`
+    )
+VALUES (3, 13, '400g'), -- Patates douces
+    (3, 8, '1'), -- Avocat
+    (3, 35, '200g'), -- Falafels
+    (3, 36, '50g'), -- Sauce yaourt-menthe
+    (3, 9, '50g'), -- Tomates cerises
+    (3, 37, '10g'), -- Menthe
+    (3, 38, '20g');
+-- Graines de courge

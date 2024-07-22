@@ -1,41 +1,90 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import App from "./App";
+
+import { AuthProvider } from "./contexts/AuthContext";
+
+import Admin from "./pages/Admin";
+import CreateRecipe from "./pages/CreateRecipe";
+import EditRecipe from "./pages/EditRecipe";
+import Error404 from "./pages/Error404";
+import HomePage from "./pages/HomePage";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import RecipePage from "./pages/RecipePage";
+import RecipesPage from "./pages/RecipesPage";
+import Register from "./pages/Register";
+import UserGuide from "./pages/UserGuide";
+import UserManagement from "./pages/UserManagement";
+
+import AuthAdminVerification from "./components/AuthAdminVerification";
+import AuthUserVerification from "./components/AuthUserVerification";
 
 import "./index.css";
-import App from "./App";
-import HomePage from "./pages/HomePage";
-import RecipePage from "./pages/RecipePage";
-import CommentCaMarche from "./pages/CommentCaMarche";
-import RecipesPage from "./pages/RecipesPage";
 
-const recipesLoader = async () => {
-  const response = await fetch(`http://localhost:3310/api/recipes`);
-  const data = await response.json();
-  return data;
-};
+import {
+  editRecipeLoader,
+  OneRecipeLoader,
+  recipesLoader,
+  usersLoader,
+} from "./services/loaders";
 
 const router = createBrowserRouter([
   {
+    path: "/",
     element: <App />,
     children: [
+      { path: "", element: <HomePage />, loader: recipesLoader },
+      { path: "recettes", element: <RecipesPage />, loader: recipesLoader },
       {
-        element: <HomePage />,
-        path: "/",
-        loader: recipesLoader,
-      },
-      {
+        path: "recettes/:id",
         element: <RecipePage />,
-        path: "/RecipePage/:id",
+        loader: OneRecipeLoader,
       },
+      { path: "étapes", element: <UserGuide /> },
+      { path: "se-connecter", element: <Login /> },
+      { path: "s-enregistrer", element: <Register /> },
+      { path: "*", element: <Error404 /> },
+
+      // routes protégées utilisateurs
       {
-        element: <CommentCaMarche />,
-        path: "/CommentCaMarche",
+        path: "utilisateur",
+        element: <AuthUserVerification />,
+        children: [
+          {
+            path: ":id",
+            element: <Profile />,
+          },
+          {
+            path: "recettes/creation",
+            element: <CreateRecipe />,
+          },
+          {
+            path: "recettes/edition/:id",
+            element: <EditRecipe />,
+            loader: editRecipeLoader,
+          },
+        ],
       },
+
+      // routes protégées admin
       {
-        element: <RecipesPage />,
-        path: "/RecipesPage",
-        loader: recipesLoader,
+        path: "admin",
+        element: <AuthAdminVerification />,
+        children: [
+          {
+            path: "",
+            element: <Admin />,
+          },
+
+          {
+            path: "utilisateurs/gestion",
+            element: <UserManagement />,
+            loader: usersLoader,
+          },
+        ],
       },
     ],
   },
@@ -45,6 +94,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
