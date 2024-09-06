@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { useAuth } from "../contexts/AuthContext";
-
 import ble from "../assets/images/ble.png";
 import welcome from "../assets/images/welcome.png";
 
 import "../styles/register.css";
+
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Register() {
   const [formDatas, setFormDatas] = useState({
